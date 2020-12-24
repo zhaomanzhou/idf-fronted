@@ -1,4 +1,4 @@
-import srequest from '../../../utils/srequest';
+import srequest from '../../../utils/request';
 import api from '../../../utils/api';
 
 export interface LoginParamsType {

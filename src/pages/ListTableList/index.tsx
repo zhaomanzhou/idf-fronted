@@ -158,7 +158,8 @@ const TableList: React.FC<{}> = () => {
 
   return (
     <PageContainer>
-      <ProTable<TableListItem>
+      <ProTable
+          <TableListItem>
         headerTitle="查询表格"
         actionRef={actionRef}
         rowKey="key"

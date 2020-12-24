@@ -1,8 +1,9 @@
 import { Reducer, Effect } from 'umi';
 
 import { NoticeIconData } from '@/components/NoticeIcon';
-import { queryNotices } from '@/services/user';
-import { ConnectState } from './connect.d';
+import {UserVo} from "@/pages/user/login/data";
+import service from "@/pages/user/login/service";
+import srequest from "@/utils/request";
 
 export interface NoticeItem extends NoticeIconData {
     id: string;
@@ -12,22 +13,18 @@ export interface NoticeItem extends NoticeIconData {
 
 export interface GlobalModelState {
     collapsed: boolean;
-    notices: NoticeItem[];
     token: string;
+    user: UserVo | null;
 }
 
 export interface GlobalModelType {
     namespace: 'global';
     state: GlobalModelState;
     effects: {
-        fetchNotices: Effect;
-        clearNotices: Effect;
-        changeNoticeReadState: Effect;
+        [propType: string]: Effect;
     };
     reducers: {
-        changeLayoutCollapsed: Reducer<GlobalModelState>;
-        saveNotices: Reducer<GlobalModelState>;
-        saveClearedNotices: Reducer<GlobalModelState>;
+        [propType: string]: Reducer<any>
     };
 }
 
@@ -35,97 +32,58 @@ const GlobalModel: GlobalModelType = {
     namespace: 'global',
 
     state: {
-        collapsed: false,
-        notices: [],
+        collapsed: true ,
         token: '',
-
+        user: null,
     },
 
     effects: {
-        * fetchNotices(_, { call, put, select }) {
-            const data = yield call(queryNotices);
-            yield put({
-                type: 'saveNotices',
-                payload: data,
-            });
-            const unreadCount: number = yield select(
-                (state: ConnectState) => state.global.notices.filter((item) => !item.read).length,
-            );
-            yield put({
-                type: 'user/changeNotifyCount',
-                payload: {
-                    totalCount: data.length,
-                    unreadCount,
-                },
-            });
-        },
-        * clearNotices({ payload }, { put, select }) {
-            yield put({
-                type: 'saveClearedNotices',
-                payload,
-            });
-            const count: number = yield select((state: ConnectState) => state.global.notices.length);
-            const unreadCount: number = yield select(
-                (state: ConnectState) => state.global.notices.filter((item) => !item.read).length,
-            );
-            yield put({
-                type: 'user/changeNotifyCount',
-                payload: {
-                    totalCount: count,
-                    unreadCount,
-                },
-            });
-        },
-        * changeNoticeReadState({ payload }, { put, select }) {
-            const notices: NoticeItem[] = yield select((state: ConnectState) =>
-                state.global.notices.map((item) => {
-                    const notice = { ...item };
-                    if (notice.id === payload) {
-                        notice.read = true;
-                    }
-                    return notice;
-                }),
-            );
 
-            yield put({
-                type: 'saveNotices',
-                payload: notices,
-            });
+        *initUserFromLocalStorage(action, effect){
+            let user:UserVo = yield effect.select((state: any) => state.global.user)
+            if(user !== null && user !== undefined){
+                return;
+            }
+            let tokenItem = yield effect.select((state: any) => state.global.token);
+            if(!tokenItem){
+                tokenItem = localStorage.getItem("token");
+            }
+            if(tokenItem){
+                user = yield effect.call(service.getUserByToken, tokenItem);
+                yield effect.put(({
+                    type: "setToken",
+                    payload: tokenItem
+                }))
+                yield effect.put({
+                    type: "setUser",
+                    payload: user,
+                })
+            }
+        }
 
-            yield put({
-                type: 'user/changeNotifyCount',
-                payload: {
-                    totalCount: notices.length,
-                    unreadCount: notices.filter((item) => !item.read).length,
-                },
-            });
-        },
     },
 
     reducers: {
 
+        setToken(state, action){
+            state.token = action.payload;
+            localStorage.setItem("token", action.payload)
+            srequest.refreshAxiosConfig(action.payload)
+            return state;
+        },
 
-        changeLayoutCollapsed(state = { notices: [], collapsed: true, token: '' }, { payload }): GlobalModelState {
+        setUser(state: GlobalModelState, action){
+            state.user = action.payload;
+            return state;
+        },
+
+        changeLayoutCollapsed(state = { collapsed: true }, { payload }): GlobalModelState {
             return {
                 ...state,
                 collapsed: payload,
             };
         },
-        saveNotices(state, { payload }): GlobalModelState {
-            return {
-                collapsed: false,
-                token: '',
-                ...state,
-                notices: payload,
-            };
-        },
-        saveClearedNotices(state = { notices: [], collapsed: true, token: '' }, { payload }): GlobalModelState {
-            return {
-                ...state,
-                collapsed: false,
-                notices: state.notices.filter((item): boolean => item.type !== payload),
-            };
-        },
+
     },
 };
 

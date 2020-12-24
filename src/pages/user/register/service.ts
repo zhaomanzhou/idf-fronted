@@ -1,5 +1,5 @@
 import request from 'umi-request';
-import srequest from '../../../utils/srequest'
+import srequest from '../../../utils/request'
 import api from '../../../utils/api'
 import { UserRegisterParams } from './register';
 

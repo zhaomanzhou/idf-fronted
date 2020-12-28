@@ -6,6 +6,11 @@ const servers = {
 let server_user = servers.local;
 let server_file = servers.aliyun;
 
+if (process.env.NODE_ENV === 'production') {
+    server_user = servers.aliyun;
+    server_file = servers.aliyun;
+}
+
 const user_api = {
     getVcode: '/user/vcode/register',
     register: '/user/register',

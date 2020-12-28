@@ -1,12 +1,12 @@
-import {LockTwoTone, MailTwoTone, MobileTwoTone, GooglePlusOutlined} from '@ant-design/icons';
-import {Alert, message, Tabs} from 'antd';
-import React, {useState} from 'react';
-import ProForm, {ProFormCaptcha, ProFormCheckbox, ProFormText} from '@ant-design/pro-form';
-import {connect, Dispatch, Link} from 'umi';
-import {getFakeCaptcha, LoginParamsType} from '@/services/login';
-import {ConnectState} from '@/models/connect';
+import { LockTwoTone, MailTwoTone, MobileTwoTone, GooglePlusOutlined } from '@ant-design/icons';
+import { Alert, message, Tabs } from 'antd';
+import React, { useState } from 'react';
+import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
+import { connect, Dispatch, Link } from 'umi';
+import { getFakeCaptcha, LoginParamsType } from '@/services/login';
+import { ConnectState } from '@/models/connect';
 import styles from './login.less';
-import {StateType} from "@/pages/user/login/data";
+import { StateType } from '@/pages/user/login/data';
 
 interface LoginProps {
     dispatch: Dispatch;
@@ -16,7 +16,7 @@ interface LoginProps {
 
 const LoginMessage: React.FC<{
     content: string;
-}> = ({content}) => (
+}> = ({ content }) => (
     <Alert
         style={{
             marginBottom: 24,
@@ -28,15 +28,15 @@ const LoginMessage: React.FC<{
 );
 
 const Login: React.FC<LoginProps> = (props) => {
-    const {userLogin = {}, submitting} = props;
-    const {status, type: loginType} = userLogin;
+    const { userLogin = {}, submitting } = props;
+    const { status, type: loginType } = userLogin;
     const [type, setType] = useState<string>('account');
 
     const handleSubmit = (values: LoginParamsType) => {
-        const {dispatch} = props;
+        const { dispatch } = props;
         dispatch({
             type: 'login/login',
-            payload: {...values, type},
+            payload: { ...values, type },
         });
     };
 
@@ -64,12 +64,12 @@ const Login: React.FC<LoginProps> = (props) => {
                 }}
             >
                 <Tabs activeKey={type} onChange={setType}>
-                    <Tabs.TabPane key="account" tab="账户密码登录"/>
-                    <Tabs.TabPane key="vcode" tab="验证码登录(暂不支持)"/>
+                    <Tabs.TabPane key="account" tab="账户密码登录" />
+                    <Tabs.TabPane key="vcode" tab="验证码登录(暂不支持)" />
                 </Tabs>
 
                 {status === 'error' && loginType === 'account' && !submitting && (
-                    <LoginMessage content="账户或密码错误（admin/ant.design)"/>
+                    <LoginMessage content="账户或密码错误（admin/ant.design)" />
                 )}
                 {type === 'account' && (
                     <>
@@ -77,7 +77,7 @@ const Login: React.FC<LoginProps> = (props) => {
                             name="email"
                             fieldProps={{
                                 size: 'large',
-                                prefix: <MailTwoTone className={styles.prefixIcon}/>,
+                                prefix: <MailTwoTone className={styles.prefixIcon} />,
                             }}
                             placeholder="email: admin or user"
                             rules={[
@@ -91,7 +91,7 @@ const Login: React.FC<LoginProps> = (props) => {
                             name="password"
                             fieldProps={{
                                 size: 'large',
-                                prefix: <LockTwoTone className={styles.prefixIcon}/>,
+                                prefix: <LockTwoTone className={styles.prefixIcon} />,
                             }}
                             placeholder="密码: ant.design"
                             rules={[
@@ -105,14 +105,14 @@ const Login: React.FC<LoginProps> = (props) => {
                 )}
 
                 {status === 'error' && loginType === 'mobile' && !submitting && (
-                    <LoginMessage content="验证码错误"/>
+                    <LoginMessage content="验证码错误" />
                 )}
                 {type === 'vcode' && (
                     <>
                         <ProFormText
                             fieldProps={{
                                 size: 'large',
-                                prefix: <MobileTwoTone className={styles.prefixIcon}/>,
+                                prefix: <MobileTwoTone className={styles.prefixIcon} />,
                             }}
                             name="mobile"
                             placeholder="邮箱"
@@ -130,7 +130,7 @@ const Login: React.FC<LoginProps> = (props) => {
                         <ProFormCaptcha
                             fieldProps={{
                                 size: 'large',
-                                prefix: <MailTwoTone className={styles.prefixIcon}/>,
+                                prefix: <MailTwoTone className={styles.prefixIcon} />,
                             }}
                             captchaProps={{
                                 size: 'large',
@@ -149,9 +149,9 @@ const Login: React.FC<LoginProps> = (props) => {
                             onGetCaptcha={async (mobile) => {
                                 const result = await getFakeCaptcha(mobile);
 
-                                if (result === false) {
-                                    return;
-                                }
+                                // if (result === false) {
+                                //     return;
+                                // }
 
                                 message.success('获取验证码成功！验证码为：1234');
                             }}
@@ -177,7 +177,7 @@ const Login: React.FC<LoginProps> = (props) => {
             </ProForm>
             <div className={styles.other}>
                 其他登录方式
-                <GooglePlusOutlined className={styles.icon}/>
+                <GooglePlusOutlined className={styles.icon} />
                 <Link className={styles.register} to="/user/register">
                     注册账户
                 </Link>
@@ -186,7 +186,7 @@ const Login: React.FC<LoginProps> = (props) => {
     );
 };
 
-export default connect(({login, loading}: ConnectState) => ({
+export default connect(({ login, loading }: ConnectState) => ({
     userLogin: login,
     submitting: loading.effects['login/login1'],
 }))(Login);

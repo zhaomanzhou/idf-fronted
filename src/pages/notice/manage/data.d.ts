@@ -1,7 +1,7 @@
 import { Effect, Reducer } from '@/models/connect';
 import { Subscription } from '@@/plugin-dva/connect';
 
-interface Notice {
+export interface Notice {
     id: number;
     title: string;
     contentMarkdown: string;
@@ -9,17 +9,18 @@ interface Notice {
     noticeType: number;
     stick: boolean;
     orderValue: number;
+    publisherId: number;
+    status: number;
+    visibility: number;
     updateTime: string;
     createTime: string;
 }
 
 export interface StateType {
-    notificationList: Notice[];
-    instructionList: Notice[];
-    knowledgeList: Notice[];
+    NotificationList: Notice[];
 }
 
-export interface NoticeListModelType {
+export interface NoticeManageModelType {
     namespace: string;
     state: StateType;
     effects: {

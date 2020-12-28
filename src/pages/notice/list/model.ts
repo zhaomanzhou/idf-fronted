@@ -1,36 +1,56 @@
-import {NoticeListModelType, StateType} from "@/pages/notice/list/data";
-import service from "@/pages/notice/list/service";
-
+import { NoticeListModelType, StateType } from '@/pages/notice/list/data';
+import service from '@/pages/notice/list/service';
 
 const Model: NoticeListModelType = {
     namespace: 'noticeList',
 
     state: {
-        NotificationList: [],
+        notificationList: [],
+        instructionList: [],
+        knowledgeList: [],
     },
 
     effects: {
-
-        * getNotificationList(action, effects) {
-            const noticeList = yield effects.call(service.fetchNotificationList)
+        *getNotificationList(action, effects) {
+            const noticeList = yield effects.call(service.fetchNotificationList);
             yield effects.put({
-                type: "setNoticeList",
+                type: 'setNotificationList',
                 payload: noticeList,
-            })
+            });
+        },
+
+        *getInstructionList(action, effects) {
+            const noticeList = yield effects.call(service.fetchInstructionList);
+            yield effects.put({
+                type: 'setInstructionList',
+                payload: noticeList,
+            });
+        },
+
+        *getKnowledgeList(action, effects) {
+            const noticeList = yield effects.call(service.fetchKnowledgeList);
+            yield effects.put({
+                type: 'setKnowledgeList',
+                payload: noticeList,
+            });
         },
     },
 
     reducers: {
-        setNoticeList(state, action) {
-            state.NotificationList = action.payload;
+        setNotificationList(state, action) {
+            state.notificationList = action.payload;
             return state;
-        }
-    },
-    subscriptions: {
-        keyboardWatcher({dispatch}) {
-
         },
-    }
+        setInstructionList(state, action) {
+            state.instructionList = action.payload;
+            return state;
+        },
+        setKnowledgeList(state, action) {
+            state.knowledgeList = action.payload;
+            return state;
+        },
+    },
+    subscriptions: {},
 };
 
 export default Model;

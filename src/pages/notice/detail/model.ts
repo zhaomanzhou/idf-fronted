@@ -1,23 +1,30 @@
-import {NoticeListModelType, StateType} from "@/pages/notice/list/data";
-import service from "@/pages/notice/list/service";
-import {NoticeDetailModelType} from "@/pages/notice/detail/data";
-
+import { NoticeDetailModelType } from '@/pages/notice/detail/data';
+import service from '@/pages/notice/detail/service';
 
 const Model: NoticeDetailModelType = {
-    namespace: 'NoticeDetail',
+    namespace: 'noticeDetail',
 
     state: {
-        notification: null,
+        notification: {
+            id: 1,
+            title: '',
+            contentMarkdown: '',
+            contentHtml: '',
+            noticeType: 1,
+            stick: false,
+            orderValue: 20201224165053,
+            updateTime: '2020-12-25',
+            createTime: '2020-12-25',
+        },
     },
 
     effects: {
-
-        * getNotification(action, effects) {
-            const noticeList = yield effects.call(service.fetchNotificationList, action.payload)
+        *getNotification(action, effects) {
+            const notice = yield effects.call(service.getNotification, action.payload);
             yield effects.put({
-                type: "setNoticeList",
-                payload: noticeList,
-            })
+                type: 'setNotification',
+                payload: notice,
+            });
         },
     },
 
@@ -25,15 +32,23 @@ const Model: NoticeDetailModelType = {
         setNotification(state, action) {
             state.notification = action.payload;
             return state;
-        }
+        },
     },
     subscriptions: {
-        keyboardWatcher({dispatch, history}) {
-            history.listen((location, action) =>{
-                location.pathname
-            })
+        keyboardWatcher({ dispatch, history }) {
+            history.listen((location, action) => {
+                const pathPrefix = '/notice/detail/';
+                // if(location.pathname.indexOf(pathPrefix) != -1)
+                // {
+                //     let id = location.pathname.substring(location.pathname.indexOf(pathPrefix) + pathPrefix.length)
+                //     dispatch({
+                //         type: 'getNotification',
+                //         payload: id,
+                //     });
+                // }
+            });
         },
-    }
+    },
 };
 
 export default Model;

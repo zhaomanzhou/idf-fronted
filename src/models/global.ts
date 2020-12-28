@@ -1,9 +1,9 @@
 import { Reducer, Effect } from 'umi';
 
 import { NoticeIconData } from '@/components/NoticeIcon';
-import {UserVo} from "@/pages/user/login/data";
-import service from "@/pages/user/login/service";
-import srequest from "@/utils/request";
+import { UserVo } from '@/pages/user/login/data';
+import service from '@/pages/user/login/service';
+import request from '@/utils/request';
 
 export interface NoticeItem extends NoticeIconData {
     id: string;
@@ -24,7 +24,7 @@ export interface GlobalModelType {
         [propType: string]: Effect;
     };
     reducers: {
-        [propType: string]: Reducer<any>
+        [propType: string]: Reducer<any>;
     };
 }
 
@@ -32,47 +32,44 @@ const GlobalModel: GlobalModelType = {
     namespace: 'global',
 
     state: {
-        collapsed: true ,
+        collapsed: true,
         token: '',
         user: null,
     },
 
     effects: {
-
-        *initUserFromLocalStorage(action, effect){
-            let user:UserVo = yield effect.select((state: any) => state.global.user)
-            if(user !== null && user !== undefined){
+        *initUserFromLocalStorage(action, effect) {
+            let user: UserVo = yield effect.select((state: any) => state.global.user);
+            if (user !== null && user !== undefined) {
                 return;
             }
             let tokenItem = yield effect.select((state: any) => state.global.token);
-            if(!tokenItem){
-                tokenItem = localStorage.getItem("token");
+            if (!tokenItem) {
+                tokenItem = localStorage.getItem('token');
             }
-            if(tokenItem){
+            if (tokenItem) {
                 user = yield effect.call(service.getUserByToken, tokenItem);
-                yield effect.put(({
-                    type: "setToken",
-                    payload: tokenItem
-                }))
                 yield effect.put({
-                    type: "setUser",
+                    type: 'setToken',
+                    payload: tokenItem,
+                });
+                yield effect.put({
+                    type: 'setUser',
                     payload: user,
-                })
+                });
             }
-        }
-
+        },
     },
 
     reducers: {
-
-        setToken(state, action){
+        setToken(state, action) {
             state.token = action.payload;
-            localStorage.setItem("token", action.payload)
-            srequest.refreshAxiosConfig(action.payload)
+            localStorage.setItem('token', action.payload);
+            request.refreshAxiosConfig(action.payload);
             return state;
         },
 
-        setUser(state: GlobalModelState, action){
+        setUser(state: GlobalModelState, action) {
             state.user = action.payload;
             return state;
         },
@@ -83,7 +80,6 @@ const GlobalModel: GlobalModelType = {
                 collapsed: payload,
             };
         },
-
     },
 };
 

@@ -12,26 +12,27 @@ const user_api = {
     loginByPassword: '/user/login',
     getUserByToken: '/user/detail/token',
 
-
     publishNotice: '/notice/add',
+    modifyNotice: '/notice/modify',
     getNotificationList: '/notice/list/user/notification',
-    noticeDetail: '/notice/detail/'
+    noticeDetail: '/notice/detail/',
+
+    getInstructionList: '/notice/list/user/instruction',
+    getKnowledgeList: '/notice/list/user/knowledge',
+
+    getNoticeListAdmin: '/notice/list/admin',
+    updateNoticeStickAndOrderValue: '/notice/modify/stickAndOrderValue',
 };
-
-
 
 const file_api = {
-    uploadPic:'/file/upload/headpic'
+    uploadPic: '/file/upload/headpic',
 };
-
 
 const user_apis = {
     port: '8001',
     api: user_api,
     server: server_user,
 };
-
-
 
 const file_apis = {
     port: '8010',
@@ -43,8 +44,6 @@ let apiPortMap = new Map();
 for (let url in user_apis.api) {
     apiPortMap.set(user_apis.api[url], user_apis);
 }
-
-
 
 for (let url in file_apis.api) {
     apiPortMap.set(file_apis.api[url], file_apis);

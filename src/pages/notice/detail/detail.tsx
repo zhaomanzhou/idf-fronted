@@ -1,20 +1,73 @@
-import React from 'react';
-import styles from './detail.less';
-import {Typography} from "antd";
-import Title from "antd/lib/typography/Title";
-import Paragraph from "antd/lib/typography/Paragraph";
+import React, { useEffect, Fragment } from 'react';
+import { ConnectState } from '@/models/connect';
+import { connect } from '@@/plugin-dva/exports';
+import { Dispatch } from '@@/plugin-dva/connect';
+import { History } from 'history';
+import { StateType } from '@/pages/notice/detail/data';
 
-export default () => {
-  return (
-    <div>
-        <Typography>
-            <Title>Introduction</Title>
-            <Paragraph>
-                In the process of internal desktop applications development, many different design specs and
-                implementations would be involved, which might cause designers and developers difficulties and
-                duplication and reduce the efficiency of development.
-            </Paragraph>
-        </Typography>
-    </div>
-  );
+import './detail.less';
+import { PageLoading } from '@ant-design/pro-layout';
+import { Link } from 'umi';
+export interface NoticeDetailProps {
+    noticeDetail: StateType;
+    dispatch: Dispatch;
+    history: History;
+    loading: boolean;
 }
+
+const index = (props) => {
+    const { noticeDetail, dispatch, history, loading }: NoticeDetailProps = props;
+
+    useEffect(() => {
+        const init = async () => {
+            await dispatch({
+                type: 'global/initUserFromLocalStorage',
+            });
+            let pathName = history.location.pathname;
+            const pathPrefix = '/notice/detail/';
+            let id = pathName.substring(pathName.indexOf(pathPrefix) + pathPrefix.length);
+            if (id === null || id === '') {
+                history.push('/notice/list');
+                return;
+            }
+            dispatch({
+                type: 'noticeDetail/getNotification',
+                payload: id,
+            });
+        };
+
+        init().then();
+    }, []);
+
+    let content = { __html: noticeDetail.notification && noticeDetail.notification.contentHtml };
+    // let content = {string: noticeDetail.notification && noticeDetail.notification.contentHtml}
+
+    if (loading) {
+        return <PageLoading />;
+    }
+
+    return (
+        <Fragment>
+            <section className="page-header">
+                <Link to={'/notice/list'} style={{ textDecoration: 'none' }}>
+                    <h1 className="project-name">
+                        {noticeDetail.notification && noticeDetail.notification.title}
+                    </h1>
+                </Link>
+            </section>
+
+            <section className="main-content">
+                <div dangerouslySetInnerHTML={content} />
+            </section>
+        </Fragment>
+    );
+};
+
+const mapStateToProps = (state: ConnectState) => {
+    return {
+        noticeDetail: state.noticeDetail,
+        loading: state.loading.effects['global/initUserFromLocalStorage'],
+    };
+};
+
+export default connect(mapStateToProps)(index);

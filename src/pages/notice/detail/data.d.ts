@@ -1,11 +1,9 @@
-import {Effect, Reducer} from "@/models/connect";
-import {Subscription} from "@@/plugin-dva/connect";
-
-
-
+import { Effect, Reducer } from '@/models/connect';
+import { Subscription } from '@@/plugin-dva/connect';
+import { Notice } from '@/pages/notice/list/data';
 
 export interface StateType {
-    notification: Notice | null;
+    notification: Notice;
 }
 
 export interface NoticeDetailModelType {
@@ -17,9 +15,7 @@ export interface NoticeDetailModelType {
     reducers: {
         [propName: string]: Reducer<StateType>;
     };
-    subscriptions:{
+    subscriptions: {
         [propName: string]: Subscription;
-    }
+    };
 }
-
-

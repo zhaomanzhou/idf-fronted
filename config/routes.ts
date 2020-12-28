@@ -15,7 +15,7 @@
             {
                 name: 'register',
                 path: '/user/register',
-                component: './user/register/register'
+                component: './user/register/register',
             },
             {
                 name: 'register-result',
@@ -29,13 +29,22 @@
         ],
     },
     {
+        path: '/notice/detail/',
+        routes: [
+            {
+                exact: false,
+                path: '/notice/detail/',
+                component: './notice/detail/detail',
+            },
+        ],
+    },
+    {
         path: '/',
         component: '../layouts/SecurityLayout',
         routes: [
             {
                 path: '/',
                 component: '../layouts/BasicLayout',
-                authority: ['admin', 'user'],
                 routes: [
                     {
                         path: '/',
@@ -48,8 +57,6 @@
                         component: './Welcome',
                     },
                     {
-
-
                         path: '/notice/',
                         name: '公告',
                         icon: 'NotificationOutlined',
@@ -58,6 +65,7 @@
                                 path: '/notice/publish',
                                 name: '发布公告',
                                 component: './notice/publish/PublishNotice',
+                                authority: ['admin'],
                             },
                             {
                                 path: '/notice/list',
@@ -65,14 +73,12 @@
                                 component: './notice/list/NoticeList',
                             },
                             {
-                                exact: false,
-                                path: '/notice/detail/',
-                                name: '公告详情',
-                                component: './notice/detail/detail',
-
+                                path: '/notice/manage',
+                                name: '公告管理',
+                                component: './notice/manage/manage',
+                                authority: ['admin'],
                             },
                         ],
-
                     },
 
                     {

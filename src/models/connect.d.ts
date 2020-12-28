@@ -1,14 +1,14 @@
-import {MenuDataItem, Settings as ProSettings} from '@ant-design/pro-layout';
-import {GlobalModelState} from './global';
-import {UserModelState} from './user';
-import {StateType} from './login';
-import {AnyAction} from "redux";
-import {EffectsCommandMap} from "dva";
-import {Action} from "@@/plugin-dva/connect";
-import {NoticeListModelType} from "@/pages/notice/list/data";
+import { MenuDataItem, Settings as ProSettings } from '@ant-design/pro-layout';
+import { GlobalModelState } from './global';
+import { UserModelState } from './user';
+import { StateType } from './login';
+import { AnyAction } from 'redux';
+import { EffectsCommandMap } from 'dva';
+import { Action } from '@@/plugin-dva/connect';
+import { NoticeListModelType } from '@/pages/notice/list/data';
+import { NoticeDetailModelType } from '@/pages/notice/detail/data';
 
-
-export {GlobalModelState, UserModelState};
+export { GlobalModelState, UserModelState };
 
 export interface Loading {
     global: boolean;
@@ -28,26 +28,20 @@ export interface ConnectState {
     settings: ProSettings;
     user: UserModelState;
     login: StateType;
+    publishNotice: PublishNoticeModelType;
     noticeList: NoticeListModelType;
+    noticeDetail: NoticeDetailModelType;
 }
 
 export interface Route extends MenuDataItem {
     routes?: Route[];
 }
 
-
 export interface DvaAction {
-    type: string,
-    payload: any
+    type: string;
+    payload: any;
 }
 
-export type Reducer<S = any> = (
-    state: S,
-    action: DvaAction
-) => S;
+export type Reducer<S = any> = (state: S, action: DvaAction) => S;
 
-
-export type Effect = (
-    action: DvaAction,
-    effects: EffectsCommandMap,
-) => void;
+export type Effect = (action: DvaAction, effects: EffectsCommandMap) => void;

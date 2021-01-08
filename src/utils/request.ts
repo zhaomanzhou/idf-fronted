@@ -125,6 +125,26 @@ const get_restful = async (url: string, parmas: string | any) => {
         });
 };
 
+const post_restful = async (url: string, parmas: string | any) => {
+    let domain = genDomain(url);
+    url = domain + url + parmas;
+    return await axios
+        .post(
+            url,
+            {},
+            {
+                headers: { token: token },
+            },
+        )
+        .then((res) => {
+            return res;
+        })
+        .catch((err) => {
+            // throw err;
+            return Promise.reject(err);
+        });
+};
+
 const parseRequestParam = (param: any) => {
     let res = '';
     let length = Object.keys(param).length;
@@ -145,5 +165,5 @@ const parseRequestParam = (param: any) => {
     return res;
 };
 
-export { get, post, post_json, refreshAxiosConfig, get_restful, genDomain };
-export default { get, post, post_json, refreshAxiosConfig, get_restful, genDomain };
+export { get, post, post_json, refreshAxiosConfig, get_restful, post_restful, genDomain };
+export default { get, post, post_json, refreshAxiosConfig, get_restful, post_restful, genDomain };

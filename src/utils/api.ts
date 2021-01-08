@@ -3,7 +3,7 @@ const servers = {
     aliyun: 'http://1.zmz121.cn',
 };
 
-let server_user = servers.local;
+let server_user = servers.aliyun;
 let server_file = servers.aliyun;
 
 if (process.env.NODE_ENV === 'production') {
@@ -27,6 +27,10 @@ const user_api = {
 
     getNoticeListAdmin: '/notice/list/admin',
     updateNoticeStickAndOrderValue: '/notice/modify/stickAndOrderValue',
+
+    downNotice: '/notice/modify/down/',
+    putUpNotice: '/notice/modify/up/',
+    deleteNotice: '/notice/modify/delete/',
 };
 
 const file_api = {

@@ -48,14 +48,16 @@
                 routes: [
                     {
                         path: '/',
-                        redirect: '/notice',
+                        redirect: '/welcome',
                     },
+
                     {
                         path: '/welcome',
                         name: '欢迎',
                         icon: 'smile',
-                        component: './Welcome',
+                        component: './dashboard/index',
                     },
+
                     {
                         path: '/notice/',
                         name: '公告',
@@ -81,28 +83,6 @@
                         ],
                     },
 
-                    {
-                        path: '/admin',
-                        name: 'admin',
-                        icon: 'crown',
-                        component: './Admin',
-                        authority: ['admin'],
-                        routes: [
-                            {
-                                path: '/admin/sub-page',
-                                name: 'sub-page',
-                                icon: 'smile',
-                                component: './Welcome',
-                                authority: ['admin'],
-                            },
-                        ],
-                    },
-                    {
-                        name: 'list.table-list',
-                        icon: 'table',
-                        path: '/list',
-                        component: './ListTableList',
-                    },
                     {
                         component: './404',
                     },

@@ -10,6 +10,7 @@ import {
     DatePicker,
     Switch,
     InputNumber,
+    Space,
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Notice } from '@/pages/notice/manage/data';
@@ -78,33 +79,60 @@ const NoticeModify: React.FC<NoticeModifyProps> = (props) => {
                     </div>
                 }
             >
-                <Row gutter={16}>
-                    <Col span={12}>
-                        <Form.Item name="stick" label="公告置顶">
-                            <Switch
-                                checked={stick}
-                                onChange={(checked, event) => {
-                                    setStick(checked);
-                                }}
-                            />
-                        </Form.Item>
-                    </Col>
-                </Row>
+                <Form>
+                    <Row gutter={16}>
+                        <Col span={12}>
+                            <Form.Item name="stick" label="公告置顶">
+                                <Switch
+                                    checked={stick}
+                                    onChange={(checked, event) => {
+                                        setStick(checked);
+                                    }}
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
 
-                <Row gutter={16}>
-                    <Col span={24}>
-                        <Form.Item label="设置排序值">
-                            <InputNumber
-                                style={{ width: 200 }}
-                                value={orderValue}
-                                onChange={(value) => {
-                                    // @ts-ignore
-                                    setOrderValue(value);
-                                }}
-                            />
-                        </Form.Item>
-                    </Col>
-                </Row>
+                    <Row gutter={16}>
+                        <Col span={24}>
+                            <Form.Item label="设置排序值">
+                                <InputNumber
+                                    style={{ width: 200 }}
+                                    value={orderValue}
+                                    onChange={(value) => {
+                                        // @ts-ignore
+                                        setOrderValue(value);
+                                    }}
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+
+                    {/*<Row gutter={16}>*/}
+                    {/*    <Col span={24}>*/}
+                    {/*        <Form.Item label={'可见性'} name="visibility" initialValue={1}>*/}
+                    {/*            <Select style={{ width: 120 }}>*/}
+                    {/*                <Option value={0}>所有人</Option>*/}
+                    {/*                <Option value={1}>注册用户</Option>*/}
+                    {/*                <Option value={2}>管理员</Option>*/}
+                    {/*            </Select>*/}
+                    {/*        </Form.Item>*/}
+
+                    {/*    </Col>*/}
+                    {/*</Row>*/}
+
+                    {/*<Row gutter={16}>*/}
+                    {/*    <Col span={24}>*/}
+                    {/*        <Form.Item label={'文章类型'} name="type" initialValue={1}>*/}
+                    {/*            <Select style={{ width: 120 }}>*/}
+                    {/*                <Option value={1}>公告</Option>*/}
+                    {/*                <Option value={0}>教程</Option>*/}
+                    {/*                <Option value={2}>科普</Option>*/}
+                    {/*            </Select>*/}
+                    {/*        </Form.Item>*/}
+                    {/*    </Col>*/}
+                    {/*</Row>*/}
+                </Form>
             </Drawer>
         </Fragment>
     );

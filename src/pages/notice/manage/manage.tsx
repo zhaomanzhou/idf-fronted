@@ -24,20 +24,49 @@ const index = ({ dispatch }) => {
 
     const editAndDelete = (key: string | number, currentItem: Notice) => {
         if (key === 'down') {
-            Modal.confirm({
-                title: '下架公告',
-                content: '确定下架该公告吗？',
-                okText: '确认',
-                cancelText: '取消',
-                onOk: () => console.log(currentItem.id),
-            });
+            console.log(currentItem.status);
+            if (currentItem.status === 1) {
+                Modal.confirm({
+                    title: '下架公告',
+                    content: '确定下架该公告吗？',
+                    okText: '确认',
+                    cancelText: '取消',
+                    onOk: async () => {
+                        dispatch({
+                            type: 'noticeManage/downNotice',
+                            payload: currentItem.id,
+                        });
+                        actionRef.current?.reload();
+                    },
+                });
+            } else {
+                Modal.confirm({
+                    title: '上架公告',
+                    content: '确定上架该公告吗？',
+                    okText: '确认',
+                    cancelText: '取消',
+                    onOk: async () => {
+                        dispatch({
+                            type: 'noticeManage/putUpNotice',
+                            payload: currentItem.id,
+                        });
+                        actionRef.current?.reload();
+                    },
+                });
+            }
         } else if (key === 'delete') {
             Modal.confirm({
                 title: '删除公告',
                 content: '确定删除该公告吗？',
                 okText: '确认',
                 cancelText: '取消',
-                onOk: () => console.log(currentItem.id),
+                onOk: async () => {
+                    dispatch({
+                        type: 'noticeManage/deleteNotice',
+                        payload: currentItem.id,
+                    });
+                    actionRef.current?.reload();
+                },
             });
         }
     };
@@ -105,9 +134,9 @@ const index = ({ dispatch }) => {
                     case 0:
                         return <Tag color={'red'}>所有</Tag>;
                     case 1:
-                        return <Tag color={'green'}>登陆用户</Tag>;
+                        return <Tag color={'blue'}>登陆用户</Tag>;
                     case 2:
-                        return <Tag color={'yellow'}>管理员</Tag>;
+                        return <Tag color={'green'}>管理员</Tag>;
                 }
 
                 return <div></div>;
@@ -141,7 +170,9 @@ const index = ({ dispatch }) => {
                 <Dropdown
                     overlay={
                         <Menu onClick={({ key }) => editAndDelete(key, record)}>
-                            <Menu.Item key="down">下架</Menu.Item>
+                            <Menu.Item key="down">
+                                {record.status === 1 ? '下架' : '上架'}
+                            </Menu.Item>
                             <Menu.Item key="delete">删除</Menu.Item>
                         </Menu>
                     }

@@ -4,6 +4,7 @@ import { RadioChangeEvent } from 'antd/es/radio';
 import React from 'react';
 import { VisitDataType } from '../data.d';
 import styles from '../style.less';
+import Ellipsis from 'ant-design-pro/lib/Ellipsis';
 
 const data = [
     'Racing car sprays burning fuel into crowd.',
@@ -64,17 +65,14 @@ const ProportionSales = ({
                     <List.Item
                         actions={[
                             <Button key="1" type="primary" shape="round">
-                                点击复制
+                                点击复制订阅链接
                             </Button>,
-                            <a key="list-loadmore-more">more</a>,
+                            // <a key="list-loadmore-more">more</a>,
                         ]}
                     >
                         <List.Item.Meta
-                            avatar={
-                                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                            }
-                            title={<Tag color="#5BD8A6">{item.title}</Tag>}
-                            description={item.content}
+                            title={<Tag color="#87d068">{item.title}</Tag>}
+                            description={<Ellipsis length={100}>{item.content}</Ellipsis>}
                         />
                     </List.Item>
                 )}

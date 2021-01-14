@@ -46,17 +46,6 @@ const ProportionSales = ({
         style={{
             height: '100%',
         }}
-        extra={
-            <div className={styles.salesCardExtra}>
-                <div className={styles.salesTypeRadio}>
-                    <Radio.Group value={salesType} onChange={handleChangeSalesType}>
-                        <Radio.Button value="all">SSR</Radio.Button>
-                        <Radio.Button value="online">V2RAY</Radio.Button>
-                        <Radio.Button value="stores">Clash</Radio.Button>
-                    </Radio.Group>
-                </div>
-            </div>
-        }
     >
         <div>
             <List

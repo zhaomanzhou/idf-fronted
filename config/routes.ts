@@ -48,7 +48,7 @@
                 routes: [
                     {
                         path: '/',
-                        redirect: '/welcome',
+                        redirect: '/price',
                     },
 
                     {
@@ -56,6 +56,12 @@
                         name: '欢迎',
                         icon: 'smile',
                         component: './dashboard/index',
+                    },
+                    {
+                        path: '/price/',
+                        name: '套餐购买',
+                        icon: 'ShopOutlined',
+                        component: './price/price',
                     },
 
                     {

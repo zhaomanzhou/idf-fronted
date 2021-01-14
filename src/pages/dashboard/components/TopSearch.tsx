@@ -1,7 +1,5 @@
-import { EllipsisOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Card, Col, Progress, Radio, Row, Table, Tag, Tooltip } from 'antd';
 import React, { useState } from 'react';
-import numeral from 'numeral';
 import { SearchDataType, VisitDataType } from '../data.d';
 
 import ProList from '@ant-design/pro-list';

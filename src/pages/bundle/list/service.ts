@@ -1,10 +1,10 @@
 import request from '@/utils/request';
 import api from '@/utils/api';
 
-const getPacketBundleList = async () => {
-    return await request.get_restful(api.user_api.noticeDetail, {});
+const getBundleList = async () => {
+    return await request.get(api.user_api.getBundleListAdmin, {});
 };
 
 export default {
-    getPacketBundleList,
+    getBundleList,
 };

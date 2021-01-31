@@ -30,6 +30,7 @@ const addNewBundle = async (values) => {
         level: values.level,
         duration: values.duration,
         active: values.active,
+        price: Math.round(values.price * 100),
         description: values.description,
     };
     return await request.post(api.user_api.addNewBundle, newBundle);
@@ -55,6 +56,7 @@ const updateBundle = async (values, id) => {
         maxConnection: values.maxConnection,
         level: values.level,
         duration: values.duration,
+        price: Math.round(values.price * 100),
         active: values.active,
         description: values.description,
     };

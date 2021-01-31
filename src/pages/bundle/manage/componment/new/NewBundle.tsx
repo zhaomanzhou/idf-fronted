@@ -115,6 +115,13 @@ export default ({ action }) => {
                     <span className="ant-form-text">天</span>
                 </Form.Item>
 
+                <Form.Item label="价格">
+                    <Form.Item noStyle name="price" initialValue={10.0}>
+                        <InputNumber />
+                    </Form.Item>
+                    <span className="ant-form-text">元</span>
+                </Form.Item>
+
                 <Form.Item
                     label="立刻上线"
                     name="active"

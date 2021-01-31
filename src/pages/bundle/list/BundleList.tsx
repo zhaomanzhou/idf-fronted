@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import PackageItem from '@/pages/bundle/list/componment/PackageItem';
+import PackageItem from '@/pages/bundle/list/componment/BundleItem';
 import { Row, Col, Button } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
+import styles from './BundleList.less';
 import service from '@/pages/bundle/list/service';
+import { BundleItem } from '@/pages/bundle/manage/BundleManager';
 export default () => {
-    const [packetList, setPacketList] = useState();
+    const [bundleList, setBundleList] = useState<BundleItem[]>([]);
+
+    useEffect(() => {
+        service.getBundleList().then((res) => {
+            // @ts-ignore
+            setBundleList(res);
+        });
+    }, []);
 
     return (
         <PageContainer content="请选择一个适合你的套餐">
-            <div style={{ marginTop: 80 }}>
+            <div className={styles.container}>
                 <Row>
-                    <Col xs={{ span: 24 }} lg={{ span: 7, offset: 1 }}>
-                        <PackageItem />
-                    </Col>
-                    <Col xs={{ span: 24 }} lg={{ span: 7 }}>
-                        <PackageItem />
-                    </Col>
-                    <Col xs={{ span: 24 }} lg={{ span: 7 }}>
-                        <PackageItem />
-                    </Col>
+                    {bundleList.map((value, index) => {
+                        return (
+                            <Col xs={{ span: 24 }} lg={{ span: 7, offset: 1 }} key={index}>
+                                <PackageItem bundle={value} />
+                            </Col>
+                        );
+                    })}
                 </Row>
             </div>
         </PageContainer>

@@ -39,6 +39,7 @@ export default ({ action }) => {
                         data: 12,
                         dataUnit: 'MB',
                     },
+                    price: (curBundle.price / 100).toFixed(2),
                 };
 
                 if (curBundle.totalData % 1024 === 0) {
@@ -140,6 +141,12 @@ export default ({ action }) => {
                     <span className="ant-form-text">天</span>
                 </Form.Item>
 
+                <Form.Item label="价格">
+                    <Form.Item noStyle name="price">
+                        <InputNumber />
+                    </Form.Item>
+                    <span className="ant-form-text">元</span>
+                </Form.Item>
                 <Form.Item label="立刻上线" name="active" valuePropName="checked">
                     <Switch />
                 </Form.Item>

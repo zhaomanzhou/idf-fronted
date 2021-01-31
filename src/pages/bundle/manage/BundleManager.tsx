@@ -29,6 +29,7 @@ export type BundleItem = {
     maxConnection: number;
     level: number;
     duration: number;
+    price: number;
     active: boolean;
     description: string;
 };
@@ -58,6 +59,7 @@ export default () => {
         },
         {
             title: '最大速度(Mbps)',
+            width: '10%',
             dataIndex: 'speed',
             render: (_, record) => {
                 if (record.speed <= 0) {
@@ -92,7 +94,23 @@ export default () => {
                 }
             },
         },
-
+        {
+            title: '价格',
+            dataIndex: 'price',
+            render: (_, record) => {
+                return `¥ ${(record.price / 100.0).toFixed(2)}`;
+            },
+        },
+        {
+            title: '创建时间',
+            dataIndex: 'createTime',
+            valueType: 'date',
+        },
+        {
+            title: '修改时间)',
+            dataIndex: 'updateTime',
+            valueType: 'date',
+        },
         {
             title: '操作',
             width: 180,

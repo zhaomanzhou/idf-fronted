@@ -1,8 +1,11 @@
-import React from 'react';
-import PackageItem from '@/pages/price/componment/PackageItem';
+import React, { useEffect, useState } from 'react';
+import PackageItem from '@/pages/bundle/list/componment/PackageItem';
 import { Row, Col, Button } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
+import service from '@/pages/bundle/list/service';
 export default () => {
+    const [packetList, setPacketList] = useState();
+
     return (
         <PageContainer content="请选择一个适合你的套餐">
             <div style={{ marginTop: 80 }}>

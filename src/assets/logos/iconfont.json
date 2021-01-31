@@ -1,0 +1,23 @@
+{
+    "id": "",
+    "name": "",
+    "font_family": "iconfont",
+    "css_prefix_text": "icon-",
+    "description": "",
+    "glyphs": [
+        {
+            "icon_id": "9306311",
+            "name": "微信支付",
+            "font_class": "weixinzhifu",
+            "unicode": "e689",
+            "unicode_decimal": 59017
+        },
+        {
+            "icon_id": "14110604",
+            "name": "支付宝",
+            "font_class": "zhifubao",
+            "unicode": "e627",
+            "unicode_decimal": 58919
+        }
+    ]
+}

@@ -48,7 +48,7 @@
                 routes: [
                     {
                         path: '/',
-                        redirect: '/price',
+                        redirect: '/bundle/manager',
                     },
 
                     {
@@ -58,12 +58,24 @@
                         component: './dashboard/index',
                     },
                     {
-                        path: '/price/',
+                        path: '/bundle/list',
                         name: '套餐购买',
                         icon: 'ShopOutlined',
-                        component: './price/price',
+                        component: './bundle/list/BundleList',
                     },
 
+                    {
+                        path: '/bundle/settlement',
+                        name: '套餐结算',
+                        icon: 'ShoppingCartOutlined',
+                        component: './bundle/settlement/Settlement',
+                    },
+                    {
+                        path: '/bundle/manager',
+                        name: '套餐管理',
+                        icon: 'AppstoreOutlined',
+                        component: './bundle/manage/BundleManager',
+                    },
                     {
                         path: '/notice/',
                         name: '公告',

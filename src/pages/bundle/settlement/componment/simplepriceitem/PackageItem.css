@@ -1,0 +1,25 @@
+
+.price{
+    border-color: #467fcf;
+    color: #467fcf;
+    background: #edf2fa;
+    width: 40%;
+}
+
+
+.pricing-feature-list {
+    font-size: 18px;
+    z-index: 100;
+    margin: 0 0;
+    list-style: none;
+    text-align: center;
+    padding-left: 0;
+}
+
+
+
+.pricing-feature {
+    padding: 0.5em 0;
+}
+
+

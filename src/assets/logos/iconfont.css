@@ -1,0 +1,25 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1611212277515'); /* IE9 */
+  src: url('iconfont.eot?t=1611212277515#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAOgAAsAAAAAB5wAAANSAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDBgqCfIJjATYCJAMMCwgABCAFhG0HQBuzBhGF9JH9KIzbnM7/QaMJX265tHBT6atCm0LPh9cj30dwhnOA2xHcSExQUM3yVBPG7vY/CZBSyKiVqfYeQA1QHqx4wvtorp18R47Tx6sxOIQG4AbYYA04ZroUzwOaS0Z5JOAEBxoVNMDpaAN5Qf9h7CaChngYCABTeCIcJL+wXIEMDjCKACBjw4PdkDN68IZSAhkEYsVCDrIcAmS6gN4DsIz/nnxALJEBCoEBTKweKOhD9uug1wvY3P9ztVECBNNZARjLAAYgHAAHSEelvQksioeDwdST8+ZcERwEdKrQ//9wvi8V4T88gIIARAQoNgcABCsJCrwOwvxEsUAWXnUxAwCIUcE0AAcApT2/moDGpVgMrjbd69iwlqxzWuRQv8ZhkVOvrjeoqqJpmdhqe2U1SiSNdRy2kWZmGI3z9MgZDYuOGdtIA2kkppAAaSP+MAvn1YedndfqhXdVRdU0I+2S4dS9Xc03v6v7sl1GkcUdzadvtaroT9w23mpcpDks8quVMKvqEGVm14XY1qw1j6SeY1dS805XjuHMfr3T1aiqmJ8fvc+CM9tCe9H8OvdtS9hzvKs6x66k9r0iXGp6kdz145dCRjyVxdgp+TaC7jR3NZ8POoe01V7R0VFeXd09q8KeHB9OkLOF7OyScece2z1GXo6t35LVFTnVH69X17h/NK+pvhEdOF7jOLWvVqwgrV6W33OF0vkZ8ehSAEPZo7/4/3O/mPSr/gYz/s5Qf5/+kdcFAK9M98O9/3920K0QkFHoLPgxgo4t3BcBA6vLx/zQyRQOtFKQA6aA31EOALb+hqsdbj5JyBwSUBIPMDJ/IqeGQ2AmHiJZFkyF8ZabsSPGSA8g1FsCYe0blKVrYKz9EDn1FwJH/xBZZwxTDbHb0Exg8lWeYKiYQPSEPOaGkElXovSIaV+FkhZx2hWly0NgG1Y+5WGDMsWU7pY6qgQkXIMrHYdVxdAKFxirkam2B9OkqhcZMdeDlTwChRRKgMgTyMVYg2h3tSp8/wilepWQNFT02K+Q6OS9A5vB6kD05E2nilt5pnOTcihFABGsBlzJiioYZ6Ct7ldAMWXIBkRbB6bSibrKjeWV9QvkGTWA/VgmmzK7mD/y5pXl1C9oLAp5MAAAAA==') format('woff2'),
+  url('iconfont.woff?t=1611212277515') format('woff'),
+  url('iconfont.ttf?t=1611212277515') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1611212277515#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-weixinzhifu:before {
+  content: "\e689";
+}
+
+.icon-zhifubao:before {
+  content: "\e627";
+}
+

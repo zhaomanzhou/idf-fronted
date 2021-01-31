@@ -1,6 +1,6 @@
 import React from 'react';
 import './PackageItem.css';
-import svg from '../../../assets/price.svg';
+import svg from '../../../../assets/price.svg';
 
 export default () => {
     return (
@@ -17,19 +17,19 @@ export default () => {
                 </div>
                 <ul className="pricing-feature-list">
                     <li className="pricing-feature">
-                        <span className={'price-number pricing-feature'}>100GB</span>使用流量
+                        <span className={'bundle-number pricing-feature'}>100GB</span>使用流量
                     </li>
                     <li className="pricing-feature">
-                        <span className={'price-number pricing-feature'}>100Mbps</span>最高速率
+                        <span className={'bundle-number pricing-feature'}>100Mbps</span>最高速率
                     </li>
                     <li className="pricing-feature">
-                        <span className={'price-number pricing-feature'}>100</span>个最高TCP连接
+                        <span className={'bundle-number pricing-feature'}>100</span>个最高TCP连接
                     </li>
                     <li className="pricing-feature">
-                        <span className={'price-number pricing-feature'}>所有的</span>服务器资源
+                        <span className={'bundle-number pricing-feature'}>所有的</span>服务器资源
                     </li>
                     <li className="pricing-feature">
-                        <span className={'price-number pricing-feature'}></span>客服支持
+                        <span className={'bundle-number pricing-feature'}>客服支持</span>
                     </li>
                 </ul>
                 <button className="pricing-action">立即订阅</button>

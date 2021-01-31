@@ -3,7 +3,7 @@ const servers = {
     aliyun: 'http://1.zmz121.cn',
 };
 
-let server_user = servers.aliyun;
+let server_user = servers.local;
 let server_file = servers.aliyun;
 
 if (process.env.NODE_ENV === 'production') {
@@ -31,6 +31,12 @@ const user_api = {
     downNotice: '/notice/modify/down/',
     putUpNotice: '/notice/modify/up/',
     deleteNotice: '/notice/modify/delete/',
+
+    getBundleListAdmin: '/bundle/admin/list/',
+    addNewBundle: '/bundle/admin/add',
+    updateBundle: '/bundle/admin/update',
+    getBundleDetailAdmin: '/bundle/admin/detail',
+    deleteBundleAdmin: '/bundle/admin/delete',
 };
 
 const file_api = {

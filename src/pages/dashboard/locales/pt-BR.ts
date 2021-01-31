@@ -1,5 +1,5 @@
 export default {
-    'dashboardandanalysis.analysis.test': 'Gongzhuan No.{no} shop',
+    'dashboardandanalysis.analysis.test': 'Gongzhuan No.{no} bundle',
     'dashboardandanalysis.analysis.introduce': 'Introduzir',
     'dashboardandanalysis.analysis.total-sales': 'Vendas Totais',
     'dashboardandanalysis.analysis.day-sales': 'Vendas do Dia',

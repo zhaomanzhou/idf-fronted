@@ -2,9 +2,7 @@ import { MenuDataItem, Settings as ProSettings } from '@ant-design/pro-layout';
 import { GlobalModelState } from './global';
 import { UserModelState } from './user';
 import { StateType } from './login';
-import { AnyAction } from 'redux';
 import { EffectsCommandMap } from 'dva';
-import { Action } from '@@/plugin-dva/connect';
 import { NoticeListModelType } from '@/pages/notice/list/data';
 import { NoticeDetailModelType } from '@/pages/notice/detail/data';
 

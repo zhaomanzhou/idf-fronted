@@ -182,7 +182,14 @@ export default () => {
                     </Button>
                 </div>
             </Card>
-            <Modal title="下单结果" visible={modalVisible} footer={null}>
+            <Modal
+                title="下单结果"
+                visible={modalVisible}
+                footer={null}
+                onCancel={() => {
+                    setModalVisible(false);
+                }}
+            >
                 {orderStatus === 'generated' && (
                     <Result
                         status="success"

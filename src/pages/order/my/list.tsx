@@ -23,7 +23,6 @@ const columns: ProColumns<OrderToUser>[] = [
     {
         title: '订单id',
         dataIndex: 'id',
-        valueType: 'indexBorder',
     },
     {
         title: '订单名称',

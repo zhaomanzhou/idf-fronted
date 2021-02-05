@@ -9,7 +9,7 @@ const response_status = {
     unlogin: 401,
     invalidToken: 1007,
 };
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 8000;
 axios.defaults.headers.post['Content-Type'] =
     'application/x-www-form-urlencoded;charset=UTF-8;Accept-Language:zh-CN,zh;q=0.8';
 

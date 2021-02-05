@@ -36,7 +36,14 @@ const user_api = {
     addNewBundle: '/bundle/admin/add',
     updateBundle: '/bundle/admin/update',
     getBundleDetailAdmin: '/bundle/admin/detail',
+    getBundleDetail: '/bundle/detail',
     deleteBundleAdmin: '/bundle/admin/delete',
+
+    createOrder: '/order/create',
+    getOrderListForCurUser: '/order/user/list',
+
+    createPay: '/pay/create',
+    getPayInfo: '/pay/order/info',
 };
 
 const file_api = {

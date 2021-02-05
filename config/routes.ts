@@ -38,6 +38,7 @@
             },
         ],
     },
+
     {
         path: '/',
         component: '../layouts/SecurityLayout',
@@ -57,25 +58,46 @@
                         icon: 'smile',
                         component: './dashboard/index',
                     },
-                    {
-                        path: '/bundle/list',
-                        name: '套餐购买',
-                        icon: 'ShopOutlined',
-                        component: './bundle/list/BundleList',
-                    },
 
                     {
-                        path: '/bundle/settlement',
-                        name: '套餐结算',
-                        icon: 'ShoppingCartOutlined',
-                        component: './bundle/settlement/Settlement',
-                    },
-                    {
-                        path: '/bundle/manager',
+                        exact: true,
+                        path: '/admin/bundle/manager',
                         name: '套餐管理',
                         icon: 'AppstoreOutlined',
                         component: './bundle/manage/BundleManager',
                     },
+
+                    {
+                        path: '/bundle',
+                        name: '套餐商店',
+                        icon: 'ShopOutlined',
+                        hideChildrenInMenu: true,
+                        routes: [
+                            {
+                                path: '/bundle',
+                                component: './bundle/list/BundleList',
+                            },
+                            {
+                                exact: false,
+                                path: '/bundle/settlement',
+                                component: './bundle/settlement/Settlement',
+                            },
+
+                            {
+                                exact: false,
+                                path: '/bundle/pay',
+                                component: './bundle/pay/Pay',
+                            },
+                        ],
+                    },
+
+                    {
+                        path: '/order/my/list',
+                        name: '我的订单',
+                        icon: 'ShopOutlined',
+                        component: './order/my/list',
+                    },
+
                     {
                         path: '/notice/',
                         name: '公告',
@@ -106,12 +128,31 @@
                     },
                 ],
             },
+
             {
                 component: './404',
             },
         ],
     },
+
     {
         component: './404',
     },
 ];
+
+/*
+            {
+                exact: false,
+                path: '/bundle/settlement',
+                name: '套餐结算',
+                icon: 'ShoppingCartOutlined',
+                component: './bundle/settlement/Settlement',
+            },
+            {
+                exact: false,
+                path: '/order/pay',
+                name: '购买订单',
+                icon: 'ShoppingCartOutlined',
+                component: './order/pay/Pay',
+            },
+ */

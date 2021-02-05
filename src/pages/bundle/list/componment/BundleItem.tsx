@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import './BundleItem.css';
 import svg from '../../../../assets/price.svg';
 import { BundleItem } from '@/pages/bundle/manage/BundleManager';
+import { history } from 'umi';
 
 interface Props {
     bundle: BundleItem;
@@ -18,6 +19,10 @@ const index: React.FC<Props> = ({ bundle }) => {
         }
     };
 
+    const subscriptionBtnClick = () => {
+        history.push('/bundle/settlement/' + bundle.id);
+    };
+
     return (
         <div className="pricing pricing-palden">
             <div className="pricing-item pricing__item--featured">
@@ -26,7 +31,7 @@ const index: React.FC<Props> = ({ bundle }) => {
 
                     <div className="pricing-price">
                         <span className="pricing-currency">¥</span>
-                        {(bundle.price / 100.0).toFixed(2)}
+                        {bundle.price / 100.0}
                         <span className="pricing-period">/月</span>
                     </div>
                     <h3 className="pricing-title">基础版</h3>
@@ -62,7 +67,9 @@ const index: React.FC<Props> = ({ bundle }) => {
                         <span className={'bundle-number pricing-feature'}>客服支持</span>
                     </li>
                 </ul>
-                <button className="pricing-action">立即订阅</button>
+                <button className="pricing-action" onClick={subscriptionBtnClick}>
+                    立即订阅
+                </button>
             </div>
         </div>
     );

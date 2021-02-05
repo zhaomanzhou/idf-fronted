@@ -1,39 +1,50 @@
 import React, { Reducer, useReducer, useRef, Fragment } from 'react';
 import ProTable, { ActionType, ProColumns, TableDropdown } from '@ant-design/pro-table';
+import { Link } from 'umi';
 
 import request from '@/utils/request';
 import api from '@/utils/api';
+export interface OrderToUser {
+    id: number;
+    createTime: number;
+    payTime: object;
+    closeTime: object;
+    bundleId: number;
+    totalMonth: number;
+    orderName: string;
+    totalMoney: number;
+    payType: string;
+    tradeNo: string;
+    payLink: string;
+    orderStatus: string;
+}
 
-const columns: ProColumns[] = [
+const columns: ProColumns<OrderToUser>[] = [
     {
         title: '订单id',
         dataIndex: 'id',
         valueType: 'indexBorder',
     },
     {
-        title: '创建时间',
-        dataIndex: 'createTime',
-        valueType: 'date',
+        title: '订单名称',
+        dataIndex: 'orderName',
     },
     {
-        title: '更新时间',
-        dataIndex: 'updateTime',
-        valueType: 'date',
+        title: '创建时间',
+        dataIndex: 'createTime',
+        valueType: 'dateTime',
     },
     {
         title: '关闭时间',
         dataIndex: 'closeTime',
-        valueType: 'date',
+        valueType: 'dateTime',
     },
     {
         title: '付款时间',
         dataIndex: 'payTime',
-        valueType: 'date',
+        valueType: 'dateTime',
     },
-    {
-        title: '套餐id',
-        dataIndex: 'bundleId',
-    },
+
     {
         title: '套餐时长',
         dataIndex: 'totalMonth',
@@ -42,7 +53,7 @@ const columns: ProColumns[] = [
         title: '订单金额',
         dataIndex: 'totalMoney',
         render: (_, record) => {
-            return (record.totalMoney * 0.01).toFixed(2);
+            return '¥' + record.totalMoney * 0.01;
         },
     },
 
@@ -53,6 +64,13 @@ const columns: ProColumns[] = [
     {
         title: '订单状态',
         dataIndex: 'orderStatus',
+    },
+    {
+        title: '更多',
+        dataIndex: 'orderStatus',
+        render: (_, record) => {
+            return <Link to={'/bundle/pay/' + record.id}>付款</Link>;
+        },
     },
 ];
 

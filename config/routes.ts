@@ -49,7 +49,7 @@
                 routes: [
                     {
                         path: '/',
-                        redirect: '/bundle/manager',
+                        redirect: '/bundle',
                     },
 
                     {

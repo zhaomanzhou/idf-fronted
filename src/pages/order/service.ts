@@ -21,7 +21,14 @@ const getPayInfo = async (orderId: number) => {
     });
 };
 
+const cancelOrder = async (orderId: number) => {
+    return await request.get(api.user_api.cancelOrder, {
+        orderId: orderId,
+    });
+};
+
 export default {
     createPay,
     getPayInfo,
+    cancelOrder,
 };

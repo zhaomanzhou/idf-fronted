@@ -3,7 +3,7 @@ const servers = {
     aliyun: 'http://1.zmz121.cn',
 };
 
-let server_user = servers.local;
+let server_user = servers.aliyun;
 let server_file = servers.aliyun;
 
 if (process.env.NODE_ENV === 'production') {
@@ -41,6 +41,8 @@ const user_api = {
 
     createOrder: '/order/create',
     getOrderListForCurUser: '/order/user/list',
+    cancelOrder: '/order/cancel',
+    checkIsPaid: '/order/check/isPaid',
 
     createPay: '/pay/create',
     getPayInfo: '/pay/order/info',

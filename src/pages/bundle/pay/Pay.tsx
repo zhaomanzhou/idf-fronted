@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styles from './Pay.less';
 import { PageContainer, PageLoading } from '@ant-design/pro-layout';
 import { history } from '@@/core/history';
-import service, { PayInfo } from '@/pages/order/service';
-import { Card } from 'antd';
+import { PayInfo } from '@/pages/order/service';
+import { Card, message } from 'antd';
 import { Meta } from 'antd/es/list/Item';
 import QRCode from 'qrcode.react';
+import service from '@/pages/bundle/pay/service';
 
 export default () => {
     const [payInfo, setPayInfo] = useState<PayInfo>();
@@ -15,15 +16,50 @@ export default () => {
         const pathPrefix = '/bundle/pay/';
         let id = pathName.substring(pathName.indexOf(pathPrefix) + pathPrefix.length);
         if (id === null || id === '') {
-            // history.push('/');
+            history.push('/order/my/list');
             return;
         }
 
-        service.getPayInfo(id).then((res) => {
-            // @ts-ignore
-            setPayInfo(res);
-            console.log(res);
-        });
+        service
+            .getPayInfo(id)
+            .then((res) => {
+                // @ts-ignore
+                setPayInfo(res);
+            })
+            .catch((err) => {
+                history.push('/order/my/list');
+                return;
+            });
+    }, []);
+
+    useEffect(() => {
+        let pathName = history.location.pathname;
+        const pathPrefix = '/bundle/pay/';
+        let orderId = pathName.substring(pathName.indexOf(pathPrefix) + pathPrefix.length);
+        let time = 0;
+        let id = setInterval(() => {
+            time++;
+            if (time === 20) {
+                clearInterval(id);
+            }
+            service
+                .checkIsPaid(orderId)
+                .then((res) => {
+                    if (res) {
+                        message.success('支付成功，正在跳转到我的订单');
+                        clearInterval(id);
+                        history.push('/order/my/list');
+                        return;
+                    }
+                    console.log(res);
+                })
+                .catch((err) => {
+                    clearInterval(id);
+                });
+        }, 5000);
+        return () => {
+            clearInterval(id);
+        };
     }, []);
 
     if (payInfo === null || payInfo === undefined) {

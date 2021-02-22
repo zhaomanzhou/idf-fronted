@@ -20,7 +20,7 @@ const index: React.FC<Props> = ({ bundle }) => {
     };
 
     const subscriptionBtnClick = () => {
-        history.push('/bundle/settlement/' + bundle.id);
+        history.push('/bundle/shop/settlement/' + bundle.id);
     };
 
     return (

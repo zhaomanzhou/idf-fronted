@@ -33,10 +33,10 @@ export default () => {
 
     useEffect(() => {
         let pathName = history.location.pathname;
-        const pathPrefix = '/bundle/settlement/';
+        const pathPrefix = '/bundle/shop/settlement/';
         let id = pathName.substring(pathName.indexOf(pathPrefix) + pathPrefix.length);
         if (id === null || id === '') {
-            history.push('/bundle/list');
+            history.push('/bundle/shop/list');
             return;
         }
         service
@@ -46,7 +46,7 @@ export default () => {
                 setBundle(res);
             })
             .catch((err) => {
-                history.push('/bundle/list');
+                history.push('/bundle/shop/list');
                 return;
             });
     }, []);
@@ -84,7 +84,7 @@ export default () => {
 
         setModalVisible(false);
         setOrderStatus('generated');
-        history.push('/bundle/pay/' + order?.id);
+        history.push('/bundle/shop/pay/' + order?.id);
     };
 
     if (bundle === undefined || bundle === null) {

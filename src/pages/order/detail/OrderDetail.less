@@ -1,0 +1,29 @@
+@import '~antd/es/style/themes/default.less';
+
+.title {
+    background: rgb(128, 242, 121);
+}
+
+.main {
+    :global {
+        .ant-descriptions-row > td {
+            padding-bottom: 8px;
+        }
+        .ant-page-header-heading-extra {
+            flex-direction: column;
+        }
+    }
+}
+
+.pageHeader {
+    :global {
+        .ant-page-header-heading-extra > * + * {
+            margin-left: 8px;
+        }
+    }
+    .moreInfo {
+        display: flex;
+        justify-content: space-between;
+        width: 200px;
+    }
+}

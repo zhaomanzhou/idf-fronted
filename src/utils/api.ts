@@ -43,9 +43,17 @@ const user_api = {
     getOrderListForCurUser: '/order/user/list',
     cancelOrder: '/order/cancel',
     checkIsPaid: '/order/check/isPaid',
+    getOrderListForAdmin: '/order/admin/list',
+    getOrderDetail: '/order/admin/detail',
 
     createPay: '/pay/create',
     getPayInfo: '/pay/order/info',
+    syncOrderPay: '/pay/sync',
+
+    queryOrderPay: '/pay/query/',
+    alipayQuery: '/pay/query',
+
+    getUserList: '/users/proxyinfo/list',
 };
 
 const file_api = {

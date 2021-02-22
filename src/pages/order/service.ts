@@ -27,8 +27,30 @@ const cancelOrder = async (orderId: number) => {
     });
 };
 
+const getOrderListAdmin = async () => {
+    return await request.get(api.user_api.getOrderListForAdmin, {
+        currentPage: 1,
+        pageSize: 4,
+    });
+};
+
+const getOrderDetail = async (orderId: number) => {
+    return await request.get(api.user_api.getOrderDetail, {
+        orderId: orderId,
+    });
+};
+
+const syncOrderPay = async (orderId: number) => {
+    return await request.post(api.user_api.syncOrderPay, {
+        orderId: orderId,
+    });
+};
+
 export default {
     createPay,
     getPayInfo,
     cancelOrder,
+    getOrderListAdmin,
+    getOrderDetail,
+    syncOrderPay,
 };

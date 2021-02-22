@@ -13,7 +13,7 @@ export default () => {
 
     useEffect(() => {
         let pathName = history.location.pathname;
-        const pathPrefix = '/bundle/pay/';
+        const pathPrefix = '/bundle/shop/pay/';
         let id = pathName.substring(pathName.indexOf(pathPrefix) + pathPrefix.length);
         if (id === null || id === '') {
             history.push('/order/my/list');
@@ -34,7 +34,7 @@ export default () => {
 
     useEffect(() => {
         let pathName = history.location.pathname;
-        const pathPrefix = '/bundle/pay/';
+        const pathPrefix = '/bundle/shop/pay/';
         let orderId = pathName.substring(pathName.indexOf(pathPrefix) + pathPrefix.length);
         let time = 0;
         let id = setInterval(() => {

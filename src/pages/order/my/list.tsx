@@ -4,23 +4,10 @@ import { Link } from 'umi';
 
 import request from '@/utils/request';
 import api from '@/utils/api';
-import { Button, Modal, Result, Space, Spin } from 'antd';
+import { Button, Modal, Result, Space, Spin, Tag } from 'antd';
 import styles from '@/pages/bundle/settlement/Settlement.less';
 import service from '@/pages/order/service';
-export interface OrderToUser {
-    id: number;
-    createTime: number;
-    payTime: object;
-    closeTime: object;
-    bundleId: number;
-    totalMonth: number;
-    orderName: string;
-    totalMoney: number;
-    payType: string;
-    tradeNo: string;
-    payLink: string;
-    orderStatus: string;
-}
+import { OrderToUser } from '@/pages/order/data';
 
 type CancelStatus = 'initial' | 'canceling' | 'success' | 'fail';
 export default () => {
@@ -45,7 +32,9 @@ export default () => {
 
     const cancelBtn = (record: OrderToUser) => {
         let shouldDisable: boolean = !(
-            record.orderStatus === 'WAIT_TO_SCAN' || record.orderStatus === 'WAIT_TO_PAY'
+            record.orderStatus === 'WAIT_TO_SCAN' ||
+            record.orderStatus === 'WAIT_TO_PAY' ||
+            record.orderStatus == 'INITIAL_CREATED'
         );
 
         if (shouldDisable) {
@@ -78,32 +67,25 @@ export default () => {
 
     const columns: ProColumns<OrderToUser>[] = [
         {
-            title: '订单id',
+            title: '订单号',
             dataIndex: 'id',
         },
         {
             title: '订单名称',
-            dataIndex: 'orderName',
+            dataIndex: 'bundleName',
         },
         {
             title: '创建时间',
             dataIndex: 'createTime',
             valueType: 'dateTime',
         },
-        {
-            title: '关闭时间',
-            dataIndex: 'closeTime',
-            valueType: 'dateTime',
-        },
-        {
-            title: '付款时间',
-            dataIndex: 'payTime',
-            valueType: 'dateTime',
-        },
 
         {
-            title: '套餐时长',
+            title: '购买时长',
             dataIndex: 'totalMonth',
+            render: (_, record) => {
+                return record.totalMonth + '月';
+            },
         },
         {
             title: '订单金额',
@@ -114,12 +96,27 @@ export default () => {
         },
 
         {
-            title: '支付宝交易号',
-            dataIndex: 'tradeNo',
-        },
-        {
             title: '订单状态',
             dataIndex: 'orderStatus',
+            render: (_, record) => {
+                switch (record.orderStatus) {
+                    case 'INITIAL_CREATED':
+                    case 'WAIT_TO_SCAN':
+                    case 'WAIT_TO_PAY': {
+                        return <Tag color="processing">未支付</Tag>;
+                    }
+                    case 'CANCEL_USER':
+                    case 'CANCEL_TIMEOUT': {
+                        return <Tag color="default">已取消</Tag>;
+                    }
+                    case 'SUCCESS': {
+                        return <Tag color="success">已支付</Tag>;
+                    }
+                    default: {
+                        return <Tag color="error">未知</Tag>;
+                    }
+                }
+            },
         },
         {
             title: '更多',

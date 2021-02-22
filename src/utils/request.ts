@@ -3,6 +3,7 @@ import { apiPortMap } from './api';
 import { message } from 'antd';
 import querystring from 'querystring';
 import { history } from 'umi';
+import qs from 'qs';
 
 const response_status = {
     success: 200,
@@ -62,6 +63,9 @@ const get = async (url: string, parmas: string | any) => {
         .get(url, {
             params: parmas,
             headers: { token: token },
+            paramsSerializer: (params) => {
+                return qs.stringify(params, { indices: false });
+            },
         })
         .then((res) => {
             return res;

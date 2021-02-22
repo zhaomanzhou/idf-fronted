@@ -71,6 +71,7 @@
         "react-dom": "^16.8.6",
         "react-fittext": "^1.0.0",
         "react-helmet-async": "^1.0.4",
+        "react-json-view": "^1.21.1",
         "react-markdown-editor-lite": "^1.2.2",
         "umi": "^3.2.14",
         "umi-request": "^1.0.8",

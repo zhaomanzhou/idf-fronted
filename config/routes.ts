@@ -49,7 +49,7 @@
                 routes: [
                     {
                         path: '/',
-                        redirect: '/bundle',
+                        redirect: '/user/manage',
                     },
 
                     {
@@ -60,44 +60,112 @@
                     },
 
                     {
-                        exact: true,
-                        path: '/admin/bundle/manager',
-                        name: '套餐管理',
+                        path: '/bundle/',
+                        name: '套餐',
                         icon: 'AppstoreOutlined',
-                        component: './bundle/manage/BundleManager',
-                    },
-
-                    {
-                        path: '/bundle',
-                        name: '套餐商店',
-                        icon: 'ShopOutlined',
-                        hideChildrenInMenu: true,
                         routes: [
                             {
-                                path: '/bundle',
-                                component: './bundle/list/BundleList',
-                            },
-                            {
-                                exact: false,
-                                path: '/bundle/settlement',
-                                component: './bundle/settlement/Settlement',
+                                exact: true,
+                                path: '/bundle/admin/manager',
+                                name: '套餐管理',
+                                icon: 'AppstoreOutlined',
+                                component: './bundle/manage/BundleManager',
                             },
 
                             {
-                                exact: false,
-                                path: '/bundle/pay',
-                                component: './bundle/pay/Pay',
+                                path: '/bundle/shop/',
+                                name: '套餐商店',
+                                icon: 'ShopOutlined',
+                                hideChildrenInMenu: true,
+                                routes: [
+                                    {
+                                        path: '/bundle/shop/',
+                                        component: './bundle/list/BundleList',
+                                    },
+                                    {
+                                        exact: false,
+                                        path: '/bundle/shop/settlement',
+                                        component: './bundle/settlement/Settlement',
+                                    },
+
+                                    {
+                                        exact: false,
+                                        path: '/bundle/shop/pay',
+                                        component: './bundle/pay/Pay',
+                                    },
+                                ],
                             },
                         ],
                     },
 
                     {
-                        path: '/order/my/list',
-                        name: '我的订单',
-                        icon: 'ShopOutlined',
-                        component: './order/my/list',
+                        path: '/order/',
+                        name: '订单',
+                        icon: 'CalendarOutlined',
+                        routes: [
+                            {
+                                path: '/order/my/list',
+                                name: '我的订单',
+                                icon: 'CalendarOutlined',
+                                component: './order/my/list',
+                            },
+
+                            {
+                                path: '/order/admin/',
+                                name: '订单管理',
+                                icon: 'ApartmentOutlined',
+                                hideChildrenInMenu: true,
+                                routes: [
+                                    {
+                                        path: '/order/admin/',
+                                        name: '订单管理',
+                                        icon: 'ApartmentOutlined',
+                                        component: './order/manage/OrderManage',
+                                    },
+                                    {
+                                        path: '/order/admin/detail/:id',
+                                        name: '订单详情',
+                                        icon: 'CalendarOutlined',
+                                        component: './order/detail/OrderDetail',
+                                    },
+                                ],
+                            },
+                        ],
                     },
 
+                    {
+                        path: '/tool/',
+                        name: '工具',
+                        icon: 'ToolOutlined',
+                        routes: [
+                            {
+                                path: '/tool/pay/sync',
+                                name: '支付查询',
+                                component: './tool/pay/PaySync',
+                                authority: ['admin'],
+                            },
+                        ],
+                    },
+                    {
+                        path: '/users/manage',
+                        name: '用户管理',
+                        icon: 'ToolOutlined',
+                        hideChildrenInMenu: true,
+                        routes: [
+                            {
+                                path: '/users/manage',
+                                name: '用户管理',
+                                icon: 'ToolOutlined',
+                                component: './users/manage/UserManage',
+                            },
+                            {
+                                path: '/users/manage/detail/:id',
+                                name: '用户管理',
+                                icon: 'ToolOutlined',
+                                component: './users/manage/detail/UserDetail',
+                            },
+                        ],
+                    },
                     {
                         path: '/notice/',
                         name: '公告',
@@ -139,20 +207,3 @@
         component: './404',
     },
 ];
-
-/*
-            {
-                exact: false,
-                path: '/bundle/settlement',
-                name: '套餐结算',
-                icon: 'ShoppingCartOutlined',
-                component: './bundle/settlement/Settlement',
-            },
-            {
-                exact: false,
-                path: '/order/pay',
-                name: '购买订单',
-                icon: 'ShoppingCartOutlined',
-                component: './order/pay/Pay',
-            },
- */

@@ -164,7 +164,7 @@ class Dashboard extends Component<AnalysisProps, AnalysisState> {
                     {/*    salesData={salesData}*/}
                     {/*    isActive={this.isActive}*/}
                     {/*    handleRangePickerChange={this.handleRangePickerChange}*/}
-                    {/*    loading={loading}*/}
+                    {/*    ModalLoading={ModalLoading}*/}
                     {/*    selectDate={this.selectDate}*/}
                     {/*  />*/}
                     {/*</Suspense>*/}
@@ -199,7 +199,7 @@ class Dashboard extends Component<AnalysisProps, AnalysisState> {
                     {/*<Suspense fallback={null}>*/}
                     {/*  <OfflineData*/}
                     {/*    activeKey={activeKey}*/}
-                    {/*    loading={loading}*/}
+                    {/*    ModalLoading={ModalLoading}*/}
                     {/*    offlineData={offlineData}*/}
                     {/*    offlineChartData={offlineChartData}*/}
                     {/*    handleTabChange={this.handleTabChange}*/}

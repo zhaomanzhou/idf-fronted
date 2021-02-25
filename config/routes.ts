@@ -49,7 +49,7 @@
                 routes: [
                     {
                         path: '/',
-                        redirect: '/user/manage',
+                        redirect: '/welcome',
                     },
 
                     {

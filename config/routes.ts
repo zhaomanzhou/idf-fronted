@@ -153,6 +153,12 @@
                         component: './online/Oneline',
                     },
                     {
+                        path: '/flow',
+                        name: '流量分析',
+                        icon: 'ToolOutlined',
+                        component: './flow/Flow',
+                    },
+                    {
                         path: '/users/manage',
                         name: '用户管理',
                         icon: 'ToolOutlined',

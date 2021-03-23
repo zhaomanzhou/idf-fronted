@@ -3,7 +3,7 @@ const servers = {
     aliyun: 'http://1.zmz121.cn',
 };
 
-let server_user = servers.local;
+let server_user = servers.aliyun;
 let server_file = servers.aliyun;
 
 if (process.env.NODE_ENV === 'production') {

@@ -1,22 +1,15 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useParams } from 'umi';
-import styles from './UserDetail.less';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Button, Card, Descriptions, Space, Statistic, Tag } from 'antd';
-import { ArrowUpOutlined, LikeOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Card, Descriptions, Divider, Empty, Space, Statistic, Tag, Tooltip } from 'antd';
+import ProxyInfo from '@/pages/users/manage/detail/componment/proxy/ProxyInfo';
+import BasicInformation from '@/pages/users/manage/detail/componment/basic/BasicInformation';
+import UpdateProxyInfo from '@/pages/users/manage/detail/componment/update/UpdateProxyInfo';
+import BundleRecharge from '@/pages/users/manage/detail/componment/recharge/BundleRecharge';
 
-const content = (
-    <Descriptions size="middle" column={2}>
-        <Descriptions.Item label="用户ID">123424</Descriptions.Item>
-        <Descriptions.Item label="用户状态">
-            <a>封禁</a>
-        </Descriptions.Item>
-        <Descriptions.Item label="用户邮箱">zmzsstreet@163.com</Descriptions.Item>
-        <Descriptions.Item label="用户设备">Android</Descriptions.Item>
-        <Descriptions.Item label="用户备注">微信风轻云淡</Descriptions.Item>
-        <Descriptions.Item label="创建时间">2020-02-12</Descriptions.Item>
-    </Descriptions>
-);
+const handleSave = (val) => {
+    console.log('Edited Value -> ', val);
+};
 
 export default () => {
     // @ts-ignore
@@ -24,7 +17,7 @@ export default () => {
 
     return (
         <PageContainer
-            content={content}
+            content={<BasicInformation />}
             tabList={[
                 {
                     tab: '基本信息',
@@ -36,19 +29,32 @@ export default () => {
                 },
             ]}
             extra={[
-                <Button key="3">修改信息</Button>,
-                <Button key="2">套餐充值</Button>,
-                <Button key="1" type="primary">
+                <UpdateProxyInfo key={'3'} />,
+
+                <BundleRecharge key={'2'} />,
+                <Button
+                    key="1"
+                    style={{ backgroundColor: '#dc3545', color: 'white', borderColor: '#dc3545' }}
+                >
                     删除
                 </Button>,
             ]}
             extraContent={
                 <Space size={24}>
-                    <Tag color="success">
-                        <Statistic value={'管理员'} prefix={<UserOutlined />} />
-                    </Tag>
+                    <Statistic title="角色" value="管理员" />
+                    <Statistic title="会员时长" value={568} prefix="" suffix={'天'} />
                 </Space>
             }
-        ></PageContainer>
+        >
+            <ProxyInfo />
+
+            <Card title="用户充值记录" style={{ marginTop: 24 }} bordered={false}>
+                <Empty />
+            </Card>
+
+            <Card title="用户流量记录" style={{ marginTop: 24 }} bordered={false}>
+                <Empty />
+            </Card>
+        </PageContainer>
     );
 };

@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { CSSProperties, Fragment } from 'react';
 import './PackageItem.css';
 import svg from '../../../../assets/price.svg';
 import { BundleItem } from '@/pages/bundle/manage/BundleManager';
 
 interface Props {
     bundle: BundleItem;
+    style: CSSProperties;
 }
 const index: React.FC<Props> = ({ bundle }) => {
     const totalDataFragment = (totalData: number) => {

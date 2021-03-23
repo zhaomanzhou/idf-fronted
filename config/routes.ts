@@ -147,6 +147,12 @@
                         ],
                     },
                     {
+                        path: '/online',
+                        name: '在线分析',
+                        icon: 'ToolOutlined',
+                        component: './online/Oneline',
+                    },
+                    {
                         path: '/users/manage',
                         name: '用户管理',
                         icon: 'ToolOutlined',

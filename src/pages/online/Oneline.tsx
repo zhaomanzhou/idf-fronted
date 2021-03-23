@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Space, Tag, Tooltip } from 'antd';
-import { DownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { Alert, Button, Space, Tag, Tooltip } from 'antd';
+import { CloudServerOutlined, DownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-table';
 import ProTable, { TableDropdown } from '@ant-design/pro-table';
 import request from 'umi-request';
@@ -49,10 +49,15 @@ updateTime: 1616322066757
 }
  */
 
-const colors = ['success', 'processing', 'error', 'warning'];
+const colors = ['success', 'info', 'error', 'warning'];
 const servers = [];
 
 const columns: ProColumns[] = [
+    {
+        dataIndex: 'index',
+        valueType: 'indexBorder',
+        width: 48,
+    },
     {
         title: '账号',
         render: (_, entity) => {
@@ -78,7 +83,7 @@ const columns: ProColumns[] = [
 
     {
         title: '在线服务器',
-        width: '30%',
+        width: '20%',
         key: 'option',
         valueType: 'option',
         render: (_, entity) => {
@@ -92,15 +97,15 @@ const columns: ProColumns[] = [
                             for (let i = 0; i < 4; i++) {
                                 sum += e.charCodeAt(i);
                             }
-                            console.log(sum);
                             return (
-                                <Tag
-                                    key={index}
-                                    color={colors[sum % colors.length]}
-                                    style={{ fontSize: 15 }}
-                                >
-                                    {e}
-                                </Tag>
+                                <Alert
+                                    key={e}
+                                    message={e}
+                                    type={colors[sum % colors.length]}
+                                    showIcon
+                                    icon={<CloudServerOutlined style={{ fontSize: 15 }} />}
+                                    style={{}}
+                                ></Alert>
                             );
                         })}
                     </Space>
@@ -108,18 +113,75 @@ const columns: ProColumns[] = [
             );
         },
     },
+    {
+        title: '连接数',
+        render: (_, entity) => {
+            let cahche = Object.keys(entity.connectionStat.cache);
+            return (
+                <div>
+                    <Space direction="vertical">
+                        {cahche.map((e, index) => {
+                            let sum = 0;
+                            for (let i = 0; i < 4; i++) {
+                                sum += e.charCodeAt(i);
+                            }
+                            return (
+                                <Alert
+                                    key={e}
+                                    message={entity.connectionStat.cache[e].count}
+                                    type={colors[sum % colors.length]}
+                                ></Alert>
+                            );
+                        })}
+                    </Space>
+                </div>
+            );
+
+            return entity.user.remark;
+        },
+    },
 
     {
-        title: '注册时间',
-        valueType: 'date',
-        dataIndex: 'createTime',
+        title: '会员时长',
+        dataIndex: 'vipTime',
+        sorter: (a, b) => a.vipTime - b.vipTime,
     },
     {
-        title: '过期时间',
-        valueType: 'date',
-        dataIndex: 'createTime',
+        title: '过期剩余',
+        dataIndex: 'expireTimeRemain',
+        sorter: (a, b) => a.expireTimeRemain - b.expireTimeRemain,
     },
 ];
+
+const handleDate = (res) => {
+    res.map((e) => {
+        e.id = e.account.accountNo;
+        e.createTime = e.user.createTime;
+        e.toDate = e.account.toDate;
+
+        //计算过期天数
+        const thatDay = new Date(e.account.toDate);
+        const thisDay = new Date();
+        let milliseconds = thatDay.getTime() - thisDay.getTime();
+        let days = Math.floor(milliseconds / (24 * 3600 * 1000));
+        e.expireTimeRemain = days;
+
+        //过期剩余
+        const createDay = new Date(e.user.createTime);
+        milliseconds = thisDay.getTime() - createDay.getTime();
+        days = Math.floor(milliseconds / (24 * 3600 * 1000));
+        e.vipTime = days;
+    });
+
+    //按服务器排序
+    res.sort((a, b) => {
+        let a1 = Object.keys(a.connectionStat.cache);
+        let b1 = Object.keys(b.connectionStat.cache);
+        return b1.length - a1.length;
+    });
+
+    return res;
+};
 
 export default () => {
     return (
@@ -130,42 +192,17 @@ export default () => {
                     'http://idofast.com:9091/report/detail/all?title=idoyuepao',
                 );
 
-                // console.log(params, sorter, filter);
+                res = handleDate(res);
 
-                // console.log(res)
-                res.map((e) => {
-                    e.id = e.account.accountNo;
-                    e.createTime = e.user.createTime;
-                    e.toDate = e.account.toDate;
-                });
-
-                res.sort((a, b) => {
-                    let a1 = Object.keys(a.connectionStat.cache);
-                    let b1 = Object.keys(b.connectionStat.cache);
-                    return b1.length - a1.length;
-                });
                 return Promise.resolve({
                     data: res,
                     success: true,
                 });
             }}
             rowKey="id"
-            pagination={{
-                showQuickJumper: true,
-            }}
             search={false}
             dateFormatter="string"
             headerTitle="表格标题"
-            toolBarRender={() => [
-                <Button key="show">查看日志</Button>,
-                <Button key="out">
-                    导出数据
-                    <DownOutlined />
-                </Button>,
-                <Button type="primary" key="primary">
-                    创建应用
-                </Button>,
-            ]}
         />
     );
 };

@@ -100,7 +100,7 @@ const columns: ProColumns[] = [
                             return (
                                 <Alert
                                     key={e}
-                                    message={e}
+                                    message={e.split('.')[0]}
                                     type={colors[sum % colors.length]}
                                     showIcon
                                     icon={<CloudServerOutlined style={{ fontSize: 15 }} />}

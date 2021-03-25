@@ -149,13 +149,13 @@
                     {
                         path: '/online',
                         name: '在线分析',
-                        icon: 'ToolOutlined',
+                        icon: 'CloudOutlined',
                         component: './online/Oneline',
                     },
                     {
                         path: '/flow',
                         name: '流量分析',
-                        icon: 'ToolOutlined',
+                        icon: 'DatabaseOutlined',
                         component: './flow/Flow',
                     },
                     {

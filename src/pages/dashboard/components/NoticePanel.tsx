@@ -50,12 +50,15 @@ const NoticePanel = ({ loading }: { loading: boolean }) => {
         >
             <ProList
                 metas={{
-                    title: {},
-                    type: {},
-                    avatar: {},
+                    title: {
+                        dataIndex: 'title',
+                    },
+                    avatar: {
+                        dataIndex: 'avatar',
+                    },
                 }}
+                rowKey="title"
                 dataSource={data}
-                renderItem={(item) => item}
             />
         </Card>
     );

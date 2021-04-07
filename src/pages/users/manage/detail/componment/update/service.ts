@@ -7,9 +7,11 @@ const updateUserProxy = async (values, id) => {
     if (values.speed.dataUnit === 'mbps') {
         speed = speed * 1024;
     }
-    let totalData = values.totalData.data;
+    let totalData = values.totalData.data * 1024;
+    console.log(values.totalData.dataUnit);
     if (values.totalData.dataUnit === 'GB') {
-        totalData = values.totalData.data * 1024;
+        console.log('------');
+        totalData = totalData * 1024;
     }
 
     let expireDate = moment(values.expireDate, 'YYYY-MM-DD HH:mm:ss').valueOf();

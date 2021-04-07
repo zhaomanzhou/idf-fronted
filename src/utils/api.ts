@@ -62,8 +62,11 @@ const user_api = {
     getUserList: '/users/proxy/list',
     getUserProxyInfoById: '/users/proxy/detail/',
     updateUserProxyInfo: '/users/proxy/update',
+    getSelfUserProxyInfo: '/users/proxy/detail',
 
     rechargeByPerson: '/pay/recharge/human',
+    getRechargeList: '/rechargelog/user/list',
+    getDataResetLog: '/data/resetlog',
 };
 
 const file_api = {

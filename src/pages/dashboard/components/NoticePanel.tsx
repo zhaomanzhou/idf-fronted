@@ -1,6 +1,5 @@
-import { Card, Col, Progress, Radio, Row, Table, Tag, Tooltip } from 'antd';
+import { Card, Radio } from 'antd';
 import React, { useState } from 'react';
-import { SearchDataType, VisitDataType } from '../data.d';
 
 import ProList from '@ant-design/pro-list';
 import styles from '../style.less';
@@ -24,7 +23,7 @@ const data = [
     avatar: 'https://gw.alipayobjects.com/zos/antfincdn/UCSiy1j6jx/xingzhuang.svg',
 }));
 
-const TopSearch = ({ loading }: { loading: boolean }) => {
+const NoticePanel = ({ loading }: { loading: boolean }) => {
     const [articleType, setArticleType] = useState('notice');
     const handleChangeArticleType = (e: RadioChangeEvent) => {
         setArticleType(e.target.value);
@@ -62,4 +61,4 @@ const TopSearch = ({ loading }: { loading: boolean }) => {
     );
 };
 
-export default TopSearch;
+export default NoticePanel;

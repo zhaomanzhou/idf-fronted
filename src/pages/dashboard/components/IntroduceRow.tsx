@@ -3,8 +3,15 @@ import { Col, Row, Tooltip } from 'antd';
 
 import React, { Fragment } from 'react';
 import numeral from 'numeral';
-import { ChartCard, MiniArea, MiniBar, MiniProgress, Field } from './Charts';
-import { VisitDataType } from '../data.d';
+import { UserProxyInfo } from '@/pages/users/manage/data';
+import _mock from '@/pages/dashboard/_mock';
+import { PageLoading } from '@ant-design/pro-layout';
+import utils from '@/utils/utils';
+import ChartCard from '@/pages/dashboard/components/Charts/ChartCard';
+import { Field } from 'ant-design-pro/lib/Charts';
+import MiniProgress from '@/pages/dashboard/components/Charts/MiniProgress';
+import MiniBar from '@/pages/dashboard/components/Charts/MiniBar';
+import MiniArea from '@/pages/dashboard/components/Charts/MiniArea';
 
 const topColResponsiveProps = {
     xs: 24,
@@ -15,95 +22,129 @@ const topColResponsiveProps = {
     style: { marginBottom: 24 },
 };
 
-const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: VisitDataType[] }) => (
+const IntroduceRow = ({
+    loading,
+    proxyInfo,
+}: {
+    loading: boolean;
+    proxyInfo: UserProxyInfo | undefined;
+}) => {
+    if (proxyInfo === undefined) {
+        return <PageLoading />;
+    }
+
+    let visitData = _mock['GET  /api/fake_chart_data'].visitData;
+
+    const dateDayDiff = (d1: number) => {
+        let expireDay = new Date(d1);
+        let today = new Date();
+        const diff = expireDay.getDay() - today.getDay();
+        return diff >= 0 ? diff : 0;
+    };
+
     // @ts-ignore
-    <Row gutter={24} type="flex">
-        <Col {...topColResponsiveProps}>
-            <ChartCard
-                bordered={false}
-                loading={loading}
-                title={'会员时长'}
-                action={
-                    <Tooltip title={'Introduce'}>
-                        <InfoCircleOutlined />
-                    </Tooltip>
-                }
-                total={'45 天'}
-                footer={<Field label={'到期时间'} value={'2020-12-30'} />}
-                contentHeight={46}
-            >
-                <MiniArea color="#975FE4" data={visitData} />
-            </ChartCard>
-        </Col>
-
-        <Col {...topColResponsiveProps}>
-            <ChartCard
-                bordered={false}
-                loading={loading}
-                title={'流量剩余'}
-                action={
-                    <Tooltip title={'总流量1024GB'}>
-                        <InfoCircleOutlined />
-                    </Tooltip>
-                }
-                total={numeral(6560).format('0,0') + ' GB'}
-                footer={
-                    <Fragment>
-                        <Field label={'总流量'} value={'1024GB'} style={{ display: 'inline' }} />{' '}
-                        &nbsp;&nbsp;
+    return (
+        <Row gutter={24}>
+            <Col {...topColResponsiveProps}>
+                <ChartCard
+                    bordered={false}
+                    loading={loading}
+                    title={'会员剩余时长'}
+                    action={
+                        <Tooltip title={'Introduce'}>
+                            <InfoCircleOutlined />
+                        </Tooltip>
+                    }
+                    total={dateDayDiff(proxyInfo.expireDate) + ' 天'}
+                    footer={
                         <Field
-                            label={'重置日期'}
-                            value="2020-12-24"
-                            style={{ display: 'inline' }}
+                            label={'到期时间'}
+                            value={utils.timestampToDateStr(proxyInfo.expireDate)}
                         />
-                    </Fragment>
-                }
-                contentHeight={46}
-            >
-                <MiniProgress percent={78} strokeWidth={8} target={80} color="#13C2C2" />
-            </ChartCard>
-        </Col>
+                    }
+                    contentHeight={46}
+                >
+                    <MiniArea color="#975FE4" data={visitData} />
+                </ChartCard>
+            </Col>
 
-        <Col {...topColResponsiveProps}>
-            <ChartCard
-                bordered={false}
-                title={'最大连接数'}
-                action={
-                    <Tooltip title={'Introduce'}>
-                        <InfoCircleOutlined />
-                    </Tooltip>
-                }
-                loading={loading}
-                total={'200 / 512'}
-                footer={'VIP等级 3 限速 150Mbps'}
-                contentHeight={46}
-            >
-                <MiniProgress percent={78} strokeWidth={8} target={80} color="#ffc473" />
-            </ChartCard>
-        </Col>
+            <Col {...topColResponsiveProps}>
+                <ChartCard
+                    bordered={false}
+                    loading={loading}
+                    title={'流量剩余'}
+                    action={
+                        <Tooltip title={'总流量' + proxyInfo.totalData / (1024 * 1024.0) + 'GB'}>
+                            <InfoCircleOutlined />
+                        </Tooltip>
+                    }
+                    total={
+                        numeral(
+                            (proxyInfo.totalData - proxyInfo.usedData) / (1024 * 1024.0),
+                        ).format('0,0') + ' GB'
+                    }
+                    footer={
+                        <Fragment>
+                            <Field
+                                label={'总流量'}
+                                value={proxyInfo.totalData / (1024 * 1024.0) + 'GB'}
+                                style={{ display: 'inline' }}
+                            />{' '}
+                            &nbsp;&nbsp;
+                            <Field
+                                label={'重置日期'}
+                                value={utils.timestampToDateStr(proxyInfo.nextSettleDate)}
+                                style={{ display: 'inline' }}
+                            />
+                        </Fragment>
+                    }
+                    contentHeight={46}
+                >
+                    <MiniProgress percent={78} strokeWidth={8} target={80} color="#13C2C2" />
+                </ChartCard>
+            </Col>
 
-        <Col {...topColResponsiveProps}>
-            <ChartCard
-                loading={loading}
-                bordered={false}
-                title={'邀请用户数'}
-                action={
-                    <Tooltip title={'Introduce'}>
-                        <InfoCircleOutlined />
-                    </Tooltip>
-                }
-                total="5 个"
-                footer={
-                    <div style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
-                        已获得奖励15天会员奖励
-                    </div>
-                }
-                contentHeight={46}
-            >
-                <MiniBar color="#1890ff" data={visitData} />
-            </ChartCard>
-        </Col>
-    </Row>
-);
+            <Col {...topColResponsiveProps}>
+                <ChartCard
+                    bordered={false}
+                    title={'服务器等级'}
+                    action={
+                        <Tooltip title={'Introduce'}>
+                            <InfoCircleOutlined />
+                        </Tooltip>
+                    }
+                    loading={loading}
+                    total={'VIP' + proxyInfo.level}
+                    footer={'不限个人设备 不限速'}
+                    contentHeight={46}
+                >
+                    <MiniProgress percent={78} strokeWidth={8} target={80} color="#ffc473" />
+                </ChartCard>
+            </Col>
+
+            <Col {...topColResponsiveProps}>
+                <ChartCard
+                    loading={loading}
+                    bordered={false}
+                    title={'邀请用户数'}
+                    action={
+                        <Tooltip title={'Introduce'}>
+                            <InfoCircleOutlined />
+                        </Tooltip>
+                    }
+                    total="0 个"
+                    footer={
+                        <div style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
+                            已获得0天会员奖励
+                        </div>
+                    }
+                    contentHeight={46}
+                >
+                    <MiniBar color="#1890ff" data={visitData} />
+                </ChartCard>
+            </Col>
+        </Row>
+    );
+};
 
 export default IntroduceRow;

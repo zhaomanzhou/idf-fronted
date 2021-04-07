@@ -9,6 +9,8 @@ import BundleRecharge from '@/pages/users/manage/detail/componment/recharge/Bund
 import request from '@/utils/request';
 import api from '@/utils/api';
 import { User, UserProxyInfo } from '@/pages/users/manage/data';
+import RechargeLog from '@/pages/users/manage/detail/componment/rechargelog/RechargeLog';
+import DataResetLog from '@/pages/users/manage/detail/componment/datalog/DataResetLog';
 
 const handleSave = (val) => {
     console.log('Edited Value -> ', val);
@@ -86,11 +88,11 @@ export default () => {
             <ProxyInfo proxyInfo={proxyInfo} />
 
             <Card title="用户充值记录" style={{ marginTop: 24 }} bordered={false}>
-                <Empty />
+                <RechargeLog proxyInfo={proxyInfo} />
             </Card>
 
             <Card title="用户流量记录" style={{ marginTop: 24 }} bordered={false}>
-                <Empty />
+                <DataResetLog proxyInfo={proxyInfo} />
             </Card>
         </PageContainer>
     );

@@ -49,3 +49,29 @@ export interface UserProxyInfo {
     totalActiveDay: number;
     namespace: number;
 }
+
+export interface RechargeLog {
+    id: number;
+    createTime: number;
+    updateTime: number;
+    userId: number;
+    orderId: number;
+    humanRecharge: boolean;
+    bundleId: number;
+    bundleName: string;
+    duration: number;
+    rechargeNum: number;
+    prevExpireDate: number;
+    prevBundleId: number;
+    prevBundleName: string;
+}
+
+export interface DataResetLog {
+    id: number;
+    createTime: number;
+    updateTime: number;
+    userId: number;
+    startDate: number;
+    endDate: number;
+    usedData: number;
+}

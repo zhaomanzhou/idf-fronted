@@ -25,19 +25,7 @@ const data1 = [
     },
 ];
 
-const ProportionSales = ({
-    dropdownGroup,
-    salesType,
-    loading,
-    salesPieData,
-    handleChangeSalesType,
-}: {
-    loading: boolean;
-    dropdownGroup: React.ReactNode;
-    salesType: 'all' | 'online' | 'stores';
-    salesPieData: VisitDataType[];
-    handleChangeSalesType?: (e: RadioChangeEvent) => void;
-}) => (
+const SubscriptionPanel = ({ loading }: { loading: boolean }) => (
     <Card
         loading={loading}
         className={styles.salesCard}
@@ -70,4 +58,4 @@ const ProportionSales = ({
     </Card>
 );
 
-export default ProportionSales;
+export default SubscriptionPanel;

@@ -1,8 +1,8 @@
 import { Chart, Geom, Tooltip } from 'bizcharts';
 
 import React from 'react';
-import autoHeight from '../autoHeight';
 import styles from '../index.less';
+import autoHeight from '@/pages/dashboard/components/Charts/autoHeight';
 
 export interface MiniBarProps {
     color?: string;

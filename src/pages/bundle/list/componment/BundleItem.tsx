@@ -34,7 +34,7 @@ const index: React.FC<Props> = ({ bundle }) => {
                         {bundle.price / 100.0}
                         <span className="pricing-period">/月</span>
                     </div>
-                    <h3 className="pricing-title">基础版</h3>
+                    <h3 className="pricing-title">{bundle.name}</h3>
                 </div>
                 <ul className="pricing-feature-list">
                     <li className="pricing-feature">

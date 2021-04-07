@@ -36,7 +36,7 @@ export default (props: ProxyInfoProps) => {
                 <Col span={6}>
                     <Statistic
                         title="流量剩余"
-                        value={((info.totalData - info.usedData) / 1024.0).toFixed(2)}
+                        value={((info.totalData - info.usedData) / (1024 * 1024.0)).toFixed(2)}
                         suffix={' GB'}
                     />
                 </Col>
@@ -61,7 +61,7 @@ export default (props: ProxyInfoProps) => {
 
             <Descriptions style={{ marginTop: 20 }} column={4}>
                 <Descriptions.Item label="总流量">
-                    {(info.totalData / 1024.0).toFixed(2)} GB
+                    {(info.totalData / (1024 * 1024.0)).toFixed(2)} GB
                 </Descriptions.Item>
                 <Descriptions.Item label="到期时间">
                     {utils.stringfyV2(info.expireDate)}
@@ -71,7 +71,7 @@ export default (props: ProxyInfoProps) => {
                 </Descriptions.Item>
                 <Descriptions.Item label="当前套餐">{info.bundleName}</Descriptions.Item>
                 <Descriptions.Item label="已用流量">
-                    {(info.usedData / 1024.0).toFixed(2)}G
+                    {(info.usedData / (1024 * 1024.0)).toFixed(2)}G
                 </Descriptions.Item>
                 <Descriptions.Item label="命名空间">{info.namespace}</Descriptions.Item>
                 <Descriptions.Item label="最大连接数">{info.maxConnection}</Descriptions.Item>

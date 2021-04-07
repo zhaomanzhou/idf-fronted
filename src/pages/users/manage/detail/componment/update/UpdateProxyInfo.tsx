@@ -58,7 +58,7 @@ export default (props: UpdateProxyInfoProps) => {
                     dataUnit: 'kbps',
                 },
                 totalData: {
-                    data: info.totalData,
+                    data: info.totalData / 1024,
                     dataUnit: 'MB',
                 },
                 extraActiveDay: '',

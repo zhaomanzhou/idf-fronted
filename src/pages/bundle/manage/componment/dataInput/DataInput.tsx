@@ -4,22 +4,21 @@ import { Form, Input, Select, Button } from 'antd';
 
 const { Option } = Select;
 
-type DataUnit = 'MB' | 'GB';
-
 interface DataValue {
     data?: number;
-    dataUnit?: DataUnit;
+    dataUnit?: string;
 }
 
 interface DataInputProps {
     value?: DataValue;
+    dataUnitList: string[];
     onChange?: (value: DataValue) => void;
 }
-export const DataInput: React.FC<DataInputProps> = ({ value = {}, onChange }) => {
+export const DataInput: React.FC<DataInputProps> = ({ value = {}, onChange, dataUnitList }) => {
     const [data, setData] = useState(0);
-    const [dataUnit, setDataUnit] = useState<DataUnit>('GB');
+    const [dataUnit, setDataUnit] = useState<string>(dataUnitList[0]);
 
-    const triggerChange = (changedValue: { data?: number; dataUnit?: DataUnit }) => {
+    const triggerChange = (changedValue: { data?: number; dataUnit?: string }) => {
         if (onChange) {
             onChange({ data, dataUnit, ...value, ...changedValue });
         }
@@ -36,7 +35,7 @@ export const DataInput: React.FC<DataInputProps> = ({ value = {}, onChange }) =>
         triggerChange({ data: newData });
     };
 
-    const onDataUnitChange = (newUnit: DataUnit) => {
+    const onDataUnitChange = (newUnit: string) => {
         if (!('dataUnit' in value)) {
             setDataUnit(newUnit);
         }
@@ -56,8 +55,13 @@ export const DataInput: React.FC<DataInputProps> = ({ value = {}, onChange }) =>
                 style={{ width: 80, margin: '0 8px' }}
                 onChange={onDataUnitChange}
             >
-                <Option value="MB">MB</Option>
-                <Option value="GB">GB</Option>
+                {dataUnitList.map((value, index) => {
+                    return (
+                        <Option value={value} key={index}>
+                            {value}
+                        </Option>
+                    );
+                })}
             </Select>
         </span>
     );

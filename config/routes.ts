@@ -150,13 +150,13 @@
                         path: '/online',
                         name: '在线分析',
                         icon: 'CloudOutlined',
-                        component: './online/Oneline',
+                        component: './AoldSystem/online/Oneline',
                     },
                     {
                         path: '/flow',
                         name: '流量分析',
                         icon: 'DatabaseOutlined',
-                        component: './flow/Flow',
+                        component: './AoldSystem/flow/Flow',
                     },
                     {
                         path: '/users/manage',

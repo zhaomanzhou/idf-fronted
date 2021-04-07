@@ -104,7 +104,7 @@ export default ({ action }) => {
                 </Form.Item>
 
                 <Form.Item label="套餐流量" name="totalData">
-                    <DataInput />
+                    <DataInput dataUnitList={['MB', 'GB']} />
                 </Form.Item>
 
                 <Form.Item label="最大速度">

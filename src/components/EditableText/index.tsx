@@ -38,7 +38,9 @@ const EditableText = (props: EditTextProps) => {
                 style={{ textAlign: 'center' }}
                 onBlur={(e) => {
                     e.preventDefault();
-                    cancelModify();
+                    // if(toggle) {
+                    //     cancelModify();
+                    // }
                 }}
                 hidden={!toggle}
             >

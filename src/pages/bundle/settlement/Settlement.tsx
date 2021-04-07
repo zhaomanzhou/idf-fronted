@@ -18,7 +18,11 @@ interface PayItem {
     id: number;
 }
 
-type OrderStatus = 'initial' | 'generating_order' | 'generated';
+type OrderStatus = 'initial' | 'generating_order' | 'generated' | 'invalid_operation';
+
+const err_msg = {
+    __html: '购买的套餐非当前使用套餐，如需更换请联系管理员<br />（更新套餐功能正在开发中...）',
+};
 
 export default () => {
     const [totalMonth, setTotalMonth] = useState<number>(1);
@@ -68,11 +72,16 @@ export default () => {
         setModalVisible(true);
         setOrderStatus('generating_order');
         // @ts-ignore
-        service.createOrder(bundle?.id, totalMonth, curPayType).then((res) => {
-            setOrderStatus('generated');
-            // @ts-ignore
-            setOrder(res);
-        });
+        service
+            .createOrder(bundle?.id, totalMonth, curPayType)
+            .then((res) => {
+                setOrderStatus('generated');
+                // @ts-ignore
+                setOrder(res);
+            })
+            .catch((err) => {
+                setOrderStatus('invalid_operation');
+            });
     };
 
     /**
@@ -150,12 +159,15 @@ export default () => {
                 </Row>
 
                 <Row>
-                    <Col span={16}>
+                    <Col span={8}>
                         <div>
-                            <PackageItem bundle={bundle} />
+                            <PackageItem
+                                bundle={bundle}
+                                style={{ width: 22, backgroundColor: 'black' }}
+                            />
                         </div>
                     </Col>
-                    <Col span={8}>
+                    <Col span={16}>
                         <div style={{ textAlign: 'right' }}>
                             <ResultSub
                                 label={'套餐名称'}
@@ -205,6 +217,13 @@ export default () => {
                                 立即支付
                             </Button>,
                         ]}
+                    />
+                )}
+                {orderStatus === 'invalid_operation' && (
+                    <Result
+                        status="error"
+                        title="生成订单失败"
+                        subTitle={<div dangerouslySetInnerHTML={err_msg} />}
                     />
                 )}
                 {orderStatus === 'generating_order' && (

@@ -71,7 +71,7 @@ export default ({ action }) => {
                     name="totalData"
                     initialValue={{ data: 100, dataUnit: 'GB' }}
                 >
-                    <DataInput />
+                    <DataInput dataUnitList={['MB', 'GB']} />
                 </Form.Item>
 
                 <Form.Item label="最大速度">

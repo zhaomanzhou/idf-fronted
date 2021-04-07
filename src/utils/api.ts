@@ -3,7 +3,7 @@ const servers = {
     aliyun: 'http://1.zmz121.cn',
 };
 
-let server_user = servers.aliyun;
+let server_user = servers.local;
 let server_file = servers.aliyun;
 
 if (process.env.NODE_ENV === 'production') {
@@ -53,7 +53,17 @@ const user_api = {
     queryOrderPay: '/pay/query/',
     alipayQuery: '/pay/query',
 
-    getUserList: '/users/proxyinfo/list',
+    getUserDetailById: '/user/detail/id',
+    updateUserRemark: '/user/update/remark',
+    updateUserStatus: '/user/status/update',
+    getDeviceList: '/user/device/list',
+    updateDeviceList: '/user/update/device',
+
+    getUserList: '/users/proxy/list',
+    getUserProxyInfoById: '/users/proxy/detail/',
+    updateUserProxyInfo: '/users/proxy/update',
+
+    rechargeByPerson: '/pay/recharge/human',
 };
 
 const file_api = {

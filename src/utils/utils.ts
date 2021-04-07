@@ -46,7 +46,19 @@ export const timestampToDateStr = (timestamp: number | string) => {
     if (!timestamp) {
         return;
     }
-    let d = new Date(timestamp); //根据时间戳生成的时间对象
-    let date = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
-    return date;
+    return moment(timestamp).format('YYYY-MM-DD');
+};
+
+export const stringfyV2 = (timestamp: number | string) => {
+    if (!timestamp) {
+        return;
+    }
+    // @ts-ignore
+    return moment(timestamp).format('YYYY-MM-DD hh:mm');
+};
+
+export default {
+    timestampToStr,
+    timestampToDateStr,
+    stringfyV2,
 };

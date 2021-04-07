@@ -133,13 +133,13 @@
 
 .pricing-palden .pricing-feature-list {
     margin: 0;
-    padding: 0.25em 0 2.5em;
+    padding: 0.25em 0 1.5em;
     list-style: none;
     text-align: center;
 }
 
 .pricing-palden .pricing-feature {
-    padding: 0.7em 0;
+    padding: 0.5em 0;
 }
 
 .pricing-palden .pricing-action {

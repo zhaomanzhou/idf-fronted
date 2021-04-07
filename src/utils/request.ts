@@ -81,6 +81,9 @@ const post = async (url: string, params: string | any) => {
     return await axios
         .post(url, querystring.stringify(params), {
             headers: { token: token },
+            paramsSerializer: (params) => {
+                return qs.stringify(params, { indices: false });
+            },
         })
         .then((res) => {
             return res;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, message, Form, DatePicker, Input } from 'antd';
 import ProForm, {
     ModalForm,
@@ -8,57 +8,105 @@ import ProForm, {
     ProFormDateTimePicker,
 } from '@ant-design/pro-form';
 import { DataInput } from '@/pages/bundle/manage/componment/dataInput/DataInput';
+import { UserProxyInfo } from '@/pages/users/manage/data';
+import moment from 'moment';
+import service from '@/pages/users/manage/detail/componment/update/service';
 
-const waitTime = (time: number = 100) => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(true);
-        }, time);
-    });
-};
+export interface UpdateProxyInfoProps {
+    proxyInfo: UserProxyInfo;
+    successNotify: () => void;
+}
 
-export default () => {
+export default (props: UpdateProxyInfoProps) => {
+    let info = props.proxyInfo;
+
+    const [visible, setVisible] = useState<boolean>(false);
+    // @ts-ignore
     return (
         <ModalForm
             title="信息修改"
-            trigger={<Button type={'primary'}>修改信息</Button>}
-            modalProps={{
-                onCancel: () => console.log('run'),
-            }}
+            trigger={
+                <Button
+                    onClick={() => {
+                        setVisible(true);
+                    }}
+                    type={'primary'}
+                >
+                    修改信息
+                </Button>
+            }
             onFinish={async (values) => {
-                await waitTime(2000);
-                console.log(values.name);
+                await service.updateUserProxy(values, info.id);
                 message.success('提交成功');
-                return true;
+                props.successNotify();
+                setVisible(false);
+                return;
             }}
+            modalProps={{
+                onCancel: () => {
+                    setVisible(false);
+                },
+            }}
+            visible={visible}
             width={650}
             layout={'horizontal'}
             labelCol={{ span: 4 }}
             wrapperCol={{ span: 14 }}
+            initialValues={{
+                speed: {
+                    data: info.speed,
+                    dataUnit: 'kbps',
+                },
+                totalData: {
+                    data: info.totalData,
+                    dataUnit: 'MB',
+                },
+                extraActiveDay: '',
+                level: info.level,
+            }}
         >
-            <ProFormDateTimePicker name="nextSettleDay" label="下个重置日期" />
+            <ProFormDateTimePicker
+                initialValue={moment(info.nextSettleDate)}
+                name="nextSettleDate"
+                label="下个重置日期"
+            />
 
-            <ProFormDateTimePicker name="expireTime" label="过期时间" />
+            <ProFormDateTimePicker
+                initialValue={moment(info.expireDate)}
+                name="expireDate"
+                label="过期时间"
+            />
 
-            <Form.Item label="添加有效时间" name="addValidDay">
-                <Input placeholder="请输入要添加的天数" suffix="天" style={{ width: 200 }} />
+            <Form.Item label="添加有效时间" name="extraActiveDay">
+                <Input
+                    placeholder="请输入要添加的天数"
+                    suffix="天"
+                    style={{ width: 200 }}
+                    name="extraActiveDay"
+                />
             </Form.Item>
 
-            <ProFormText width="md" name="maxConnectionNum" label="最大连接数" />
+            <ProFormText
+                width="sm"
+                name="maxConnection"
+                label="最大连接数"
+                initialValue={info.maxConnection}
+            />
 
             <Form.Item label="限速" name="speed">
-                <DataInput />
+                <DataInput dataUnitList={['kbps', 'mbps']} />
             </Form.Item>
 
-            <Form.Item label="流量" name="data">
-                <DataInput />
+            <Form.Item label="流量" name="totalData">
+                <DataInput dataUnitList={['MB', 'GB']} />
             </Form.Item>
 
             <ProFormSelect
-                width="md"
+                width="sm"
                 name="level"
                 label="账号等级"
                 valueEnum={{
+                    0: 'VIP0',
                     1: 'VIP1',
                     2: 'VIP2',
                     3: 'VIP3',

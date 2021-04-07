@@ -1,11 +1,14 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'umi';
-import { PageContainer } from '@ant-design/pro-layout';
+import { PageContainer, PageLoading } from '@ant-design/pro-layout';
 import { Button, Card, Descriptions, Divider, Empty, Space, Statistic, Tag, Tooltip } from 'antd';
 import ProxyInfo from '@/pages/users/manage/detail/componment/proxy/ProxyInfo';
 import BasicInformation from '@/pages/users/manage/detail/componment/basic/BasicInformation';
 import UpdateProxyInfo from '@/pages/users/manage/detail/componment/update/UpdateProxyInfo';
 import BundleRecharge from '@/pages/users/manage/detail/componment/recharge/BundleRecharge';
+import request from '@/utils/request';
+import api from '@/utils/api';
+import { User, UserProxyInfo } from '@/pages/users/manage/data';
 
 const handleSave = (val) => {
     console.log('Edited Value -> ', val);
@@ -15,9 +18,32 @@ export default () => {
     // @ts-ignore
     const id = useParams().id;
 
+    const [user, setUser] = useState<User>();
+    const [proxyInfo, setProxyInfo] = useState<UserProxyInfo>();
+
+    const [update, setUpdate] = useState<boolean>(true);
+
+    useEffect(() => {
+        request.get(api.user_api.getUserDetailById, { id }).then((response) => {
+            // @ts-ignore
+            setUser(response);
+        });
+    }, [id, update]);
+
+    useEffect(() => {
+        request.get_restful(api.user_api.getUserProxyInfoById, id).then((response) => {
+            // @ts-ignore
+            setProxyInfo(response);
+        });
+    }, [id, update]);
+
+    if (!user || !proxyInfo) {
+        return <PageLoading />;
+    }
+
     return (
         <PageContainer
-            content={<BasicInformation />}
+            content={<BasicInformation user={user} />}
             tabList={[
                 {
                     tab: '基本信息',
@@ -29,9 +55,15 @@ export default () => {
                 },
             ]}
             extra={[
-                <UpdateProxyInfo key={'3'} />,
+                <UpdateProxyInfo
+                    key={'3'}
+                    proxyInfo={proxyInfo}
+                    successNotify={() => {
+                        setUpdate(!update);
+                    }}
+                />,
 
-                <BundleRecharge key={'2'} />,
+                <BundleRecharge key={'2'} proxyInfo={proxyInfo} />,
                 <Button
                     key="1"
                     style={{ backgroundColor: '#dc3545', color: 'white', borderColor: '#dc3545' }}
@@ -41,12 +73,17 @@ export default () => {
             ]}
             extraContent={
                 <Space size={24}>
-                    <Statistic title="角色" value="管理员" />
-                    <Statistic title="会员时长" value={568} prefix="" suffix={'天'} />
+                    <Statistic title="角色" value={user.role == 'admin' ? '管理员' : '平民'} />
+                    <Statistic
+                        title="会员时长"
+                        value={proxyInfo.totalActiveDay}
+                        prefix=""
+                        suffix={'天'}
+                    />
                 </Space>
             }
         >
-            <ProxyInfo />
+            <ProxyInfo proxyInfo={proxyInfo} />
 
             <Card title="用户充值记录" style={{ marginTop: 24 }} bordered={false}>
                 <Empty />

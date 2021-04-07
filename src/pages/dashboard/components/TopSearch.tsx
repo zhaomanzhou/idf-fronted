@@ -24,20 +24,9 @@ const data = [
     avatar: 'https://gw.alipayobjects.com/zos/antfincdn/UCSiy1j6jx/xingzhuang.svg',
 }));
 
-const TopSearch = ({
-    loading,
-    visitData2,
-    searchData,
-    dropdownGroup,
-}: {
-    loading: boolean;
-    visitData2: VisitDataType[];
-    dropdownGroup: React.ReactNode;
-    searchData: SearchDataType[];
-}) => {
+const TopSearch = ({ loading }: { loading: boolean }) => {
     const [articleType, setArticleType] = useState('notice');
     const handleChangeArticleType = (e: RadioChangeEvent) => {
-        console.log(e.target.value);
         setArticleType(e.target.value);
     };
 
@@ -60,7 +49,7 @@ const TopSearch = ({
                 height: '100%',
             }}
         >
-            <ProList<any>
+            <ProList
                 metas={{
                     title: {},
                     type: {},

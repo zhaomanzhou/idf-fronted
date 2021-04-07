@@ -5,7 +5,7 @@ import ProTable, { TableDropdown } from '@ant-design/pro-table';
 import { SortOrder } from 'antd/lib/table/interface';
 import request from '@/utils/request';
 import api from '@/utils/api';
-import { UserProxyInfo } from '@/pages/users/manage/data';
+import { UserInfoLite } from '@/pages/users/manage/data';
 import { timestampToDateStr, timestampToStr } from '@/utils/utils';
 import styles from '@/pages/users/manage/UserManage.less';
 import { Link } from 'umi';
@@ -16,7 +16,7 @@ const isExpired = (expireDate: number) => {
 };
 
 const index = () => {
-    const columns: ProColumns<UserProxyInfo>[] = [
+    const columns: ProColumns<UserInfoLite>[] = [
         {
             title: '用户信息',
             dataIndex: 'id',
@@ -32,6 +32,7 @@ const index = () => {
                     </div>
                 );
             },
+            width: '18%',
         },
 
         {
@@ -51,29 +52,30 @@ const index = () => {
                     </div>
                 );
             },
+            width: '18%',
         },
 
         {
             title: '套餐名称',
             dataIndex: 'packageName',
             key: 'packageName',
-            width: 180,
             render: (_, record) => {
                 return (
                     <Fragment>
                         <div className={record.status === 'NORMAL' ? '' : styles.grayText}>
                             <div>
-                                <span className={styles.alignText2}>套餐名称</span>:{' '}
-                                {record.packageName}
+                                {/*<span className={styles.alignText2}>套餐名称</span>:{' '}*/}
+                                {record.bundleName}
                             </div>
                             <div>
-                                <span className={styles.alignText2}>开通天数</span>:{' '}
-                                {record.totalActiveDay}
+                                {/*<span className={styles.alignText2}>开通天数</span>:{' '}*/}
+                                已开通{record.totalActiveDay}天会员
                             </div>
                         </div>
                     </Fragment>
                 );
             },
+            width: '18%',
         },
         {
             title: '流量',
@@ -113,7 +115,7 @@ const index = () => {
     ];
 
     const dataRequest = async (
-        params: UserProxyInfo & {
+        params: UserInfoLite & {
             pageSize?: number;
             current?: number;
             keyword?: string;

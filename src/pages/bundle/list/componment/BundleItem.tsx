@@ -55,14 +55,25 @@ const index: React.FC<Props> = ({ bundle }) => {
                         )}
                     </li>
                     <li className="pricing-feature">
-                        <span className={'bundle-number pricing-feature'}>
-                            {bundle.maxConnection}
-                        </span>
-                        个最高TCP连接
+                        {/*<span className={'bundle-number pricing-feature'}>*/}
+                        {/*    {bundle.maxConnection}*/}
+                        {/*</span>*/}
+                        不限个人设备(共号封禁)
                     </li>
                     <li className="pricing-feature">
-                        <span className={'bundle-number pricing-feature'}>所有的</span>服务器资源
+                        <span className={'bundle-number pricing-feature'}>V{bundle.level}</span>{' '}
+                        及以下的服务器
                     </li>
+
+                    {bundle.description &&
+                        bundle.description.split(',').map((value, index1) => {
+                            return (
+                                <li className="pricing-feature" key={index1}>
+                                    <span className={'bundle-number pricing-feature'}>{value}</span>
+                                </li>
+                            );
+                        })}
+
                     <li className="pricing-feature">
                         <span className={'bundle-number pricing-feature'}>客服支持</span>
                     </li>

@@ -5,6 +5,8 @@ interface PeriodChoiceProps {
     content: React.ReactNode;
     chosen: boolean;
     onClick: () => void;
+    className?: string;
+    style?: React.CSSProperties;
 }
 
 export default (props: PeriodChoiceProps) => {

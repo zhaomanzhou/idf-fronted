@@ -22,7 +22,7 @@ export default () => {
                     {bundleList.map((value, index) => {
                         return (
                             <Col xs={{ span: 24 }} lg={{ span: 7, offset: 1 }} key={index}>
-                                <PackageItem bundle={value} />
+                                <PackageItem bundle={value} key={index} />
                             </Col>
                         );
                     })}

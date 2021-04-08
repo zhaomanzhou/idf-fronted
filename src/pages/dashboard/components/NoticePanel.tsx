@@ -24,26 +24,11 @@ const data = [
 }));
 
 const NoticePanel = ({ loading }: { loading: boolean }) => {
-    const [articleType, setArticleType] = useState('notice');
-    const handleChangeArticleType = (e: RadioChangeEvent) => {
-        setArticleType(e.target.value);
-    };
-
     return (
         <Card
             loading={loading}
             bordered={false}
             title={'最新公告'}
-            extra={
-                <div className={styles.salesCardExtra}>
-                    <div>
-                        <Radio.Group value={articleType} onChange={handleChangeArticleType}>
-                            <Radio.Button value="notice">公告</Radio.Button>
-                            <Radio.Button value="instruction">安装教程</Radio.Button>
-                        </Radio.Group>
-                    </div>
-                </div>
-            }
             style={{
                 height: '100%',
             }}

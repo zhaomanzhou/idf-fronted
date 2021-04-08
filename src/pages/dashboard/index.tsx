@@ -10,6 +10,10 @@ import request from '@/utils/request';
 import { UserProxyInfo } from '@/pages/users/manage/data';
 import NoticePanel from '@/pages/dashboard/components/NoticePanel';
 import SubscriptionPanel from '@/pages/dashboard/components/SubscriptionPanel';
+import InstructionPanel from '@/pages/dashboard/components/InstructionPanel';
+import { WaterWave } from 'ant-design-pro/lib/Charts';
+import 'ant-design-pro/dist/ant-design-pro.css';
+import DataUsage from '@/pages/dashboard/components/DataUsage';
 
 const IntroduceRow = React.lazy(() => import('./components/IntroduceRow'));
 
@@ -31,6 +35,26 @@ const Dashboard = ({ global }) => {
                 <Suspense fallback={<PageLoading />}>
                     <IntroduceRow loading={proxyInfo === undefined} proxyInfo={proxyInfo} />
                 </Suspense>
+
+                <Row
+                    gutter={24}
+                    style={{
+                        marginTop: 24,
+                    }}
+                >
+                    <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+                        <Suspense fallback={null}>
+                            <InstructionPanel loading={false} />
+                        </Suspense>
+                    </Col>
+
+                    <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+                        <Suspense fallback={null}>
+                            <DataUsage loading={false} />
+                        </Suspense>
+                    </Col>
+                </Row>
+
                 <Row
                     gutter={24}
                     style={{

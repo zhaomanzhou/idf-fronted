@@ -67,6 +67,11 @@ const user_api = {
     rechargeByPerson: '/pay/recharge/human',
     getRechargeList: '/rechargelog/user/list',
     getDataResetLog: '/data/resetlog',
+
+    getPreferencesList: '/system/preference/all/list',
+    getInstructionPreferences: '/system/preference/instruction/list',
+    updatePreferences: '/system/preference/update',
+    getDashBoardNotice: '/notice/dashboard',
 };
 
 const file_api = {

@@ -40,3 +40,9 @@ export interface AnalysisData {
     salesTypeDataOffline: VisitDataType[];
     radarData: RadarData[];
 }
+
+export interface SystemPreference {
+    id: number;
+    preKey: string;
+    preValue: string;
+}

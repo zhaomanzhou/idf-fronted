@@ -28,7 +28,7 @@ const DataUsage = ({ loading }: { loading: boolean }) => {
     };
 
     return (
-        <Card loading={loading} bordered={false} title={'流量使用'}>
+        <Card loading={loading} bordered={false} title={'流量使用(开发中)'}>
             {/*<div style={{ textAlign: 'center' }}>*/}
             {/*    <WaterWave height={161} title="补贴资金剩余" percent={34} />*/}
             {/*</div>*/}

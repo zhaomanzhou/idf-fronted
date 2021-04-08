@@ -159,6 +159,12 @@
                         component: './AoldSystem/flow/Flow',
                     },
                     {
+                        path: '/setting/system',
+                        name: '系统设置',
+                        icon: 'BuildOutlined',
+                        component: './setting/system/SystemPreference',
+                    },
+                    {
                         path: '/users/manage',
                         name: '用户管理',
                         icon: 'ToolOutlined',

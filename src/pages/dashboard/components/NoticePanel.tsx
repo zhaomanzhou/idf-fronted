@@ -1,9 +1,11 @@
 import { Card, Radio } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ProList from '@ant-design/pro-list';
 import styles from '../style.less';
 import { RadioChangeEvent } from 'antd/es/radio';
+import api from '@/utils/api';
+import request from '@/utils/request';
 
 const data = [
     '问：我按照教程配置完毕后但是还是无法访问外网。\n' +
@@ -24,6 +26,29 @@ const data = [
 }));
 
 const NoticePanel = ({ loading }: { loading: boolean }) => {
+    const [data, setData] = useState<any>();
+
+    useEffect(() => {
+        request.get(api.user_api.getDashBoardNotice, {}).then((res) => {
+            // @ts-ignore
+            let content = res?.contentMarkdown;
+            if (content) {
+                const split = content.split('---');
+                let newData = split.map((item) => {
+                    const split1 = item.split('#');
+
+                    return {
+                        title: split1[0],
+                        avatar:
+                            'https://gw.alipayobjects.com/zos/antfincdn/UCSiy1j6jx/xingzhuang.svg',
+                        desc: split1[1] ? split1[1] : '',
+                    };
+                });
+                setData(newData);
+                console.log(newData);
+            }
+        });
+    }, []);
     return (
         <Card
             loading={loading}
@@ -40,6 +65,9 @@ const NoticePanel = ({ loading }: { loading: boolean }) => {
                     },
                     avatar: {
                         dataIndex: 'avatar',
+                    },
+                    description: {
+                        dataIndex: 'desc',
                     },
                 }}
                 rowKey="title"

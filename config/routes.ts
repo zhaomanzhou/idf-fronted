@@ -24,6 +24,11 @@
                 component: './user/register-result',
             },
             {
+                name: 'reset-password',
+                path: '/user/reset-password',
+                component: './user/reset-password/ResetPassword',
+            },
+            {
                 component: '404',
             },
         ],
@@ -161,13 +166,19 @@
                     {
                         path: '/setting/system',
                         name: '系统设置',
-                        icon: 'BuildOutlined',
+                        icon: 'SettingOutlined',
                         component: './setting/system/SystemPreference',
+                    },
+                    {
+                        path: '/setting/profile',
+                        name: '个人中心',
+                        icon: 'UserOutlined',
+                        component: './settings/index',
                     },
                     {
                         path: '/users/manage',
                         name: '用户管理',
-                        icon: 'ToolOutlined',
+                        icon: 'SolutionOutlined',
                         hideChildrenInMenu: true,
                         routes: [
                             {

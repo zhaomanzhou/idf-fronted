@@ -16,6 +16,10 @@ const user_api = {
     register: '/user/register',
     loginByPassword: '/user/login',
     getUserByToken: '/user/detail/token',
+    resetPasswordByPassword: '/user/resetPassword/withOldPassword',
+
+    getVCodeForResetPassword: '/user/vcode/resetPassword',
+    resetPasswordByVcode: '/user/resetPassword/withVcode',
 
     publishNotice: '/notice/add',
     modifyNotice: '/notice/modify',

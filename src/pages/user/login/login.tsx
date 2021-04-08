@@ -171,7 +171,7 @@ const Login: React.FC<LoginProps> = (props) => {
                             float: 'right',
                         }}
                     >
-                        忘记密码 ?
+                        <Link to="/user/reset-password">忘记密码 ?</Link>
                     </a>
                 </div>
             </ProForm>

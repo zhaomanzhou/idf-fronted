@@ -6,7 +6,7 @@ import { SortOrder } from 'antd/lib/table/interface';
 import request from '@/utils/request';
 import api from '@/utils/api';
 import { UserInfoLite } from '@/pages/users/manage/data';
-import { timestampToDateStr, timestampToStr } from '@/utils/utils';
+import utils, { timestampToDateStr, timestampToStr } from '@/utils/utils';
 import styles from '@/pages/users/manage/UserManage.less';
 import { Link } from 'umi';
 
@@ -88,7 +88,12 @@ const index = () => {
                             format={() => ''}
                             status="active"
                         />
-                        <div>{record.usedData + 'GB / ' + record.totalData + 'GB'}</div>
+                        <div>
+                            {utils.toDecimal2NoZero(record.usedData / (1024 * 1024)) +
+                                'GB / ' +
+                                utils.toDecimal2NoZero(record.totalData / (1024 * 1024)) +
+                                'GB'}
+                        </div>
                     </div>
                 );
             },

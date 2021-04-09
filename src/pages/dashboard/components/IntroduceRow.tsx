@@ -36,9 +36,9 @@ const IntroduceRow = ({
     let visitData = _mock['GET  /api/fake_chart_data'].visitData;
 
     const dateDayDiff = (d1: number) => {
-        let expireDay = new Date(d1);
         let today = new Date();
-        const diff = expireDay.getDay() - today.getDay();
+
+        const diff = (d1 - today.getTime()) / (1000 * 60 * 60 * 24);
         return diff >= 0 ? diff : 0;
     };
 
@@ -55,7 +55,7 @@ const IntroduceRow = ({
                             <InfoCircleOutlined />
                         </Tooltip>
                     }
-                    total={dateDayDiff(proxyInfo.expireDate) + ' 天'}
+                    total={dateDayDiff(proxyInfo.expireDate).toFixed(0) + ' 天'}
                     footer={
                         <Field
                             label={'到期时间'}
@@ -74,20 +74,29 @@ const IntroduceRow = ({
                     loading={loading}
                     title={'流量剩余'}
                     action={
-                        <Tooltip title={'总流量' + proxyInfo.totalData / (1024 * 1024.0) + 'GB'}>
+                        <Tooltip
+                            title={
+                                '总流量' +
+                                utils.toDecimal2NoZero(proxyInfo.totalData / (1024 * 1024.0)) +
+                                'GB'
+                            }
+                        >
                             <InfoCircleOutlined />
                         </Tooltip>
                     }
                     total={
-                        numeral(
+                        utils.toDecimal2NoZero(
                             (proxyInfo.totalData - proxyInfo.usedData) / (1024 * 1024.0),
-                        ).format('0,0') + ' GB'
+                        ) + ' GB'
                     }
                     footer={
                         <Fragment>
                             <Field
                                 label={'总流量'}
-                                value={proxyInfo.totalData / (1024 * 1024.0) + 'GB'}
+                                value={
+                                    utils.toDecimal2NoZero(proxyInfo.totalData / (1024 * 1024.0)) +
+                                    'GB'
+                                }
                                 style={{ display: 'inline' }}
                             />{' '}
                             &nbsp;&nbsp;
@@ -100,7 +109,12 @@ const IntroduceRow = ({
                     }
                     contentHeight={46}
                 >
-                    <MiniProgress percent={78} strokeWidth={8} target={80} color="#13C2C2" />
+                    <MiniProgress
+                        percent={100 - (proxyInfo.usedData / proxyInfo.totalData) * 100}
+                        strokeWidth={8}
+                        target={80}
+                        color="#13C2C2"
+                    />
                 </ChartCard>
             </Col>
 

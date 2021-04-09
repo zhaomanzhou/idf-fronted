@@ -57,8 +57,15 @@ export const stringfyV2 = (timestamp: number | string) => {
     return moment(timestamp).format('YYYY-MM-DD hh:mm');
 };
 
+const toDecimal2NoZero = (x) => {
+    var f = Math.round(x * 100) / 100;
+    var s = f.toString();
+    return s;
+};
+
 export default {
     timestampToStr,
     timestampToDateStr,
     stringfyV2,
+    toDecimal2NoZero,
 };

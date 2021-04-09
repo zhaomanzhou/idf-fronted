@@ -34,7 +34,7 @@ const NoticePanel = ({ loading }: { loading: boolean }) => {
             let content = res?.contentMarkdown;
             if (content) {
                 const split = content.split('---');
-                let newData = split.map((item) => {
+                let newData = split.map((item, index) => {
                     const split1 = item.split('#');
 
                     return {
@@ -42,10 +42,11 @@ const NoticePanel = ({ loading }: { loading: boolean }) => {
                         avatar:
                             'https://gw.alipayobjects.com/zos/antfincdn/UCSiy1j6jx/xingzhuang.svg',
                         desc: split1[1] ? split1[1] : '',
+                        index: index,
                     };
                 });
+
                 setData(newData);
-                console.log(newData);
             }
         });
     }, []);
@@ -70,7 +71,7 @@ const NoticePanel = ({ loading }: { loading: boolean }) => {
                         dataIndex: 'desc',
                     },
                 }}
-                rowKey="title"
+                rowKey="index"
                 dataSource={data}
             />
         </Card>

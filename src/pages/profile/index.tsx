@@ -6,7 +6,7 @@ import { Menu } from 'antd';
 import SecurityView from './components/SecurityView';
 import styles from './style.less';
 import { Fragment } from 'react';
-import NotifyView from '@/pages/settings/components/NotifyView';
+import NotifyView from '@/pages/profile/components/NotifyView';
 
 const { Item } = Menu;
 

@@ -101,10 +101,10 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
      */
 
     const handleMenuCollapse = (payload: boolean): void => {
-            dispatch({
-                type: 'global/changeLayoutCollapsed',
-                payload,
-            });
+        dispatch({
+            type: 'global/changeLayoutCollapsed',
+            payload,
+        });
     }; // get children authority
 
     const authorized = useMemo(
@@ -132,7 +132,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
                 breadcrumbRender={(routers = []) => [
                     {
                         path: '/',
-                        breadcrumbName: "欢迎",
+                        breadcrumbName: '欢迎',
                     },
                     ...routers,
                 ]}
@@ -160,7 +160,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
                 settings={settings}
                 onSettingChange={(config) =>
                     dispatch({
-                        type: 'settings/changeSetting',
+                        type: 'profile/changeSetting',
                         payload: config,
                     })
                 }

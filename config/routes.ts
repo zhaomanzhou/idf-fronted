@@ -151,6 +151,7 @@
                             },
                         ],
                     },
+
                     {
                         path: '/online',
                         name: '在线分析',
@@ -173,7 +174,20 @@
                         path: '/setting/profile',
                         name: '个人中心',
                         icon: 'UserOutlined',
-                        component: './settings/index',
+                        component: './profile/index',
+                    },
+                    {
+                        path: '/node',
+                        name: '服务器',
+                        icon: 'CloudOutlined',
+                        routes: [
+                            {
+                                path: '/node/v2ray',
+                                name: 'V2ray',
+                                icon: 'ToolOutlined',
+                                component: './node/v2ray/V2rayNode',
+                            },
+                        ],
                     },
                     {
                         path: '/users/manage',

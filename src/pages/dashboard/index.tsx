@@ -44,7 +44,7 @@ const Dashboard = ({ global }) => {
                 >
                     <Col xl={12} lg={24} md={24} sm={24} xs={24}>
                         <Suspense fallback={null}>
-                            <InstructionPanel loading={false} />
+                            <InstructionPanel />
                         </Suspense>
                     </Col>
 

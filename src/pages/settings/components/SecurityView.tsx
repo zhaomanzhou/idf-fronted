@@ -6,8 +6,14 @@ import { ModalForm, ProFormText } from '@ant-design/pro-form';
 import { PlusOutlined } from '@ant-design/icons';
 import request from '@/utils/request';
 import api from '@/utils/api';
+import { connect } from 'umi';
+import { GlobalModelState } from '@/models/global';
+import { UserVo } from '@/pages/user/login/data';
+import utils from '@/utils/utils';
 
-export default () => {
+const SecurityView = ({ global }) => {
+    let user: UserVo = global.user;
+
     const action = () => {
         return (
             <ModalForm
@@ -66,6 +72,15 @@ export default () => {
     return (
         <Fragment>
             <List itemLayout="horizontal">
+                <List.Item>
+                    <List.Item.Meta title={'我的邮箱'} description={user.email} />
+                </List.Item>
+                <List.Item>
+                    <List.Item.Meta
+                        title={'创建时间'}
+                        description={utils.timestampToStr(user.createTime)}
+                    />
+                </List.Item>
                 <List.Item actions={[action()]}>
                     <List.Item.Meta title={'修改密码'} description={'请尽量不要使用弱密码'} />
                 </List.Item>
@@ -73,3 +88,7 @@ export default () => {
         </Fragment>
     );
 };
+
+export default connect(({ global }: { global: GlobalModelState }) => ({
+    global,
+}))(SecurityView);

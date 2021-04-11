@@ -76,6 +76,14 @@ const user_api = {
     getInstructionPreferences: '/system/preference/instruction/list',
     updatePreferences: '/system/preference/update',
     getDashBoardNotice: '/notice/dashboard',
+
+    createV2rayNode: '/node/v2ray/add',
+    getDirectNodeList: '/node/v2ray/direct/list',
+    getAllV2rayNodes: '/node/v2ray/list',
+    deleteV2rayNode: '/node/v2ray/delete',
+    updateV2rayNode: '/node/v2ray/update',
+
+    getSubscriptionUrl: '/subscription/url',
 };
 
 const file_api = {

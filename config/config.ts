@@ -30,12 +30,13 @@ export default defineConfig({
     // theme: {
     //     'primary-color': defaultSettings.primaryColor,
     // },
-    title: false,
+    title: 'IDoFast',
     ignoreMomentLocale: true,
     proxy: proxy[REACT_APP_ENV || 'dev'],
     manifest: {
         basePath: '/',
     },
+
     exportStatic: {},
     esbuild: {},
 });

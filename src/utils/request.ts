@@ -56,7 +56,7 @@ const refreshAxiosConfig = (token1: string) => {
     token = token1;
 };
 
-const get = async (url: string, parmas: string | any) => {
+const get = async (url: string, parmas: string | any): Promise<any> => {
     let domain = genDomain(url);
     url = domain + url;
     return await axios
@@ -75,7 +75,7 @@ const get = async (url: string, parmas: string | any) => {
             return Promise.reject(err);
         });
 };
-const post = async (url: string, params: string | any) => {
+const post = async (url: string, params: string | any): Promise<any> => {
     let domain = genDomain(url);
     url = domain + url;
     return await axios
@@ -94,7 +94,7 @@ const post = async (url: string, params: string | any) => {
         });
 };
 
-const post_json = (url: string, body: any, param: any) => {
+const post_json = (url: string, body: any, param: any): Promise<any> => {
     let domain = genDomain(url);
     url = domain + url;
     if (param) {
@@ -116,7 +116,7 @@ const post_json = (url: string, body: any, param: any) => {
     });
 };
 
-const get_restful = async (url: string, parmas: string | any) => {
+const get_restful = async (url: string, parmas: string | any): Promise<any> => {
     let domain = genDomain(url);
     url = domain + url + parmas;
     return await axios
@@ -132,7 +132,7 @@ const get_restful = async (url: string, parmas: string | any) => {
         });
 };
 
-const post_restful = async (url: string, parmas: string | any) => {
+const post_restful = async (url: string, parmas: string | any): Promise<any> => {
     let domain = genDomain(url);
     url = domain + url + parmas;
     return await axios

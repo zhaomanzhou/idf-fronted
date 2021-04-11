@@ -62,7 +62,7 @@ export default (props: UpdateProxyInfoProps) => {
                     dataUnit: 'MB',
                 },
                 extraActiveDay: '',
-                level: info.level,
+                level: info.level + '',
             }}
         >
             <ProFormDateTimePicker

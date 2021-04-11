@@ -1,10 +1,15 @@
-import { Avatar, Button, Card, List, Radio, Tag, Typography } from 'antd';
+import { Avatar, Button, Card, List, message, Radio, Tag, Typography } from 'antd';
 
 import { RadioChangeEvent } from 'antd/es/radio';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { VisitDataType } from '../data.d';
 import styles from '../style.less';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
+import { UserProxyInfo } from '@/pages/users/manage/data';
+import api from '@/utils/api';
+import request from '@/utils/request';
+import { Fragment } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const data = [
     'Racing car sprays burning fuel into crowd.',
@@ -25,37 +30,86 @@ const data1 = [
     },
 ];
 
-const SubscriptionPanel = ({ loading }: { loading: boolean }) => (
-    <Card
-        loading={loading}
-        className={styles.salesCard}
-        bordered={false}
-        title={'订阅链接'}
-        style={{
-            height: '100%',
-        }}
-    >
-        <div>
-            <List
-                dataSource={data1}
-                renderItem={(item) => (
-                    <List.Item
-                        actions={[
-                            <Button key="1" type="primary" shape="round">
-                                点击复制订阅链接
-                            </Button>,
-                            // <a key="list-loadmore-more">more</a>,
-                        ]}
-                    >
-                        <List.Item.Meta
-                            title={<Tag color="#87d068">{item.title}</Tag>}
-                            description={<Ellipsis length={100}>{item.content}</Ellipsis>}
-                        />
-                    </List.Item>
-                )}
-            />
-        </div>
-    </Card>
-);
+const SubscriptionPanel = ({
+    loading,
+    proxyInfo,
+}: {
+    loading: boolean;
+    proxyInfo: UserProxyInfo;
+}) => {
+    const [subUrl, setSubUrl] = useState<String>();
+
+    useEffect(() => {
+        request.get(api.user_api.getSubscriptionUrl, { type: 'v2ray' }).then((res) => {
+            console.log(res);
+            setSubUrl(res);
+        });
+    }, []);
+
+    return (
+        <Card
+            loading={subUrl === undefined}
+            className={styles.salesCard}
+            bordered={false}
+            title={'订阅链接'}
+            style={{
+                height: '100%',
+            }}
+        >
+            <div>
+                <List
+                    dataSource={[{}]}
+                    renderItem={(item) => (
+                        <Fragment>
+                            <List.Item
+                                actions={[
+                                    <CopyToClipboard
+                                        text={subUrl}
+                                        onCopy={() => {
+                                            message.success('复制成功');
+                                        }}
+                                    >
+                                        <Button key="1" type="primary" shape="round">
+                                            点击复制订阅链接
+                                        </Button>
+                                    </CopyToClipboard>,
+
+                                    // <a key="list-loadmore-more">more</a>,
+                                ]}
+                            >
+                                <List.Item.Meta
+                                    title={<Tag color="#87d068">{'V2ray订阅链接'}</Tag>}
+                                    description={<Ellipsis length={100}>{subUrl}</Ellipsis>}
+                                />
+                            </List.Item>
+
+                            <List.Item
+                                actions={[
+                                    <CopyToClipboard
+                                        text={subUrl}
+                                        onCopy={() => {
+                                            message.success('复制成功');
+                                        }}
+                                    >
+                                        <Button key="1" type="primary" shape="round">
+                                            点击复制订阅链接
+                                        </Button>
+                                    </CopyToClipboard>,
+
+                                    // <a key="list-loadmore-more">more</a>,
+                                ]}
+                            >
+                                <List.Item.Meta
+                                    title={<Tag color="#87d068">{'SSR订阅链接'}</Tag>}
+                                    description={<Ellipsis length={100}>{subUrl}</Ellipsis>}
+                                />
+                            </List.Item>
+                        </Fragment>
+                    )}
+                />
+            </div>
+        </Card>
+    );
+};
 
 export default SubscriptionPanel;

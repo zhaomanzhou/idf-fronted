@@ -77,7 +77,7 @@ const IntroduceRow = ({
                         <Tooltip
                             title={
                                 '总流量' +
-                                utils.toDecimal2NoZero(proxyInfo.totalData / (1024 * 1024.0)) +
+                                utils.toDecimal2NoZero(proxyInfo.totalData / (1024 * 1024.0) > 0) +
                                 'GB'
                             }
                         >
@@ -86,7 +86,9 @@ const IntroduceRow = ({
                     }
                     total={
                         utils.toDecimal2NoZero(
-                            (proxyInfo.totalData - proxyInfo.usedData) / (1024 * 1024.0),
+                            (proxyInfo.totalData - proxyInfo.usedData) / (1024 * 1024.0) > 0
+                                ? (proxyInfo.totalData - proxyInfo.usedData) / (1024 * 1024.0)
+                                : 0,
                         ) + ' GB'
                     }
                     footer={

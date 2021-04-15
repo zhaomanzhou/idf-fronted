@@ -2,6 +2,7 @@
 import { defineConfig } from 'umi';
 import proxy from './proxy';
 import routes from './routes';
+// import defaultSettings from './defaultSettings';
 
 const { REACT_APP_ENV } = process.env;
 
@@ -36,7 +37,6 @@ export default defineConfig({
     manifest: {
         basePath: '/',
     },
-
     exportStatic: {},
     esbuild: {},
 });

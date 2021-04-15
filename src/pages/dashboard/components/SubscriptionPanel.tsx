@@ -30,13 +30,7 @@ const data1 = [
     },
 ];
 
-const SubscriptionPanel = ({
-    loading,
-    proxyInfo,
-}: {
-    loading: boolean;
-    proxyInfo: UserProxyInfo;
-}) => {
+const SubscriptionPanel = ({ proxyInfo }: { proxyInfo: UserProxyInfo | undefined }) => {
     const [subUrl, setSubUrl] = useState<String>();
 
     useEffect(() => {
@@ -69,7 +63,7 @@ const SubscriptionPanel = ({
                                         }}
                                     >
                                         <Button key="1" type="primary" shape="round">
-                                            点击复制订阅链接
+                                            点击复制
                                         </Button>
                                     </CopyToClipboard>,
 
@@ -91,7 +85,7 @@ const SubscriptionPanel = ({
                                         }}
                                     >
                                         <Button key="1" type="primary" shape="round">
-                                            点击复制订阅链接
+                                            点击复制
                                         </Button>
                                     </CopyToClipboard>,
 
@@ -99,7 +93,7 @@ const SubscriptionPanel = ({
                                 ]}
                             >
                                 <List.Item.Meta
-                                    title={<Tag color="#87d068">{'SSR订阅链接'}</Tag>}
+                                    title={<Tag color="#87d068">{'V2ray订阅链接'}</Tag>}
                                     description={<Ellipsis length={100}>{subUrl}</Ellipsis>}
                                 />
                             </List.Item>

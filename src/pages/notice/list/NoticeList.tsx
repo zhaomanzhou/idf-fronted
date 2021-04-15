@@ -73,11 +73,11 @@ const index = (props) => {
                     科普
                 </RadioButton>
             </RadioGroup>
-            <Search
-                className={styles.extraContentSearch}
-                placeholder="请输入"
-                onSearch={() => ({})}
-            />
+            {/*<Search*/}
+            {/*    className={styles.extraContentSearch}*/}
+            {/*    placeholder="请输入"*/}
+            {/*    onSearch={() => ({})}*/}
+            {/*/>*/}
         </div>
     );
 
@@ -123,7 +123,7 @@ const index = (props) => {
                                     }
                                     description={item.contentHtml
                                         .replace(/<[^<>]+>/g, '')
-                                        .substr(0, 150)}
+                                        .substr(0, 60)}
                                 />
                                 <ListContent data={item} />
                             </List.Item>

@@ -7,8 +7,8 @@ const servers = {
 let server_user = servers.preview;
 let server_file = servers.aliyun;
 
-if (process.env.NODE_ENV === 'production') {
-    server_user = servers.preview;
+if (process.env.NODE_ENV === 'development') {
+    server_user = servers.local;
     server_file = servers.aliyun;
 }
 
@@ -92,7 +92,7 @@ const file_api = {
 };
 
 const user_apis = {
-    port: '443',
+    port: process.env.NODE_ENV === 'development' ? '8001' : '443',
     api: user_api,
     server: server_user,
 };

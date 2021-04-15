@@ -75,6 +75,7 @@
                                 name: '套餐管理',
                                 icon: 'AppstoreOutlined',
                                 component: './bundle/manage/BundleManager',
+                                authority: ['admin'],
                             },
 
                             {
@@ -134,6 +135,7 @@
                                         component: './order/detail/OrderDetail',
                                     },
                                 ],
+                                authority: ['admin'],
                             },
                         ],
                     },
@@ -147,9 +149,9 @@
                                 path: '/tool/pay/sync',
                                 name: '支付查询',
                                 component: './tool/pay/PaySync',
-                                authority: ['admin'],
                             },
                         ],
+                        authority: ['admin'],
                     },
 
                     {
@@ -157,25 +159,17 @@
                         name: '在线分析',
                         icon: 'CloudOutlined',
                         component: './AoldSystem/online/Oneline',
+                        authority: ['admin'],
                     },
-                    {
-                        path: '/flow',
-                        name: '流量分析',
-                        icon: 'DatabaseOutlined',
-                        component: './AoldSystem/flow/Flow',
-                    },
+
                     {
                         path: '/setting/system',
                         name: '系统设置',
                         icon: 'SettingOutlined',
                         component: './setting/system/SystemPreference',
+                        authority: ['admin'],
                     },
-                    {
-                        path: '/setting/profile',
-                        name: '个人中心',
-                        icon: 'UserOutlined',
-                        component: './profile/index',
-                    },
+
                     {
                         path: '/node',
                         name: '服务器',
@@ -188,6 +182,7 @@
                                 component: './node/v2ray/V2rayNode',
                             },
                         ],
+                        authority: ['admin'],
                     },
                     {
                         path: '/users/manage',
@@ -208,6 +203,7 @@
                                 component: './users/manage/detail/UserDetail',
                             },
                         ],
+                        authority: ['admin'],
                     },
                     {
                         path: '/notice/',
@@ -232,6 +228,12 @@
                                 authority: ['admin'],
                             },
                         ],
+                    },
+                    {
+                        path: '/setting/profile',
+                        name: '个人中心',
+                        icon: 'UserOutlined',
+                        component: './profile/index',
                     },
 
                     {

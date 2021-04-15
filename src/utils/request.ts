@@ -47,7 +47,9 @@ axios.interceptors.response.use(
 
 function genDomain(url: string) {
     let api_obj = apiPortMap.get(url + '');
-    return api_obj.server + ':' + api_obj.port + '/api';
+    return process.env.NODE_ENV === 'development'
+        ? api_obj.server + ':' + api_obj.port
+        : api_obj.server + ':' + api_obj.port + '/api';
 }
 
 let token = '';

@@ -104,7 +104,7 @@ export default () => {
                 defaultPageSize: 8,
                 showSizeChanger: false,
             }}
-            grid={{ gutter: 16, column: 3 }}
+            grid={{ gutter: 16, column: 4, xs: 1, sm: 1, md: 2, lg: 2, xl: 3, xxl: 4 }}
             headerTitle="节点列表"
             dataSource={nodeList}
         />

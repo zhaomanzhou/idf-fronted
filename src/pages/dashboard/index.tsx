@@ -42,34 +42,29 @@ const Dashboard = ({ global }) => {
                         marginTop: 24,
                     }}
                 >
-                    <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+                    <Col xl={12} lg={24} md={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
                         <Suspense fallback={null}>
                             <InstructionPanel />
                         </Suspense>
                     </Col>
 
-                    <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+                    <Col xl={12} lg={24} md={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
                         <Suspense fallback={null}>
                             <DataUsage loading={false} />
                         </Suspense>
                     </Col>
                 </Row>
 
-                <Row
-                    gutter={24}
-                    style={{
-                        marginTop: 24,
-                    }}
-                >
-                    <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+                <Row gutter={24}>
+                    <Col xl={12} lg={24} md={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
                         <Suspense fallback={null}>
                             <NoticePanel loading={false} />
                         </Suspense>
                     </Col>
 
-                    <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+                    <Col xl={12} lg={24} md={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
                         <Suspense fallback={null}>
-                            <SubscriptionPanel loading={false} proxyInfo={proxyInfo} />
+                            <SubscriptionPanel proxyInfo={proxyInfo} />
                         </Suspense>
                     </Col>
                 </Row>

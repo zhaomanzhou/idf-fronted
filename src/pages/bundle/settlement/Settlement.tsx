@@ -111,7 +111,7 @@ export default () => {
                 <Row gutter={16}>
                     {periodEnum.map((val, index) => {
                         return (
-                            <Col span={4} key={index}>
+                            <Col xs={12} lg={8} xl={4} key={index}>
                                 <Item
                                     content={val + '个月'}
                                     chosen={totalMonth === val}
@@ -134,7 +134,7 @@ export default () => {
                 <Row gutter={16}>
                     {payTypeEnum.map((val, index) => {
                         return (
-                            <Col span={4} key={index}>
+                            <Col xs={12} lg={8} xl={4} key={index}>
                                 <Item
                                     content={
                                         <Fragment>
@@ -159,7 +159,7 @@ export default () => {
                 </Row>
 
                 <Row>
-                    <Col span={8}>
+                    <Col xs={24} xl={8}>
                         <div>
                             <PackageItem
                                 bundle={bundle}
@@ -167,7 +167,7 @@ export default () => {
                             />
                         </div>
                     </Col>
-                    <Col span={16}>
+                    <Col xs={24} xl={16}>
                         <div style={{ textAlign: 'right' }}>
                             <ResultSub
                                 label={'套餐名称'}

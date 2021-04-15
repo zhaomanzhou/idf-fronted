@@ -81,7 +81,7 @@ const InstructionPanel = () => {
                         {/*<DesktopOutlined  style={{ fontSize: 38 }} />*/}
                         <span
                             className="iconfont icon-linux linuxIcon"
-                            style={{ fontSize: 38, color: '#1890ff' }}
+                            style={{ fontSize: 39, color: '#1890ff' }}
                         />
                         <Meta title={'Linux'} />
                     </Card>
@@ -92,9 +92,9 @@ const InstructionPanel = () => {
                     <Card bodyStyle={{ padding: 0, textAlign: 'center' }} bordered={false}>
                         <span
                             className="iconfont icon-sync linuxIcon"
-                            style={{ fontSize: 38, color: '#1890ff' }}
+                            style={{ fontSize: 39, color: '#1890ff' }}
                         />
-                        <Meta title={'如何更新订阅'} />
+                        <Meta title={'更多'} />
                     </Card>
                 </a>
             </Card.Grid>

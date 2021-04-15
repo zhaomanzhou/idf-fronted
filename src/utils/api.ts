@@ -1,13 +1,14 @@
 const servers = {
     local: 'http://localhost',
     aliyun: 'http://1.zmz121.cn',
+    preview: 'https://preview.idofast.com',
 };
 
-let server_user = servers.local;
+let server_user = servers.preview;
 let server_file = servers.aliyun;
 
 if (process.env.NODE_ENV === 'production') {
-    server_user = servers.aliyun;
+    server_user = servers.preview;
     server_file = servers.aliyun;
 }
 
@@ -91,7 +92,7 @@ const file_api = {
 };
 
 const user_apis = {
-    port: '8001',
+    port: '443',
     api: user_api,
     server: server_user,
 };

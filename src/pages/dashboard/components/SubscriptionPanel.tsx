@@ -41,7 +41,6 @@ const SubscriptionPanel = ({
 
     useEffect(() => {
         request.get(api.user_api.getSubscriptionUrl, { type: 'v2ray' }).then((res) => {
-            console.log(res);
             setSubUrl(res);
         });
     }, []);

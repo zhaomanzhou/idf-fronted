@@ -79,6 +79,7 @@ export default () => {
                 </a>
 
                 <p className={styles.info}> {'打开支付宝 扫描二维码进行支付'}</p>
+                <p className={styles.info}> {'手机端可以直接点击二维码跳转到支付宝'}</p>
             </div>
         </PageContainer>
     );

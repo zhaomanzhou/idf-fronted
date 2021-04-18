@@ -2,33 +2,48 @@ import { Avatar, Button, Card, Col, List, Radio, Tag, Typography } from 'antd';
 
 import React, { useState, useEffect } from 'react';
 import { Area } from '@ant-design/charts';
+import api from '@/utils/api';
+import request from '@/utils/request';
 
-const DataUsage = ({ loading }: { loading: boolean }) => {
+const DataUsage = () => {
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState<boolean>(true);
+
     useEffect(() => {
-        asyncFetch();
+        request.get(api.user_api.getDashBoardFlow, {}).then((res) => {
+            setData(res);
+            setLoading(false);
+        });
     }, []);
-    const asyncFetch = () => {
-        fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json')
-            .then((response) => response.json())
-            .then((json) => setData(json))
-            .catch((error) => {
-                console.log('fetch data failed', error);
-            });
-    };
+
     var config = {
         data: data,
-        xField: 'Date',
-        yField: 'scales',
+        xField: 'date',
+        yField: 'flow',
         xAxis: { tickCount: 5 },
+        yAxis: {
+            label: {
+                formatter: function formatter(v) {
+                    return ''.concat(v, ' MB');
+                },
+            },
+        },
         height: 175,
         areaStyle: function areaStyle() {
             return { fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff' };
         },
+        tooltip: {
+            formatter: (d) => {
+                return {
+                    name: '流量',
+                    value: d.flow + ' MB',
+                };
+            },
+        },
     };
 
     return (
-        <Card loading={loading} bordered={false} title={'流量使用(开发中)'}>
+        <Card loading={loading} bordered={false} title={'流量使用'}>
             {/*<div style={{ textAlign: 'center' }}>*/}
             {/*    <WaterWave height={161} title="补贴资金剩余" percent={34} />*/}
             {/*</div>*/}

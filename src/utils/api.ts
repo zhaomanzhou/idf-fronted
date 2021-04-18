@@ -64,10 +64,10 @@ const user_api = {
     getDeviceList: '/user/device/list',
     updateDeviceList: '/user/update/device',
 
-    getUserList: '/users/proxy/list',
-    getUserProxyInfoById: '/users/proxy/detail/',
-    updateUserProxyInfo: '/users/proxy/update',
-    getSelfUserProxyInfo: '/users/proxy/detail',
+    getUserList: '/proxyinfo/list',
+    getUserProxyInfoById: '/proxyinfo//detail/',
+    updateUserProxyInfo: '/proxyinfo/update',
+    getSelfUserProxyInfo: '/proxyinfo/detail',
 
     rechargeByPerson: '/pay/recharge/human',
     getRechargeList: '/rechargelog/user/list',
@@ -77,14 +77,19 @@ const user_api = {
     getInstructionPreferences: '/system/preference/instruction/list',
     updatePreferences: '/system/preference/update',
     getDashBoardNotice: '/notice/dashboard',
+    getDashBoardFlow: '/data/flowOfDay',
+    getDashBoardFlowForAdmin: '/data/admin/flowOfDay',
 
-    createV2rayNode: '/node/v2ray/add',
-    getDirectNodeList: '/node/v2ray/direct/list',
-    getAllV2rayNodes: '/node/v2ray/list',
-    deleteV2rayNode: '/node/v2ray/delete',
-    updateV2rayNode: '/node/v2ray/update',
+    createV2rayNode: '/server/v2ray/add',
+    getDirectNodeList: '/server/v2ray/direct/list',
+    getAllV2rayNodes: '/server/v2ray/admin/list',
+    deleteV2rayNode: '/server/v2ray/delete',
+    updateV2rayNode: '/server/v2ray/update',
 
+    getallV2rayNodesForSimpleYser: '/server/v2ray/list',
     getSubscriptionUrl: '/subscription/url',
+
+    getOnlineStatusGroupByNode: '/server/online/byNode',
 };
 
 const file_api = {

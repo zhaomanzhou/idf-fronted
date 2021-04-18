@@ -7,7 +7,7 @@ import { UserVo } from '@/pages/user/login/data';
 import { GlobalModelState } from '@/models/global';
 import api from '@/utils/api';
 import request from '@/utils/request';
-import { UserProxyInfo } from '@/pages/users/manage/data';
+import { UserProxyInfo } from '@/pages/UserManager/manage/data';
 import NoticePanel from '@/pages/dashboard/components/NoticePanel';
 import SubscriptionPanel from '@/pages/dashboard/components/SubscriptionPanel';
 import InstructionPanel from '@/pages/dashboard/components/InstructionPanel';

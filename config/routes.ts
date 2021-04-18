@@ -63,95 +63,42 @@
                         icon: 'smile',
                         component: './dashboard/index',
                     },
-
                     {
-                        path: '/bundle/',
-                        name: '套餐',
-                        icon: 'AppstoreOutlined',
+                        path: '/shop',
+                        name: '套餐商店',
+                        icon: 'ShopOutlined',
+                        hideChildrenInMenu: true,
                         routes: [
                             {
-                                exact: true,
-                                path: '/bundle/admin/manager',
-                                name: '套餐管理',
-                                icon: 'AppstoreOutlined',
-                                component: './bundle/manage/BundleManager',
-                                authority: ['admin'],
+                                path: '/shop',
+                                component: './shop/list/BundleList',
+                            },
+                            {
+                                exact: false,
+                                path: '/shop/settlement/:id',
+                                component: './shop/settlement/Settlement',
                             },
 
                             {
-                                path: '/bundle/shop/',
-                                name: '套餐商店',
-                                icon: 'ShopOutlined',
-                                hideChildrenInMenu: true,
-                                routes: [
-                                    {
-                                        path: '/bundle/shop/',
-                                        component: './bundle/list/BundleList',
-                                    },
-                                    {
-                                        exact: false,
-                                        path: '/bundle/shop/settlement',
-                                        component: './bundle/settlement/Settlement',
-                                    },
-
-                                    {
-                                        exact: false,
-                                        path: '/bundle/shop/pay',
-                                        component: './bundle/pay/Pay',
-                                    },
-                                ],
+                                exact: false,
+                                path: '/shop/pay',
+                                component: './shop/pay/Pay',
                             },
                         ],
                     },
 
                     {
-                        path: '/order/',
-                        name: '订单',
+                        path: '/order/my/list',
+                        name: '我的订单',
                         icon: 'CalendarOutlined',
-                        routes: [
-                            {
-                                path: '/order/my/list',
-                                name: '我的订单',
-                                icon: 'CalendarOutlined',
-                                component: './order/my/list',
-                            },
-
-                            {
-                                path: '/order/admin/',
-                                name: '订单管理',
-                                icon: 'ApartmentOutlined',
-                                hideChildrenInMenu: true,
-                                routes: [
-                                    {
-                                        path: '/order/admin/',
-                                        name: '订单管理',
-                                        icon: 'ApartmentOutlined',
-                                        component: './order/manage/OrderManage',
-                                    },
-                                    {
-                                        path: '/order/admin/detail/:id',
-                                        name: '订单详情',
-                                        icon: 'CalendarOutlined',
-                                        component: './order/detail/OrderDetail',
-                                    },
-                                ],
-                                authority: ['admin'],
-                            },
-                        ],
+                        component: './order/my/list',
                     },
 
                     {
-                        path: '/tool/',
-                        name: '工具',
-                        icon: 'ToolOutlined',
-                        routes: [
-                            {
-                                path: '/tool/pay/sync',
-                                name: '支付查询',
-                                component: './tool/pay/PaySync',
-                            },
-                        ],
-                        authority: ['admin'],
+                        path: '/notice/list',
+                        name: '公告列表',
+                        component: './notice/list/NoticeList',
+                        icon: 'NotificationOutlined',
                     },
 
                     {
@@ -171,43 +118,85 @@
                     },
 
                     {
-                        path: '/node',
+                        path: '/server/v2ray/list',
                         name: '服务器',
+                        icon: 'ToolOutlined',
+                        component: './server/v2ray/planuser/index',
+                    },
+                    {
+                        path: '/server',
+                        name: '服务器管理',
                         icon: 'CloudOutlined',
                         routes: [
                             {
-                                path: '/node/v2ray',
+                                path: '/server/v2ray/admin',
                                 name: 'V2ray',
                                 icon: 'ToolOutlined',
-                                component: './node/v2ray/V2rayNode',
+                                component: './server/v2ray/admin/V2rayNode',
                             },
                         ],
                         authority: ['admin'],
                     },
                     {
-                        path: '/users/manage',
-                        name: '用户管理',
+                        path: '/manage',
+                        name: '管理',
                         icon: 'SolutionOutlined',
-                        hideChildrenInMenu: true,
+                        hideChildrenInMenu: false,
                         routes: [
                             {
-                                path: '/users/manage',
-                                name: '用户管理',
-                                icon: 'ToolOutlined',
-                                component: './users/manage/UserManage',
+                                path: '/manage/shop',
+                                name: '套餐管理',
+                                icon: 'AppstoreOutlined',
+                                component: './shop/manage/BundleManager',
                             },
                             {
-                                path: '/users/manage/detail/:id',
+                                path: '/manage/order/admin/',
+                                name: '订单管理',
+                                icon: 'ApartmentOutlined',
+                                hideChildrenInMenu: true,
+                                routes: [
+                                    {
+                                        path: '/manage/order/admin/',
+                                        name: '订单管理',
+                                        icon: 'ApartmentOutlined',
+                                        component: './order/manage/OrderManage',
+                                    },
+                                    {
+                                        path: '/manage/order/admin/detail/:id',
+                                        name: '订单详情',
+                                        icon: 'CalendarOutlined',
+                                        component: './order/detail/OrderDetail',
+                                    },
+                                ],
+                                authority: ['admin'],
+                            },
+                            {
+                                path: '/manage/user',
                                 name: '用户管理',
                                 icon: 'ToolOutlined',
-                                component: './users/manage/detail/UserDetail',
+                                hideChildrenInMenu: true,
+                                routes: [
+                                    {
+                                        path: '/manage/user',
+                                        name: '用户管理',
+                                        icon: 'ToolOutlined',
+                                        component: './UserManager/manage/UserManage',
+                                    },
+                                    {
+                                        path: '/manage/user/detail/:id',
+                                        name: '用户管理',
+                                        icon: 'ToolOutlined',
+                                        component: './UserManager/manage/detail/UserDetail',
+                                    },
+                                ],
                             },
                         ],
                         authority: ['admin'],
                     },
+
                     {
                         path: '/notice/',
-                        name: '公告',
+                        name: '公告编辑',
                         icon: 'NotificationOutlined',
                         routes: [
                             {
@@ -217,18 +206,28 @@
                                 authority: ['admin'],
                             },
                             {
-                                path: '/notice/list',
-                                name: '公告列表',
-                                component: './notice/list/NoticeList',
-                            },
-                            {
                                 path: '/notice/manage',
                                 name: '公告管理',
                                 component: './notice/manage/manage',
                                 authority: ['admin'],
                             },
                         ],
+                        authority: ['admin'],
                     },
+                    {
+                        path: '/tool/',
+                        name: '工具',
+                        icon: 'ToolOutlined',
+                        routes: [
+                            {
+                                path: '/tool/pay/sync',
+                                name: '支付查询',
+                                component: './tool/pay/PaySync',
+                            },
+                        ],
+                        authority: ['admin'],
+                    },
+
                     {
                         path: '/setting/profile',
                         name: '个人中心',

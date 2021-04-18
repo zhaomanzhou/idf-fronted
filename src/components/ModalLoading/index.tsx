@@ -1,6 +1,6 @@
 import { Button, Modal, Result, Spin } from 'antd';
 import React, { Fragment } from 'react';
-import styles from '@/pages/bundle/settlement/Settlement.less';
+import styles from '@/pages/shop/settlement/Settlement.less';
 
 export interface ModalLoadingProps {
     title: string;

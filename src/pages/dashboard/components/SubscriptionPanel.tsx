@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { VisitDataType } from '../data.d';
 import styles from '../style.less';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
-import { UserProxyInfo } from '@/pages/users/manage/data';
+import { UserProxyInfo } from '@/pages/UserManager/manage/data';
 import api from '@/utils/api';
 import request from '@/utils/request';
 import { Fragment } from 'react';

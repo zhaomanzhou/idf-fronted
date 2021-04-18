@@ -8,7 +8,9 @@ import {
 } from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-table';
 import ProTable, { TableDropdown } from '@ant-design/pro-table';
-import request from 'umi-request';
+import api from '@/utils/api';
+import request from '@/utils/request';
+import { Fragment } from 'react';
 
 const bgColors = ['#ffe6e6', '#ffede6', '#e6f0ff', '#e9e6ff', '#f5e6ff', '#fbe6ff', '#ffe6e6'];
 const borderColors = ['#ff9191', '#ffb491', '#91bdff', '#9193ff', '#bb91ff', '#d891ff', '#ff9191'];
@@ -31,49 +33,49 @@ const serverNameMap = {
     idofast: '香港线路1-阿里云',
 };
 
-const ServerComponment = (entity, style) => {
-    let cahche = Object.keys(entity.connectionStat.cache);
-
-    return (
-        <div>
-            <Space direction="vertical">
-                {cahche.map((e, index) => {
-                    let sum = 0;
-                    for (let i = 0; i < 4; i++) {
-                        sum += e.charCodeAt(i);
-                    }
-
-                    let prefix = e.split('.')[0];
-                    return (
-                        <Alert
-                            key={e}
-                            message={
-                                style == 1
-                                    ? serverNameMap[prefix]
-                                        ? serverNameMap[prefix]
-                                        : prefix
-                                    : entity.connectionStat.cache[e].count
-                            }
-                            showIcon
-                            icon={
-                                <CloudServerOutlined
-                                    style={{
-                                        fontSize: 15,
-                                        color: borderColors[sum % bgColors.length],
-                                    }}
-                                />
-                            }
-                            style={{
-                                backgroundColor: bgColors[sum % bgColors.length],
-                                borderColor: borderColors[sum % bgColors.length],
-                            }}
-                        />
-                    );
-                })}
-            </Space>
-        </div>
-    );
-};
+// const ServerComponment = (entity, style) => {
+//     let cahche = Object.keys(entity.connectionStat.cache);
+//
+//     return (
+//         <div>
+//             <Space direction="vertical">
+//                 {cahche.map((e, index) => {
+//                     let sum = 0;
+//                     for (let i = 0; i < 4; i++) {
+//                         sum += e.charCodeAt(i);
+//                     }
+//
+//                     let prefix = e.split('.')[0];
+//                     return (
+//                         <Alert
+//                             key={e}
+//                             message={
+//                                 style == 1
+//                                     ? serverNameMap[prefix]
+//                                         ? serverNameMap[prefix]
+//                                         : prefix
+//                                     : entity.connectionStat.cache[e].count
+//                             }
+//                             showIcon
+//                             icon={
+//                                 <CloudServerOutlined
+//                                     style={{
+//                                         fontSize: 15,
+//                                         color: borderColors[sum % bgColors.length],
+//                                     }}
+//                                 />
+//                             }
+//                             style={{
+//                                 backgroundColor: bgColors[sum % bgColors.length],
+//                                 borderColor: borderColors[sum % bgColors.length],
+//                             }}
+//                         />
+//                     );
+//                 })}
+//             </Space>
+//         </div>
+//     );
+// };
 
 const columns: ProColumns[] = [
     {
@@ -82,106 +84,73 @@ const columns: ProColumns[] = [
         width: 48,
     },
     {
-        title: '账号',
+        title: '服务器',
         render: (_, entity) => {
-            return entity.account.accountNo;
+            return (
+                <Fragment>
+                    <div>{entity.name}</div>
+                    <div>{entity.host}</div>
+                </Fragment>
+            );
         },
-        width: '7%',
-    },
-    {
-        title: 'email',
-        render: (_, entity) => {
-            return entity.user.email;
-        },
-        width: '10%',
+        width: '15%',
     },
 
     {
-        title: '备注',
+        title: '用户名',
+        dataIndex: 'vipTime',
         render: (_, entity) => {
-            return entity.user.remark;
+            return (
+                <Fragment>
+                    {entity.users.map((user) => {
+                        return <div>{user.remark}</div>;
+                    })}
+                </Fragment>
+            );
         },
-        width: '18%',
     },
 
     {
-        title: '在线服务器',
-        width: '20%',
-        key: 'option',
-        valueType: 'option',
+        title: '用户ID',
+        dataIndex: 'vipTime',
         render: (_, entity) => {
-            return ServerComponment(entity, 1);
-        },
-        sorter: (a, b) => {
-            let keys1 = Object.keys(a.connectionStat.cache);
-            let keys2 = Object.keys(b.connectionStat.cache);
-            if (keys1.length == keys2.length && keys2.length == 0) {
-                return 0;
-            } else {
-                return keys1[0] > keys2[0] ? -1 : 1;
-            }
+            return (
+                <Fragment>
+                    {entity.users.map((user) => {
+                        return <div>{user.id}</div>;
+                    })}
+                </Fragment>
+            );
         },
     },
     {
         title: '连接数',
+        dataIndex: 'vipTime',
         render: (_, entity) => {
-            return ServerComponment(entity, 2);
+            return (
+                <Fragment>
+                    {entity.users.map((user) => {
+                        return <div>{user.connectionNum}</div>;
+                    })}
+                </Fragment>
+            );
         },
     },
-
-    {
-        title: '会员时长',
-        dataIndex: 'vipTime',
-        sorter: (a, b) => a.vipTime - b.vipTime,
-    },
-    {
-        title: '过期剩余',
-        dataIndex: 'expireTimeRemain',
-        sorter: (a, b) => a.expireTimeRemain - b.expireTimeRemain,
-    },
+    // {
+    //     title: '过期剩余',
+    //     dataIndex: 'expireTimeRemain',
+    //     sorter: (a, b) => a.expireTimeRemain - b.expireTimeRemain,
+    // },
 ];
 
-const handleDate = (res) => {
-    res.map((e) => {
-        e.id = e.account.accountNo;
-        e.createTime = e.user.createTime;
-        e.toDate = e.account.toDate;
-
-        //计算过期天数
-        const thatDay = new Date(e.account.toDate);
-        const thisDay = new Date();
-        let milliseconds = thatDay.getTime() - thisDay.getTime();
-        let days = Math.floor(milliseconds / (24 * 3600 * 1000));
-        e.expireTimeRemain = days;
-
-        //过期剩余
-        const createDay = new Date(e.user.createTime);
-        milliseconds = thisDay.getTime() - createDay.getTime();
-        days = Math.floor(milliseconds / (24 * 3600 * 1000));
-        e.vipTime = days;
-    });
-
-    //按服务器排序
-    res.sort((a, b) => {
-        let a1 = Object.keys(a.connectionStat.cache);
-        let b1 = Object.keys(b.connectionStat.cache);
-        return b1.length - a1.length;
-    });
-
-    return res;
-};
+//
 
 export default () => {
     return (
         <ProTable
             columns={columns}
             request={async (params, sorter, filter) => {
-                let res = await request(
-                    'http://idofast.com:9091/report/detail/all?title=idoyuepao',
-                );
-
-                res = handleDate(res);
-
+                let res = await request.get(api.user_api.getOnlineStatusGroupByNode, {});
                 return Promise.resolve({
                     data: res,
                     success: true,
@@ -197,3 +166,33 @@ export default () => {
         />
     );
 };
+
+// const handleDate = (res) => {
+//     res.map((e) => {
+//         e.id = e.account.accountNo;
+//         e.createTime = e.user.createTime;
+//         e.toDate = e.account.toDate;
+//
+//         //计算过期天数
+//         const thatDay = new Date(e.account.toDate);
+//         const thisDay = new Date();
+//         let milliseconds = thatDay.getTime() - thisDay.getTime();
+//         let days = Math.floor(milliseconds / (24 * 3600 * 1000));
+//         e.expireTimeRemain = days;
+//
+//         //过期剩余
+//         const createDay = new Date(e.user.createTime);
+//         milliseconds = thisDay.getTime() - createDay.getTime();
+//         days = Math.floor(milliseconds / (24 * 3600 * 1000));
+//         e.vipTime = days;
+//     });
+//
+//     //按服务器排序
+//     res.sort((a, b) => {
+//         let a1 = Object.keys(a.connectionStat.cache);
+//         let b1 = Object.keys(b.connectionStat.cache);
+//         return b1.length - a1.length;
+//     });
+//
+//     return res;
+// };

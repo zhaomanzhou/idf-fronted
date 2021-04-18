@@ -103,7 +103,7 @@ const columns: ProColumns<OrderToAdmin>[] = [
         render: (_, record) => {
             return (
                 <Fragment>
-                    <Link to={'/order/admin/detail/' + record.id}>查看</Link>
+                    <Link to={'/manage/order/admin/detail/' + record.id}>查看</Link>
                 </Fragment>
             );
         },

@@ -3,7 +3,7 @@ import { Col, Row, Tooltip } from 'antd';
 
 import React, { Fragment } from 'react';
 import numeral from 'numeral';
-import { UserProxyInfo } from '@/pages/users/manage/data';
+import { UserProxyInfo } from '@/pages/UserManager/manage/data';
 import _mock from '@/pages/dashboard/_mock';
 import { PageLoading } from '@ant-design/pro-layout';
 import utils from '@/utils/utils';

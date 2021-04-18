@@ -5,7 +5,7 @@ import { Link } from 'umi';
 import request from '@/utils/request';
 import api from '@/utils/api';
 import { Button, Modal, Result, Space, Spin, Tag } from 'antd';
-import styles from '@/pages/bundle/settlement/Settlement.less';
+import styles from '@/pages/shop/settlement/Settlement.less';
 import service from '@/pages/order/service';
 import { OrderToUser } from '@/pages/order/data';
 
@@ -40,7 +40,7 @@ export default () => {
         if (shouldDisable) {
             return (
                 <Space>
-                    <Link to={'/bundle/shop/pay/' + record.id} disabled>
+                    <Link to={'/shop/shop/pay/' + record.id} disabled>
                         付款
                     </Link>
                     <Button type="link" disabled>
@@ -51,7 +51,7 @@ export default () => {
         } else {
             return (
                 <Space>
-                    <Link to={'/bundle/shop/pay/' + record.id}>付款</Link>
+                    <Link to={'/shop/shop/pay/' + record.id}>付款</Link>
                     <Button
                         type="link"
                         onClick={() => {

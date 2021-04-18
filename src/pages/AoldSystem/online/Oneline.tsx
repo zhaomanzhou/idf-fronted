@@ -103,7 +103,11 @@ const columns: ProColumns[] = [
             return (
                 <Fragment>
                     {entity.users.map((user) => {
-                        return <div>{user.remark}</div>;
+                        if (user.remark) {
+                            return <div>{user.remark}</div>;
+                        } else {
+                            return <div>没有备注</div>;
+                        }
                     })}
                 </Fragment>
             );

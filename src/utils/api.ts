@@ -105,7 +105,7 @@ const user_apis = {
 };
 
 const file_apis = {
-    port: '8010',
+    port: process.env.NODE_ENV === 'development' ? '8010' : '443',
     api: file_api,
     server: server_file,
 };

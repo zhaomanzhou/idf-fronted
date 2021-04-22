@@ -13,10 +13,17 @@ export default () => {
 
     const [refresh, setRefresh] = useState<boolean>(false);
 
+    const [loading, setLoading] = useState<boolean>(true);
+
     useEffect(() => {
-        request.get(api.user_api.getAllV2rayNodes, {}).then((res) => {
-            setNodeList(res);
-        });
+        request
+            .get(api.user_api.getAllV2rayNodes, {})
+            .then((res) => {
+                setNodeList(res);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, [refresh]);
 
     const deleteNode = (id: number) => {
@@ -32,6 +39,7 @@ export default () => {
 
     return (
         <ProList<any>
+            loading={loading}
             toolBarRender={() => {
                 return [
                     <AddV2rayNode
@@ -42,6 +50,7 @@ export default () => {
                 ];
             }}
             metas={{
+                style: {},
                 title: {
                     dataIndex: 'name',
                 },

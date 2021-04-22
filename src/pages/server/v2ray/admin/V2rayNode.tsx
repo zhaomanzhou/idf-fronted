@@ -72,14 +72,16 @@ export default () => {
                                 <NodeItem label={'域名'} value={node.host} />
                                 <NodeItem label={'端口'} value={node.port} />
                                 <NodeItem label={'TLS'} value={node.supportTls ? '是' : '否'} />
-                                <NodeItem label={'协议'} value={node.protocol} />
+                                {/*<NodeItem label={'协议'} value={node.protocol} />*/}
                                 <NodeItem label={'等级'} value={'V' + node.level} />
-                                <NodeItem label={'倍率'} value={node.magnification / 10} />
-                                <NodeItem label={'速率'} value={node.speed + 'mbps'} />
+                                <NodeItem label={'倍率'} value={node.magnification/10} />
+                                {/*<NodeItem label={'速率'} value={node.speed + 'mbps'} />*/}
                                 <NodeItem label={'描述'} value={node.description} />
                                 <NodeItem
                                     label={'中转'}
                                     value={node.parentNodeId !== 0 ? '是' : '否'}
+                                <NodeItem label={'备注'} value={node.messageForAdmin} />
+                                <NodeItem label={'序列号'} value={node.sequence} />
                                 />
                                 <NodeItem label={'父节点'} value={node.parentName} />
                             </div>

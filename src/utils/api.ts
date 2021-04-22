@@ -5,7 +5,9 @@ const servers = {
 };
 
 let server_user = servers.preview;
-let server_file = servers.aliyun;
+let server_file = servers.preview;
+
+
 
 if (process.env.NODE_ENV === 'development') {
     server_user = servers.local;

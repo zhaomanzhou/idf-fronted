@@ -19,7 +19,7 @@ export interface AddV2rayNodeProps {
 }
 
 export default (props: AddV2rayNodeProps) => {
-    let initialValues = props.node;
+    let initialValues ;
     if (!props.node) {
         initialValues = {
             name: '',
@@ -33,8 +33,10 @@ export default (props: AddV2rayNodeProps) => {
             enable: true,
             parentNodeId: '0',
             description: '',
+            messageForAdmin:'',
         };
     } else {
+        initialValues = JSON.parse(JSON.stringify(props.node))
         initialValues.parentNodeId += '';
         initialValues.level += '';
         initialValues.parentNodeId += '';
@@ -117,6 +119,7 @@ export default (props: AddV2rayNodeProps) => {
                         2: 'VIP2',
                         3: 'VIP3',
                         4: 'VIP4',
+                        5: 'VIP5',
                     }}
                 />
                 <ProFormSelect
@@ -137,8 +140,10 @@ export default (props: AddV2rayNodeProps) => {
                 <ProFormSwitch name="enable" label="上线" />
             </ProForm.Group>
 
+            <ProForm.Group>
+
             <ProFormSelect
-                width="xl"
+                width="md"
                 name="parentNodeId"
                 label="父节点"
                 request={async () => {
@@ -154,8 +159,13 @@ export default (props: AddV2rayNodeProps) => {
                     });
                     return [{ label: '无', value: '0' }, ...res];
                 }}
+
             />
+                <ProFormDigit width="sm" name="sequence" label="序号" />
+
+            </ProForm.Group>
             <ProFormText width="xl" name="description" label="节点描述" />
+            <ProFormText width="xl" name="messageForAdmin" label="备注" />
         </ModalForm>
     );
 };

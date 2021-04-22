@@ -23,6 +23,7 @@ export interface V2rayNodeVo {
     parentName: string;
     parentHost: string;
     enable: boolean;
+    sequence: number;
 }
 
 export interface V2rayNodeForUser {

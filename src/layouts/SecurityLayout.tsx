@@ -8,6 +8,7 @@ import { UserVo } from '@/pages/user/login/data';
 interface SecurityLayoutProps extends ConnectProps {
     loading?: boolean;
     user: UserVo | null;
+
 }
 
 interface SecurityLayoutState {

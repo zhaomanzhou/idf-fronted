@@ -107,7 +107,7 @@ const index = ({ publishNotice, dispatch, location }) => {
                         <Col span={12} className="title-submit">
                             <Row justify={'end'}>
                                 <Space size={'middle'} align={'start'} style={{ paddingRight: 20 }}>
-                                    <Form.Item label={'可见性'} name="visibility" initialValue={1}>
+                                    <Form.Item label={'可见性'} name="visibility" initialValue={0}>
                                         <Select style={{ width: 120 }}>
                                             <Option value={0}>所有人</Option>
                                             <Option value={1}>注册用户</Option>

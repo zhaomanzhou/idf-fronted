@@ -45,8 +45,12 @@ axios.interceptors.response.use(
     },
 );
 
-function genDomain(url: string) {
+function genDomain(url: string, withoutApi = false) {
     let api_obj = apiPortMap.get(url + '');
+    if(withoutApi){
+        return api_obj.server + ':' + api_obj.port;
+    }
+
     return process.env.NODE_ENV === 'development'
         ? api_obj.server + ':' + api_obj.port
         : api_obj.server + ':' + api_obj.port + '/api';

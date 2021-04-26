@@ -7,7 +7,7 @@ export async function updatePic(params) {
     let formData = new FormData();
     formData.append('file', params.file);
 
-    let url = request.genDomain(api.file_api.uploadPic)  + api.file_api.uploadPic;
+    let url = request.genDomain(api.file_api.uploadPic, true)  + api.file_api.uploadPic;
 
     return await axios({
         method: 'post',

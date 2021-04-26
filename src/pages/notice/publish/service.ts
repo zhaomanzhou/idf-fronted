@@ -6,9 +6,12 @@ import request from '@/utils/request';
 export async function updatePic(params) {
     let formData = new FormData();
     formData.append('file', params.file);
+
+    let url = request.genDomain(api.file_api.uploadPic)  + api.file_api.uploadPic;
+
     return await axios({
         method: 'post',
-        url: 'http://1.zmz121.cn:8010/file/upload/headpic',
+        url: url,
         data: formData,
         headers: {
             'Content-Type': 'multipart/form-data',

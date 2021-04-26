@@ -6,7 +6,7 @@ const servers = {
 
 let server_user = servers.preview;
 let server_file = servers.preview;
-
+//server_file要带端口
 
 
 if (process.env.NODE_ENV === 'development') {

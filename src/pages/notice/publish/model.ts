@@ -33,7 +33,7 @@ const Model: PublishNoticeModelType = {
         *publish({ payload }, effect) {
             yield effect.call(service.publishNotice, payload);
             message.success('发布成功');
-            history.push('/notice/list');
+            history.push('/notice/manage');
         },
 
         *getModifyNotice({ payload }, effects) {
@@ -47,7 +47,7 @@ const Model: PublishNoticeModelType = {
         *modifyNotice({ payload }, effects) {
             yield effects.call(service.modifyNotification, payload);
             message.success('修改成功');
-            history.push('/notice/list');
+            history.push('/notice/manage');
         },
     },
 

@@ -1,15 +1,16 @@
-import { Avatar, Button, Card, List, message, Radio, Tag, Typography } from 'antd';
+import {Avatar, Button, Card, Col, List, message, Radio, Row, Tag, Typography} from 'antd';
 
-import { RadioChangeEvent } from 'antd/es/radio';
-import React, { useEffect, useState } from 'react';
-import { VisitDataType } from '../data.d';
+import {RadioChangeEvent} from 'antd/es/radio';
+import React, {useEffect, useState} from 'react';
+import {VisitDataType} from '../data.d';
 import styles from '../style.less';
 import Ellipsis from 'ant-design-pro/lib/Ellipsis';
-import { UserProxyInfo } from '@/pages/UserManager/manage/data';
+import {UserProxyInfo} from '@/pages/UserManager/manage/data';
 import api from '@/utils/api';
 import request from '@/utils/request';
-import { Fragment } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import {Fragment} from 'react';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import {CopyOutlined} from "@ant-design/icons";
 
 const data = [
     'Racing car sprays burning fuel into crowd.',
@@ -20,19 +21,24 @@ const data = [
 ];
 
 
-
-const SubscriptionPanel = ({ proxyInfo }: { proxyInfo: UserProxyInfo | undefined }) => {
+const SubscriptionPanel = ({proxyInfo}: { proxyInfo: UserProxyInfo | undefined }) => {
     const [v2raySubUrl, setV2raySubUrl] = useState<String>();
     const [clashSubUrl, setClashSubUrl] = useState<String>();
 
+    const importClash = () => {
+        const url = "clash://install-config?url=";
+        // @ts-ignore
+        window.open(url + encodeURIComponent(clashSubUrl));
+    }
+
     useEffect(() => {
-        request.get(api.user_api.getSubscriptionUrl, { type: 'v2ray' }).then((res) => {
+        request.get(api.user_api.getSubscriptionUrl, {type: 'v2ray'}).then((res) => {
             setV2raySubUrl(res);
             return res;
         }).then((res) => {
-           let baseUrl = "https://preview.idofast.com/sub?target=clash&new_name=true&" +
-               "url=" + encodeURI(res) +
-               "&config=https%3A%2F%2Fraw.githubusercontent.com%2FACL4SSR%2FACL4SSR%2Fmaster%2FClash%2Fconfig%2FACL4SSR_Online.ini"
+            let baseUrl = "https://preview.idofast.com/sub?target=clash&new_name=true&" +
+                "url=" + encodeURI(res) +
+                "&config=https%3A%2F%2Fraw.githubusercontent.com%2FACL4SSR%2FACL4SSR%2Fmaster%2FClash%2Fconfig%2FACL4SSR_Online.ini"
             setClashSubUrl(baseUrl);
         })
         ;
@@ -55,6 +61,7 @@ const SubscriptionPanel = ({ proxyInfo }: { proxyInfo: UserProxyInfo | undefined
                         <Fragment>
                             <List.Item
                                 actions={[
+
                                     <CopyToClipboard
                                         text={v2raySubUrl}
                                         onCopy={() => {
@@ -64,36 +71,55 @@ const SubscriptionPanel = ({ proxyInfo }: { proxyInfo: UserProxyInfo | undefined
                                         <Button key="1" type="primary" shape="round">
                                             点击复制
                                         </Button>
+
                                     </CopyToClipboard>,
 
-                                    // <a key="list-loadmore-more">more</a>,
+
                                 ]}
                             >
                                 <List.Item.Meta
                                     title={<Tag color="#87d068">{'V2ray订阅链接'}</Tag>}
-                                    description={<Ellipsis length={100}>{v2raySubUrl}</Ellipsis>}
+                                    description={
+                                        <Fragment>
+                                            <Ellipsis length={100} style={{display: "inline"}}>{v2raySubUrl}</Ellipsis>
+                                            <CopyToClipboard
+                                                text={v2raySubUrl}
+                                                onCopy={() => {
+                                                    message.success('已复制订阅');
+                                                }}
+                                            >
+                                                <a><CopyOutlined style={{color: '#1890ff'}}/></a>
+                                            </CopyToClipboard>
+                                        </Fragment>
+                                    }
                                 />
                             </List.Item>
 
                             <List.Item
                                 actions={[
-                                    <CopyToClipboard
-                                        text={clashSubUrl}
-                                        onCopy={() => {
-                                            message.success('复制成功');
-                                        }}
-                                    >
-                                        <Button key="1" type="primary" shape="round">
-                                            点击复制
-                                        </Button>
-                                    </CopyToClipboard>,
 
-                                    // <a key="list-loadmore-more">more</a>,
+                                    <Button key="2" type="primary" shape="round" onClick={importClash}>
+                                        一键导入
+                                    </Button>
+
                                 ]}
                             >
                                 <List.Item.Meta
                                     title={<Tag color="#87d068">{'Clash订阅链接'}</Tag>}
-                                    description={<Ellipsis length={53}>{clashSubUrl}</Ellipsis>}
+                                    description={
+
+                                        <Fragment>
+                                            <Ellipsis length={55} style={{display: "inline"}}>{clashSubUrl}</Ellipsis>
+                                            <CopyToClipboard
+                                                text={clashSubUrl}
+                                                onCopy={() => {
+                                                    message.success('已复制订阅');
+                                                }}
+                                            >
+                                                <a><CopyOutlined style={{color: '#1890ff'}}/></a>
+                                            </CopyToClipboard>
+                                        </Fragment>
+                                    }
                                 />
                             </List.Item>
                         </Fragment>

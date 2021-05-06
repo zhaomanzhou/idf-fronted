@@ -27,16 +27,12 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
   } = props;
   // const {} = useIntl();
   const { breadcrumb } = getMenuData(routes);
-  const title = getPageTitle({
-    pathname: location.pathname,
-    breadcrumb,
-    ...props,
-  });
+
   return (
     <HelmetProvider>
       <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={title} />
+        <title>IDoFast</title>
+        <meta name="description" content="IDoFast" />
       </Helmet>
 
       <div className={styles.container}>
@@ -48,7 +44,7 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>IdoFast</span>
+                <span className={styles.title}>IDoFast</span>
               </Link>
             </div>
             <div className={styles.desc}> </div>

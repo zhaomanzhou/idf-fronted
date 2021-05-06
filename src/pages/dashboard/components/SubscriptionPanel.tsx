@@ -19,29 +19,28 @@ const data = [
     'Los Angeles battles huge wildfires.',
 ];
 
-const data1 = [
-    {
-        title: 'TLS+Websocket 安全性高，速度和延迟会有影响',
-        content: 'https://idofast.com/subscription/vray/tlsws/422h42h42b2v2vhfjb12b3',
-    },
-    {
-        title: 'Websocket 安全性一般，速度和延迟较好',
-        content: 'https://idofast.com/subscription/vray/tls/422h42h42b2v2vhfjb12b3',
-    },
-];
+
 
 const SubscriptionPanel = ({ proxyInfo }: { proxyInfo: UserProxyInfo | undefined }) => {
-    const [subUrl, setSubUrl] = useState<String>();
+    const [v2raySubUrl, setV2raySubUrl] = useState<String>();
+    const [clashSubUrl, setClashSubUrl] = useState<String>();
 
     useEffect(() => {
         request.get(api.user_api.getSubscriptionUrl, { type: 'v2ray' }).then((res) => {
-            setSubUrl(res);
-        });
+            setV2raySubUrl(res);
+            return res;
+        }).then((res) => {
+           let baseUrl = "https://preview.idofast.com/sub?target=clash&new_name=true&" +
+               "url=" + encodeURI(res) +
+               "&config=https%3A%2F%2Fraw.githubusercontent.com%2FACL4SSR%2FACL4SSR%2Fmaster%2FClash%2Fconfig%2FACL4SSR_Online.ini"
+            setClashSubUrl(baseUrl);
+        })
+        ;
     }, []);
 
     return (
         <Card
-            loading={subUrl === undefined}
+            loading={v2raySubUrl === undefined}
             className={styles.salesCard}
             bordered={false}
             title={'订阅链接'}
@@ -57,7 +56,7 @@ const SubscriptionPanel = ({ proxyInfo }: { proxyInfo: UserProxyInfo | undefined
                             <List.Item
                                 actions={[
                                     <CopyToClipboard
-                                        text={subUrl}
+                                        text={v2raySubUrl}
                                         onCopy={() => {
                                             message.success('复制成功');
                                         }}
@@ -72,14 +71,14 @@ const SubscriptionPanel = ({ proxyInfo }: { proxyInfo: UserProxyInfo | undefined
                             >
                                 <List.Item.Meta
                                     title={<Tag color="#87d068">{'V2ray订阅链接'}</Tag>}
-                                    description={<Ellipsis length={100}>{subUrl}</Ellipsis>}
+                                    description={<Ellipsis length={100}>{v2raySubUrl}</Ellipsis>}
                                 />
                             </List.Item>
 
                             <List.Item
                                 actions={[
                                     <CopyToClipboard
-                                        text={subUrl}
+                                        text={clashSubUrl}
                                         onCopy={() => {
                                             message.success('复制成功');
                                         }}
@@ -93,8 +92,8 @@ const SubscriptionPanel = ({ proxyInfo }: { proxyInfo: UserProxyInfo | undefined
                                 ]}
                             >
                                 <List.Item.Meta
-                                    title={<Tag color="#87d068">{'V2ray订阅链接'}</Tag>}
-                                    description={<Ellipsis length={100}>{subUrl}</Ellipsis>}
+                                    title={<Tag color="#87d068">{'Clash订阅链接'}</Tag>}
+                                    description={<Ellipsis length={53}>{clashSubUrl}</Ellipsis>}
                                 />
                             </List.Item>
                         </Fragment>

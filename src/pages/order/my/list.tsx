@@ -40,9 +40,9 @@ export default () => {
         if (shouldDisable) {
             return (
                 <Space>
-                    <Link to={'/shop/pay/' + record.id} disabled>
+                    <Button type="link" disabled>
                         付款
-                    </Link>
+                    </Button>
                     <Button type="link" disabled>
                         取消
                     </Button>
@@ -51,7 +51,7 @@ export default () => {
         } else {
             return (
                 <Space>
-                    <Link to={'/shop/shop/pay/' + record.id}>付款</Link>
+                    <Link to={'/shop/pay/' + record.id}>付款</Link>
                     <Button
                         type="link"
                         onClick={() => {

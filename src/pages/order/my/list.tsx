@@ -40,7 +40,7 @@ export default () => {
         if (shouldDisable) {
             return (
                 <Space>
-                    <Link to={'/shop/shop/pay/' + record.id} disabled>
+                    <Link to={'/shop/pay/' + record.id} disabled>
                         付款
                     </Link>
                     <Button type="link" disabled>

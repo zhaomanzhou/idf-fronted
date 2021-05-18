@@ -1,5 +1,18 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Button, Input, Progress, Space, Tag, Descriptions, Form, Popconfirm, message, FormInstance, Badge} from 'antd';
+import {
+    Button,
+    Input,
+    Progress,
+    Space,
+    Tag,
+    Descriptions,
+    Form,
+    Popconfirm,
+    message,
+    FormInstance,
+    Badge,
+    Avatar
+} from 'antd';
 import ProList from '@ant-design/pro-list';
 import AddV2rayNode from '@/pages/server/v2ray/admin/add/AddOrUpdateV2rayNode';
 import api from '@/utils/api';
@@ -9,6 +22,9 @@ import { Fragment } from 'react';
 import NodeItem from '@/pages/server/v2ray/admin/componment/nodeitem/NodeItem';
 import ProTable, {ActionType, ColumnsState, ProColumns} from '@ant-design/pro-table';
 import './V2rayNode.less'
+import Link from "react-markdown-editor-lite/plugins/link";
+import utils from "@/utils/utils";
+import Icon from "@/components/Icon/Icon";
 
 export default () => {
 
@@ -54,19 +70,28 @@ export default () => {
         },
         {
             title: '节点名称',
-            dataIndex: 'name',
+            dataIndex: 'enable',
             render: (_, item) => {
                 return (
                     <Fragment>
-                        <Badge status={item.enable?"success": "default"} text={item.name} /> {" "}
+                        <Badge status={item.enable?"success": "default"} />
+
+                        <Avatar size={32} icon={<Icon type={utils.getIconByName(item.name)} size={2} />} />
+                        {" " + item.name}
+
 
                     </Fragment>
                     )
             },
-            valueType: 'text',
+
             sorter: (e1, e2) =>{
-                return e1.name > e2.name? 1: -1;
+                let v1 = e1.enable? 1: -1;
+                let v2 = e2.enable? 1: -1;
+                return v2 -v1;
+
             },
+            // filters: [{text:'上线',value:true},{text:'未上线',value:false}],
+            // onFilter: true,
         },
 
         {
@@ -76,6 +101,9 @@ export default () => {
             //     return <Tag color="red">{record.host}</Tag>;
             // },
             copyable: true,
+            // sorter: (e1, e2) =>{
+            //     return e1.name > e2.name? 1: -1;
+            // },
         },
 
 
@@ -130,6 +158,30 @@ export default () => {
             dataIndex: 'description',
             key: 'description'
         },
+
+        {
+            title: '父节点',
+            dataIndex: 'parentName',
+            render: (_, item) => {
+                return(
+                    <Fragment>
+                        {item.parentName &&
+                        <Fragment>
+                            <Avatar size={32} icon={<Icon type={utils.getIconByName(item.parentName)} size={2} />} />
+                            {" " + item.parentName}
+                        </Fragment>
+                        }
+                    </Fragment>
+                )
+            },
+
+            width: '14%',
+            sorter:(e1, e2) => {
+                let v1 = e1.parentName? e1.parentName: '';
+                let v2 = e2.parentName? e2.parentName: '';
+                return v1 < v2? 1: -1;
+            }
+        },
         {
             title: '管理员备注',
             dataIndex: 'messageForAdmin',
@@ -138,27 +190,6 @@ export default () => {
             title: '序列号',
             dataIndex: 'sequence',
             key:'sequence'
-        },
-        {
-            title: '父节点',
-            dataIndex: 'parentName',
-            render: (_, record) => {
-                return(
-                    <Fragment>
-                        {record.parentName &&
-                        <Fragment>
-                            {record.parentName}<Tag color="green">{record.parentHost}</Tag>
-                        </Fragment>
-                        }
-                    </Fragment>
-                )
-            },
-            width: '14%',
-            sorter:(e1, e2) => {
-                let v1 = e1.parentName? e1.parentName: '';
-                let v2 = e2.parentName? e2.parentName: '';
-                return v1 < v2? 1: -1;
-            }
         },
 
         {
@@ -263,6 +294,7 @@ export default () => {
             headerTitle="节点列表"
             rowKey="id"
             search={false}
+            size={"large"}
             columnEmptyText={false}
         />
     );

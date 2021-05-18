@@ -9,14 +9,17 @@ interface IProps {
 
 export default function Icon(props: IProps) {
     return (
+
         <svg className="icon" aria-hidden="true">
             <use xlinkHref={`#icon-${props.type}`} />
             <style>{`
 		.icon {
        		width: 1em; height: 1em;
        		vertical-align: -0.15em;
+       		 text-align: center;
        		fill: currentColor;
        		overflow: hidden;
+
        		font-size: ${props.size}em
        	}
 	  `}</style>

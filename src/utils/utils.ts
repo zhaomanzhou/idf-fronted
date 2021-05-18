@@ -63,9 +63,52 @@ const toDecimal2NoZero = (x) => {
     return s;
 };
 
+
+export const getIconByName =  (name: string): string => {
+    if (name.indexOf('香港') !== -1) {
+        return 'hk';
+    }
+    if (name.indexOf('美国') !== -1) {
+        return 'us';
+    }
+    if (name.indexOf('韩国') !== -1) {
+        return 'kr';
+    }
+    if (name.indexOf('日本') !== -1) {
+        return 'jp';
+    }
+    if (name.indexOf('韩国') !== -1) {
+        return 'kr';
+    }
+    if (name.indexOf('新加坡') !== -1) {
+        return 'sg';
+    }
+    if (name.indexOf('印度') !== -1) {
+        return 'IN';
+    }
+    if (name.indexOf('南非') !== -1) {
+        return 'nanfeiguoqi';
+    }
+    if (name.indexOf('英国') !== -1) {
+        return 'yingguo';
+    }
+    if (name.indexOf('台湾') !== -1) {
+        return 'taiwan';
+    }
+    if (name.indexOf('加拿大') !== -1) {
+        return 'jianada';
+    }
+    if (name.indexOf('德国') !== -1) {
+        return 'deguo';
+    }
+
+    return 'us';
+};
+
 export default {
     timestampToStr,
     timestampToDateStr,
     stringfyV2,
     toDecimal2NoZero,
+    getIconByName,
 };

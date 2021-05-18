@@ -15,6 +15,7 @@ import request from '@/utils/request';
 import api from '@/utils/api';
 import { PageContainer, PageLoading } from '@ant-design/pro-layout';
 import { V2rayNodeForUser } from '@/pages/server/data';
+import utils from "@/utils/utils";
 
 export default () => {
     const [nodeList, setNodeList] = useState<{}>();
@@ -29,50 +30,9 @@ export default () => {
     useEffect(() => {
         request.get(api.user_api.getSelfUserProxyInfo, {}).then((res) => {
             setLevel(res.level);
-            console.log(level);
         });
     }, []);
 
-    const getIcon = (name: string): string => {
-        if (name.indexOf('香港') !== -1) {
-            return 'hk';
-        }
-        if (name.indexOf('美国') !== -1) {
-            return 'us';
-        }
-        if (name.indexOf('韩国') !== -1) {
-            return 'kr';
-        }
-        if (name.indexOf('日本') !== -1) {
-            return 'jp';
-        }
-        if (name.indexOf('韩国') !== -1) {
-            return 'kr';
-        }
-        if (name.indexOf('新加坡') !== -1) {
-            return 'sg';
-        }
-        if (name.indexOf('印度') !== -1) {
-            return 'IN';
-        }
-        if (name.indexOf('南非') !== -1) {
-            return 'nanfeiguoqi';
-        }
-        if (name.indexOf('英国') !== -1) {
-            return 'yingguo';
-        }
-        if (name.indexOf('台湾') !== -1) {
-            return 'taiwan';
-        }
-        if (name.indexOf('加拿大') !== -1) {
-            return 'jianada';
-        }
-        if (name.indexOf('德国') !== -1) {
-            return 'deguo';
-        }
-
-        return 'us';
-    };
 
     if (!nodeList) {
         return <PageLoading />;
@@ -118,7 +78,7 @@ export default () => {
                                             ]}
                                         >
                                             <Card.Meta
-                                                avatar={<Icon type={getIcon(item.name)} size={5} />}
+                                                avatar={<Icon type={utils.getIconByName(item.name)} size={5} />}
                                                 title={item.name}
                                                 description={item.description}
                                             />

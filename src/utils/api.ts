@@ -4,7 +4,7 @@ const servers = {
     preview: 'https://preview.idofast.com',
 };
 
-let server_user = servers.preview;
+let server_user = servers.local;
 let server_file = servers.preview;
 //server_file要带端口
 

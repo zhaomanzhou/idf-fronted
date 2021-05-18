@@ -153,8 +153,8 @@ export default (props: AddV2rayNodeProps) => {
                     );
                     let res = nodeList.map((value, index) => {
                         return {
-                            label: value.name + '(' + value.host + ')',
-                            value: value.id,
+                            label:  value.id +":" + value.name + '(' + value.host +')',
+                            value: value.id + "",
                         };
                     });
                     return [{ label: '无', value: '0' }, ...res];

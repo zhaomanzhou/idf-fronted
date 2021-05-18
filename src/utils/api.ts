@@ -4,14 +4,14 @@ const servers = {
     preview: 'https://preview.idofast.com',
 };
 
-let server_user = servers.local;
+let server_user = servers.preview;
 let server_file = servers.preview;
 //server_file要带端口
 
-
+//本地环境
 if (process.env.NODE_ENV === 'development') {
-    server_user = servers.preview;
-    server_file = servers.preview;
+    server_user = servers.local;
+    server_file = servers.aliyun;
 }
 
 const user_api = {

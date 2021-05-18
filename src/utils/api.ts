@@ -10,8 +10,8 @@ let server_file = servers.preview;
 
 
 if (process.env.NODE_ENV === 'development') {
-    server_user = servers.local;
-    server_file = servers.aliyun;
+    server_user = servers.preview;
+    server_file = servers.preview;
 }
 
 const user_api = {

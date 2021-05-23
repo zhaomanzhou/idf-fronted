@@ -132,7 +132,7 @@
                                 path: '/server/v2ray/admin',
                                 name: 'V2ray',
                                 icon: 'ToolOutlined',
-                                component: './server/v2ray/admin/V2rayNode',
+                                component: './server/v2ray/admin/V2rayNode_Protable',
                             },
                         ],
                         authority: ['admin'],

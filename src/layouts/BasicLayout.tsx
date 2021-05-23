@@ -10,15 +10,16 @@ import ProLayout, {
     DefaultFooter,
     SettingDrawer,
 } from '@ant-design/pro-layout';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef , Fragment} from 'react';
 import { Link, connect, Dispatch, history } from 'umi';
 import { GithubOutlined } from '@ant-design/icons';
-import { Result, Button } from 'antd';
+import {Result, Button, Space} from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState } from '@/models/connect';
 import { getMatchMenu } from '@umijs/route-utils';
 import logo from '../assets/logo.svg';
+import Icon from "@/components/Icon/Icon";
 const noMatch = (
     <Result
         status={403}
@@ -60,7 +61,17 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
     });
 
 const defaultFooterDom = (
-    <DefaultFooter copyright={`${new Date().getFullYear()} IDoFast`} links={[]} />
+    <DefaultFooter copyright={`${new Date().getFullYear()} IDoFast`}
+                   links={[
+                           {
+                               key: 'telegram',
+                               title: <Fragment><Space><Icon type={'telegram'} size={1.3}/>TG群组</Space></Fragment>,
+                               href: 'https://t.me/idofast',
+                               blankTarget: true,
+                           },
+
+                       ]}
+    />
 );
 
 const BasicLayout: React.FC<BasicLayoutProps> = (props) => {

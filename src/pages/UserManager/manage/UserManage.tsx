@@ -149,7 +149,7 @@ const index = () => {
                 data: res.content,
                 success: true,
                 // 不传会使用 data 的长度，如果是分页一定要传
-                total: res.totalElement,
+                total: res.totalElements,
             };
         }
 

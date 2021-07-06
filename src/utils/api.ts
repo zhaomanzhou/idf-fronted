@@ -67,6 +67,8 @@ const user_api = {
     updateDeviceList: '/user/update/device',
 
     getUserList: '/proxyinfo/list',
+    getUserListPage: '/proxyinfo/list/page',
+    getUserByEmail: '/proxyinfo/email',
     getUserProxyInfoById: '/proxyinfo//detail/',
     updateUserProxyInfo: '/proxyinfo/update',
     getSelfUserProxyInfo: '/proxyinfo/detail',

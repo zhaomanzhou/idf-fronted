@@ -9,6 +9,7 @@ import { UserInfoLite } from '@/pages/UserManager/manage/data';
 import utils, { timestampToDateStr, timestampToStr } from '@/utils/utils';
 import styles from '@/pages/UserManager/manage/UserManage.less';
 import { Link } from 'umi';
+import {stringify} from "qs";
 
 const isExpired = (expireDate: number) => {
     const curTimestamp = new Date().valueOf();
@@ -33,6 +34,7 @@ const index = () => {
                 );
             },
             width: '18%',
+
         },
 
         {
@@ -52,6 +54,7 @@ const index = () => {
                     </div>
                 );
             },
+            hideInSearch: true,
             width: '18%',
         },
 
@@ -75,6 +78,7 @@ const index = () => {
                     </Fragment>
                 );
             },
+            hideInSearch: true,
             width: '18%',
         },
         {
@@ -97,11 +101,13 @@ const index = () => {
                     </div>
                 );
             },
+            hideInSearch: true,
             width: 180,
         },
         {
             title: '备注',
             dataIndex: 'remark',
+            hideInSearch: true,
             key: 'remark',
         },
 
@@ -128,14 +134,25 @@ const index = () => {
         sort: Record<string, SortOrder>,
         filter: Record<string, React.ReactText[]>,
     ) => {
-        const res: any = await request.get(api.user_api.getUserList, {});
-        console.log(res);
-        return {
-            data: res.content,
-            success: true,
-            // 不传会使用 data 的长度，如果是分页一定要传
-            total: res.totalElement,
-        };
+        let res: any = [];
+        if(params.id){
+            res = await request.get(api.user_api.getUserByEmail, {email: (params.id + "").trim()});
+            return {
+                data: res,
+                success: true,
+                // 不传会使用 data 的长度，如果是分页一定要传
+                total: res.length,
+            };
+        }else {
+            res = await request.get(api.user_api.getUserListPage, {page: params.current -1, size: params.pageSize});
+            return {
+                data: res.content,
+                success: true,
+                // 不传会使用 data 的长度，如果是分页一定要传
+                total: res.totalElement,
+            };
+        }
+
     };
 
     return (
